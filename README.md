@@ -7,10 +7,11 @@
     可复用的前端视觉语言：左导航 + 右内容 · 浅/深双主题 · Token 驱动 · 克制图标
   </p>
   <p>
+    <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-2ea44f"></a>
     <a href="#安装"><img alt="Install" src="https://img.shields.io/badge/install-Grok%20%7C%20Claude%20Code%20%7C%20Codex-111827"></a>
     <a href="#技能索引"><img alt="Skills" src="https://img.shields.io/badge/skills-1-0ea5e9"></a>
     <a href="#共享设计原则"><img alt="Style" src="https://img.shields.io/badge/style-macOS%20utility%20shell-1f6feb"></a>
-    <a href="#许可"><img alt="Private" src="https://img.shields.io/badge/visibility-private-6b7280"></a>
+    <a href="README_EN.md"><img alt="Language" src="https://img.shields.io/badge/language-中文%20%7C%20English-1f6feb"></a>
   </p>
   <p>
     <a href="#安装">立即安装</a>
@@ -19,6 +20,7 @@
     · <a href="#共享设计原则">设计原则</a>
     · <a href="#目录结构">目录结构</a>
     · <a href="#更新">更新</a>
+    · <a href="README_EN.md">English</a>
   </p>
 </div>
 
@@ -27,7 +29,7 @@
 * 本仓库维护 **App Shell UI** skill：让 AI agent 按统一规范生成「系统设置 / Clash Verge / 桌面客户端」一类界面，而不是落地页或密运营后台。
 * 业务内容会变（水果市集、游戏论坛、AI 工作台…），**壳不换**：侧栏、画布、卡片、单主色、浅深主题、并列等高。
 * 面向 **Grok / Claude Code / Codex** 等能加载 `SKILL.md` 的 agent；请**整目录安装**，不要只复制一个 `SKILL.md`。
-* 仓库为私人仓库；如需协作，请向维护者申请权限。
+* 仓库当前为 **Private**；源码许可为 **Apache License 2.0**。如需协作访问权限，请联系维护者。
 
 ## 快速开始
 
@@ -180,6 +182,7 @@ https://github.com/yg2224/app-shell-ui.git
 
 ```text
 app-shell-ui/
+├── LICENSE                   # Apache License 2.0
 ├── README.md                 # 本说明（给人看）
 ├── README_EN.md              # English overview
 ├── SKILL.md                  # 主指令（给 agent 加载）
@@ -266,6 +269,26 @@ Grok / Claude Code / Codex 建议**新开会话**后再触发 skill，避免旧�
 
 ## 许可
 
-私人仓库。未经维护者书面许可，请勿公开分发或二次发布。
+本项目采用 [Apache License 2.0](LICENSE)。
+
+```text
+Copyright 2026 yg2224
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+你可以使用、修改、分发本 skill（含商用），但需保留版权与协议声明；修改后的文件建议注明变更。完整条款见 [LICENSE](LICENSE)。
+
+仓库可见性目前为 **Private**，获得访问权限后方可 clone；许可条款在你获得源码后仍适用。
 
 维护联系： [2677406151@qq.com](mailto:2677406151@qq.com)
