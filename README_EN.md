@@ -1,3 +1,9 @@
+<div align="center">
+  <p>
+    <img src="assets/readme-banner.png" alt="app-shell-ui banner" width="100%">
+  </p>
+</div>
+
 # app-shell-ui
 
 **App Shell UI** — a reusable desktop-utility frontend skill for AI agents (Grok / Claude Code / Codex).

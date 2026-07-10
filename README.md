@@ -1,7 +1,9 @@
 <div align="center">
-  <h1>app-shell-ui</h1>
-  <p><b>App Shell UI · 桌面工具风应用外壳 Skill</b></p>
   <p>
+    <img src="assets/readme-banner.png" alt="app-shell-ui：桌面工具风应用外壳 Skill" width="100%">
+  </p>
+  <p>
+    <b>App Shell UI · 桌面工具风应用外壳 Skill</b><br>
     可复用的前端视觉语言：左导航 + 右内容 · 浅/深双主题 · Token 驱动 · 克制图标
   </p>
   <p>
@@ -179,7 +181,12 @@ https://github.com/yg2224/app-shell-ui.git
 ```text
 app-shell-ui/
 ├── README.md                 # 本说明（给人看）
+├── README_EN.md              # English overview
 ├── SKILL.md                  # 主指令（给 agent 加载）
+├── assets/
+│   ├── readme-banner.png     # README 展示横幅
+│   ├── readme-banner.svg     # 矢量横幅（备选）
+│   └── readme-preview.jpg    # 生成的 UI 预览底图
 └── references/
     ├── tokens.md             # 浅色/深色 Token、主题 API
     ├── components.md         # 组件配方、图标/emoji 策略
