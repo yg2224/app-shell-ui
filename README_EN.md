@@ -30,15 +30,22 @@ Four demos, one shell — screenshots under [`assets/showcase/`](assets/showcase
 
 ### Before / after (learning workbench)
 
-Same topic. Left: without skill. Right: with `app-shell-ui`. Panels are equal size (900×720).
+Same topic. Left: without skill. Right: with `app-shell-ui`. Both images are 900×720.
 
-| [Without skill](demos/learning-before.html) | [With skill](demos/learning.html) |
-| :---: | :---: |
-| Generic colorful dashboard | Desktop utility shell |
-
-<p align="center">
-  <img src="assets/showcase/learning-compare.png" alt="learning before vs after" width="100%">
-</p>
+<table>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <p><b><a href="demos/learning-before.html">Without skill</a></b></p>
+      <a href="demos/learning-before.html"><img src="assets/showcase/learning-before.png" alt="without skill" width="100%"></a>
+      <p><sub>Generic colorful dashboard</sub></p>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <p><b><a href="demos/learning.html">With skill</a></b></p>
+      <a href="demos/learning.html"><img src="assets/showcase/learning-after.png" alt="with skill" width="100%"></a>
+      <p><sub>Desktop utility shell</sub></p>
+    </td>
+  </tr>
+</table>
 
 ### Four themes
 

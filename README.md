@@ -42,13 +42,20 @@
 
 同一主题「学习工具台」——**左：未使用 skill**；**右：使用 `app-shell-ui` skill**。
 
-| 左 · [未使用 skill](demos/learning-before.html) | 右 · [使用 skill](demos/learning.html) |
-| :---: | :---: |
-| 彩色卡片堆叠 · 通用 Web 仪表盘 · 无统一壳层 | 桌面工具壳 · 侧栏导航 · Token / 克制配色 |
-
-<p align="center">
-  <img src="assets/showcase/learning-compare.png" alt="学习工具台：未使用 skill vs 使用 app-shell-ui" width="100%">
-</p>
+<table>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <p><b>左 · <a href="demos/learning-before.html">未使用 skill</a></b></p>
+      <a href="demos/learning-before.html"><img src="assets/showcase/learning-before.png" alt="未使用 skill" width="100%"></a>
+      <p><sub>彩色卡片堆叠 · 通用 Web 仪表盘 · 无统一壳层</sub></p>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <p><b>右 · <a href="demos/learning.html">使用 skill</a></b></p>
+      <a href="demos/learning.html"><img src="assets/showcase/learning-after.png" alt="使用 app-shell-ui skill" width="100%"></a>
+      <p><sub>桌面工具壳 · 侧栏导航 · Token / 克制配色</sub></p>
+    </td>
+  </tr>
+</table>
 
 ### 四主题案例
 
