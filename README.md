@@ -8,7 +8,7 @@
   </p>
   <p>
     <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-2ea44f"></a>
-    <a href="#安装"><img alt="Install" src="https://img.shields.io/badge/install-Grok%20%7C%20Claude%20Code%20%7C%20Codex-111827"></a>
+    <a href="#安装"><img alt="Install" src="https://img.shields.io/badge/install-Codex%20%7C%20Claude%20Code%20%7C%20Grok-111827"></a>
     <a href="#技能索引"><img alt="Skills" src="https://img.shields.io/badge/skills-1-0ea5e9"></a>
     <a href="#共享设计原则"><img alt="Style" src="https://img.shields.io/badge/style-macOS%20utility%20shell-1f6feb"></a>
     <a href="README_EN.md"><img alt="Language" src="https://img.shields.io/badge/language-中文%20%7C%20English-1f6feb"></a>
@@ -28,7 +28,7 @@
 
 * 本仓库维护 **App Shell UI** skill：让 AI agent 按统一规范生成「系统设置 / Clash Verge / 桌面客户端」一类界面，而不是落地页或密运营后台。
 * 业务内容会变（水果市集、游戏论坛、AI 工作台…），**壳不换**：侧栏、画布、卡片、单主色、浅深主题、并列等高。
-* 面向 **Grok / Claude Code / Codex** 等能加载 `SKILL.md` 的 agent；请**整目录安装**，不要只复制一个 `SKILL.md`。
+* 面向 **Codex / Claude Code / Grok** 等能加载 `SKILL.md` 的 agent；请**整目录安装**，不要只复制一个 `SKILL.md`。
 * 仓库当前为 **Private**；源码许可为 **Apache License 2.0**。如需协作访问权限，请联系维护者。
 
 ## 快速开始
@@ -79,31 +79,20 @@ git clone https://github.com/yg2224/app-shell-ui.git
 git clone git@github.com:yg2224/app-shell-ui.git
 ```
 
-### Grok 安装方式
-
-Grok 从 `~/.grok/skills/<name>/` 加载 skill：
+### Codex 安装方式
 
 ```bash
-# 方式 A：直接克隆到 skills 目录
-git clone https://github.com/yg2224/app-shell-ui.git ~/.grok/skills/app-shell-ui
-
-# 方式 B：已有 clone，同步进去（排除 .git）
-rsync -a --delete \
-  --exclude .git \
-  /path/to/app-shell-ui/ \
-  ~/.grok/skills/app-shell-ui/
+mkdir -p ~/.codex/skills
+git clone https://github.com/yg2224/app-shell-ui.git ~/.codex/skills/app-shell-ui
 ```
 
-安装后新开 Grok 会话，触发：
+或把仓库地址交给 Codex：
 
 ```text
-/app-shell-ui
-```
+请从这个私人仓库安装 skill（需要本机已登录有权限的 gh/git）：
+https://github.com/yg2224/app-shell-ui.git
 
-或：
-
-```text
-用 app-shell-ui 做一页 macOS 风格的浅深色设置界面。
+安装到 ~/.codex/skills/app-shell-ui，保留完整目录（SKILL.md + references/），不要只复制 SKILL.md。
 ```
 
 ### Claude Code 安装方式
@@ -156,20 +145,31 @@ EOF
 cd ~/ai-skills/app-shell-ui && git pull
 ```
 
-### Codex 安装方式
+### Grok 安装方式
+
+Grok 从 `~/.grok/skills/<name>/` 加载 skill：
 
 ```bash
-mkdir -p ~/.codex/skills
-git clone https://github.com/yg2224/app-shell-ui.git ~/.codex/skills/app-shell-ui
+# 方式 A：直接克隆到 skills 目录
+git clone https://github.com/yg2224/app-shell-ui.git ~/.grok/skills/app-shell-ui
+
+# 方式 B：已有 clone，同步进去（排除 .git）
+rsync -a --delete \
+  --exclude .git \
+  /path/to/app-shell-ui/ \
+  ~/.grok/skills/app-shell-ui/
 ```
 
-或把仓库地址交给 Codex：
+安装后新开 Grok 会话，触发：
 
 ```text
-请从这个私人仓库安装 skill（需要本机已登录有权限的 gh/git）：
-https://github.com/yg2224/app-shell-ui.git
+/app-shell-ui
+```
 
-安装到 ~/.codex/skills/app-shell-ui，保留完整目录（SKILL.md + references/），不要只复制 SKILL.md。
+或：
+
+```text
+用 app-shell-ui 做一页 macOS 风格的浅深色设置界面。
 ```
 
 ### 其他 agent
@@ -248,14 +248,17 @@ app-shell-ui/
 cd /path/to/app-shell-ui
 git pull
 
-# 若安装到 Grok
-rsync -a --delete --exclude .git ./ ~/.grok/skills/app-shell-ui/
-
 # 若安装到 Codex
 rsync -a --delete --exclude .git ./ ~/.codex/skills/app-shell-ui/
+
+# 若安装到 Claude Code 稳定 clone
+# cd ~/ai-skills/app-shell-ui && git pull
+
+# 若安装到 Grok
+rsync -a --delete --exclude .git ./ ~/.grok/skills/app-shell-ui/
 ```
 
-Grok / Claude Code / Codex 建议**新开会话**后再触发 skill，避免旧上下文。
+Codex / Claude Code / Grok 建议**新开会话**后再触发 skill，避免旧上下文。
 
 ## 状态标签
 

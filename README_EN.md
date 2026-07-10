@@ -6,7 +6,7 @@
 
 # app-shell-ui
 
-**App Shell UI** — a reusable desktop-utility frontend skill for AI agents (Grok / Claude Code / Codex).
+**App Shell UI** — a reusable desktop-utility frontend skill for AI agents (Codex / Claude Code / Grok).
 
 Clean macOS-style shell: left nav + content, dual light/dark themes, CSS tokens, restrained stroke icons. Not a marketing landing page.
 
@@ -26,14 +26,15 @@ Slash / name: `/app-shell-ui` or `app-shell-ui`.
 ```bash
 git clone https://github.com/yg2224/app-shell-ui.git
 
-# Grok
-rsync -a --exclude .git ./app-shell-ui/ ~/.grok/skills/app-shell-ui/
-
 # Codex
 rsync -a --exclude .git ./app-shell-ui/ ~/.codex/skills/app-shell-ui/
-```
 
-Claude Code: clone to a stable path and point a subagent/slash command at `SKILL.md` (see Chinese [README.md](README.md)).
+# Claude Code: clone to a stable path and point a subagent/slash command
+# at SKILL.md (see Chinese README.md)
+
+# Grok
+rsync -a --exclude .git ./app-shell-ui/ ~/.grok/skills/app-shell-ui/
+```
 
 ## Layout
 
