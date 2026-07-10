@@ -38,6 +38,33 @@
 > **生成方式：无提示词，仅限定主题生成。**  
 > 不额外规定版式细节，只给出主题（终端工具 / 渗透工具 / 学习工具台 / 聊天软件），由 `app-shell-ui` skill 约束壳层与风格后直接生成。
 
+### Codex 写前端对比：学习工具台
+
+同一主题「学习工具台」，**左边 / 上：未使用 skill**（Codex 自由发挥）；**右边 / 下：使用 `app-shell-ui` skill**。
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <p align="center"><b>未使用 skill</b></p>
+      <p align="center"><a href="demos/learning-before.html"><img src="assets/showcase/learning-before.png" alt="学习工具台 · 未使用 skill" width="100%"></a></p>
+      <p align="center"><sub>彩色卡片堆叠 · 通用 Web 仪表盘 · 无统一壳层</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <p align="center"><b>使用 app-shell-ui skill</b></p>
+      <p align="center"><a href="demos/learning.html"><img src="assets/showcase/learning-after.png" alt="学习工具台 · 使用 skill" width="100%"></a></p>
+      <p align="center"><sub>桌面工具壳 · 侧栏导航 · Token / 克制配色</sub></p>
+    </td>
+  </tr>
+</table>
+
+```bash
+# 对比页
+open http://127.0.0.1:8040/learning-before.html   # 未使用 skill
+open http://127.0.0.1:8040/learning.html          # 使用 skill
+```
+
+### 四主题案例
+
 <table>
   <tr>
     <td width="50%" valign="top">
@@ -235,13 +262,16 @@ app-shell-ui/
 │   ├── _shell.css
 │   ├── terminal.html         # 终端工具
 │   ├── pentest.html          # 渗透工具台
-│   ├── learning.html         # 学习工具台
+│   ├── learning-before.html  # 学习工具台 · 未使用 skill（对比）
+│   ├── learning.html         # 学习工具台 · 使用 skill
 │   └── chat.html             # 聊天软件
 ├── assets/
 │   ├── readme-banner.png     # README 展示横幅
 │   ├── readme-banner.svg
 │   ├── readme-preview.jpg
 │   └── showcase/             # 案例截图
+│       ├── learning-before.png
+│       ├── learning-after.png
 │       ├── terminal.png
 │       ├── pentest.png
 │       ├── learning.png

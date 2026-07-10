@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>学习工具台（未使用 skill）</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f7fb;
+      color: #222;
+      padding: 24px;
+    }
+
+    .dashboard {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    header h1 {
+      font-size: 32px;
+      color: #2d5be3;
+    }
+
+    header p {
+      color: #666;
+      margin-top: 6px;
+    }
+
+    .date-box {
+      background: white;
+      padding: 14px 20px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      color: #555;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    .subjects {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .subject {
+      padding: 18px;
+      border-radius: 16px;
+      color: white;
+      min-height: 110px;
+    }
+
+    .subject h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .subject p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .blue { background: linear-gradient(135deg, #4f7cff, #2d5be3); }
+    .green { background: linear-gradient(135deg, #32c48d, #159957); }
+    .orange { background: linear-gradient(135deg, #ffb347, #ff7e5f); }
+
+    .todo-input {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #2d5be3;
+    }
+
+    button {
+      border: none;
+      background: #2d5be3;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background: #2048bd;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f7f9ff;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    li.done span {
+      text-decoration: line-through;
+      color: #999;
+    }
+
+    .delete {
+      background: #ff5c5c;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    .timer {
+      text-align: center;
+    }
+
+    .time {
+      font-size: 46px;
+      font-weight: bold;
+      color: #2d5be3;
+      margin: 18px 0;
+    }
+
+    .timer-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .reset {
+      background: #666;
+    }
+
+    .resources a {
+      display: block;
+      padding: 12px;
+      background: #f7f9ff;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      color: #2d5be3;
+      text-decoration: none;
+    }
+
+    .resources a:hover {
+      background: #edf2ff;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .goal {
+      background: #f7f9ff;
+      padding: 16px;
+      border-radius: 12px;
+      line-height: 1.8;
+    }
+
+    footer {
+      text-align: center;
+      color: #888;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .subjects {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <header>
+      <div>
+        <h1>学习工具台</h1>
+        <p>管理任务、记录笔记、专注学习</p>
+      </div>
+      <div class="date-box" id="dateBox"></div>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section class="card">
+          <h2>我的课程</h2>
+          <div class="subjects">
+            <div class="subject blue">
+              <h3>数学</h3>
+              <p>今日任务：完成函数练习题</p>
+            </div>
+            <div class="subject green">
+              <h3>英语</h3>
+              <p>今日任务：背诵 30 个单词</p>
+            </div>
+            <div class="subject orange">
+              <h3>编程</h3>
+              <p>今日任务：学习 HTML 页面布局</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>待办事项</h2>
+          <div class="todo-input">
+            <input type="text" id="todoInput" placeholder="输入新的学习任务..." />
+            <button onclick="addTodo()">添加</button>
+          </div>
+          <ul id="todoList"></ul>
+        </section>
+
+        <section class="card">
+          <h2>学习笔记</h2>
+          <textarea id="noteArea" placeholder="在这里记录你的学习笔记..."></textarea>
+          <br /><br />
+          <button onclick="saveNote()">保存笔记</button>
+        </section>
+      </main>
+
+      <aside>
+        <section class="card timer">
+          <h2>专注计时器</h2>
+          <div class="time" id="timer">25:00</div>
+          <div class="timer-buttons">
+            <button onclick="startTimer()">开始</button>
+            <button onclick="pauseTimer()">暂停</button>
+            <button class="reset" onclick="resetTimer()">重置</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>每日目标</h2>
+          <div class="goal">
+            <p>✅ 完成 3 个学习任务</p>
+            <p>✅ 专注学习 25 分钟</p>
+            <p>✅ 整理一页学习笔记</p>
+          </div>
+        </section>
+
+        <section class="card resources">
+          <h2>学习资源</h2>
+          <a href="https://developer.mozilla.org/zh-CN/" target="_blank">MDN Web 文档</a>
+          <a href="https://www.w3school.com.cn/" target="_blank">W3School 教程</a>
+          <a href="https://www.bilibili.com/" target="_blank">Bilibili 学习视频</a>
+          <a href="https://www.icourse163.org/" target="_blank">中国大学 MOOC</a>
+        </section>
+      </aside>
+    </div>
+
+    <footer>
+      © 2026 学习工具台 | Keep Learning
+    </footer>
+  </div>
+
+  <script>
+    const dateBox = document.getElementById("dateBox");
+    const today = new Date();
+    dateBox.innerText = today.toLocaleDateString("zh-CN", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long"
+    });
+
+    const todoInput = document.getElementById("todoInput");
+    const todoList = document.getElementById("todoList");
+
+    // Seed sample todos so screenshot isn't empty
+    (function seedTodos() {
+      ["完成函数练习题", "背诵 30 个单词", "整理 HTML 布局笔记"].forEach(function (text) {
+        const li = document.createElement("li");
+        const span = document.createElement("span");
+        span.innerText = text;
+        span.onclick = function () { li.classList.toggle("done"); };
+        const deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "删除";
+        deleteBtn.className = "delete";
+        deleteBtn.onclick = function () { todoList.removeChild(li); };
+        li.appendChild(span);
+        li.appendChild(deleteBtn);
+        todoList.appendChild(li);
+      });
+    })();
+
+    function addTodo() {
+      const text = todoInput.value.trim();
+      if (text === "") {
+        alert("请输入任务内容！");
+        return;
+      }
+      const li = document.createElement("li");
+      const span = document.createElement("span");
+      span.innerText = text;
+      span.onclick = function () { li.classList.toggle("done"); };
+      const deleteBtn = document.createElement("button");
+      deleteBtn.innerText = "删除";
+      deleteBtn.className = "delete";
+      deleteBtn.onclick = function () { todoList.removeChild(li); };
+      li.appendChild(span);
+      li.appendChild(deleteBtn);
+      todoList.appendChild(li);
+      todoInput.value = "";
+    }
+
+    todoInput.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") addTodo();
+    });
+
+    let totalSeconds = 25 * 60;
+    let timerInterval = null;
+
+    function updateTimer() {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      document.getElementById("timer").innerText =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+    }
+
+    function startTimer() {
+      if (timerInterval !== null) return;
+      timerInterval = setInterval(function () {
+        if (totalSeconds > 0) {
+          totalSeconds--;
+          updateTimer();
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          alert("时间到！休息一下吧。");
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    function resetTimer() {
+      pauseTimer();
+      totalSeconds = 25 * 60;
+      updateTimer();
+    }
+
+    const noteArea = document.getElementById("noteArea");
+    window.onload = function () {
+      const savedNote = localStorage.getItem("studyNote");
+      if (savedNote) noteArea.value = savedNote;
+      else noteArea.value = "今天学习了 HTML 页面布局：flex 与 grid 的区别…";
+    };
+
+    function saveNote() {
+      localStorage.setItem("studyNote", noteArea.value);
+      alert("笔记已保存！");
+    }
+  </script>
+</body>
+</html>

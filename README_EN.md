@@ -28,6 +28,16 @@ Four demos, one shell — screenshots under [`assets/showcase/`](assets/showcase
 > **Generation: theme-only, no free-form prompt engineering.**  
 > Only the subject domains were specified (terminal / pentest / learning / chat). Layout and look were constrained solely by the `app-shell-ui` skill.
 
+### Before / after (learning workbench)
+
+Same topic. Left: Codex **without** skill. Right: Codex **with** `app-shell-ui`.
+
+| Without skill | With app-shell-ui |
+| --- | --- |
+| [![before](assets/showcase/learning-before.png)](demos/learning-before.html) | [![after](assets/showcase/learning-after.png)](demos/learning.html) |
+
+### Four themes
+
 | Case | Demo | Screenshot |
 | --- | --- | --- |
 | Terminal · TermDock | [terminal.html](demos/terminal.html) | ![terminal](assets/showcase/terminal.png) |
