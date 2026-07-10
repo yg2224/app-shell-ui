@@ -40,22 +40,15 @@
 
 ### Codex 写前端对比：学习工具台
 
-同一主题「学习工具台」——**左：未使用 skill**（Codex 自由发挥）；**右：使用 `app-shell-ui` skill**。  
-对比图两侧画布统一为 **900×720**，避免截图比例不一致导致错位。
-
-<p align="center">
-  <a href="demos/learning-before.html"><img src="assets/showcase/learning-compare.png" alt="学习工具台：未使用 skill vs 使用 app-shell-ui" width="100%"></a>
-</p>
+同一主题「学习工具台」——**左：未使用 skill**；**右：使用 `app-shell-ui` skill**。
 
 | 左 · [未使用 skill](demos/learning-before.html) | 右 · [使用 skill](demos/learning.html) |
-| --- | --- |
+| :---: | :---: |
 | 彩色卡片堆叠 · 通用 Web 仪表盘 · 无统一壳层 | 桌面工具壳 · 侧栏导航 · Token / 克制配色 |
 
-```bash
-# 对比页
-open http://127.0.0.1:8040/learning-before.html   # 未使用 skill
-open http://127.0.0.1:8040/learning.html          # 使用 skill
-```
+<p align="center">
+  <img src="assets/showcase/learning-compare.png" alt="学习工具台：未使用 skill vs 使用 app-shell-ui" width="100%">
+</p>
 
 ### 四主题案例
 
