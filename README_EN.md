@@ -25,6 +25,9 @@ Slash / name: `/app-shell-ui` or `app-shell-ui`.
 
 Four demos, one shell — screenshots under [`assets/showcase/`](assets/showcase/), sources under [`demos/`](demos/).
 
+> **Generation: theme-only, no free-form prompt engineering.**  
+> Only the subject domains were specified (terminal / pentest / learning / chat). Layout and look were constrained solely by the `app-shell-ui` skill.
+
 | Case | Demo | Screenshot |
 | --- | --- | --- |
 | Terminal · TermDock | [terminal.html](demos/terminal.html) | ![terminal](assets/showcase/terminal.png) |

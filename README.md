@@ -35,6 +35,9 @@
 
 同一外壳，四种业务。可运行 Demo 在 [`demos/`](demos/)，截图在 [`assets/showcase/`](assets/showcase/)。
 
+> **生成方式：无提示词，仅限定主题生成。**  
+> 不额外规定版式细节，只给出主题（终端工具 / 渗透工具 / 学习工具台 / 聊天软件），由 `app-shell-ui` skill 约束壳层与风格后直接生成。
+
 <table>
   <tr>
     <td width="50%" valign="top">
