@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TermDock · 终端工具</title>
+  <link rel="stylesheet" href="_shell.css" />
+</head>
+<body>
+  <div class="window">
+    <div class="titlebar">
+      <div class="traffic"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+      <div class="titlebar-title">TermDock · 终端工具</div>
+      <div style="width:48px"></div>
+    </div>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-logo">TD</div>
+          <div class="brand-text"><strong>TermDock</strong><span>SSH · 多会话</span></div>
+        </div>
+        <div class="nav-label">会话</div>
+        <div class="nav-item active">
+          <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          prod-api-01
+        </div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          staging-web
+        </div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          bastion
+        </div>
+        <div class="nav-label" style="margin-top:14px">工具</div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2"/></svg>
+          主机管理
+        </div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          脚本库
+        </div>
+      </aside>
+      <main class="main">
+        <div class="page-header">
+          <div>
+            <h1>prod-api-01</h1>
+            <p><span class="status-dot"></span>ubuntu@10.0.12.8 · 已连接 · 延迟 18ms</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-ghost">拆分窗格</button>
+            <button class="btn btn-primary">新建会话</button>
+          </div>
+        </div>
+        <div class="toolbar">
+          <div class="search">搜索命令历史…</div>
+          <div class="seg">
+            <span class="active">bash</span>
+            <span>zsh</span>
+            <span>fish</span>
+          </div>
+        </div>
+        <div class="content">
+          <div class="stats">
+            <div class="stat-card"><div class="label">CPU</div><div class="value">23%<small>稳定</small></div></div>
+            <div class="stat-card"><div class="label">内存</div><div class="value">4.2G</div></div>
+            <div class="stat-card"><div class="label">负载</div><div class="value">0.41</div></div>
+            <div class="stat-card"><div class="label">会话</div><div class="value">3</div></div>
+          </div>
+          <div class="two-col" style="min-height: 360px;">
+            <div class="two-col__col">
+              <div class="section-head"><h2>终端输出</h2><span>实时</span></div>
+              <div class="terminal mono two-col__surface">
+                <div><span class="prompt">ubuntu@prod-api-01:~$</span> <span class="cmd">systemctl status nginx</span></div>
+                <div class="out">● nginx.service - A high performance web server</div>
+                <div class="out">&nbsp;&nbsp;Loaded: loaded (/lib/systemd/system/nginx.service; enabled)</div>
+                <div class="out">&nbsp;&nbsp;Active: <span style="color:#7dd3a7">active (running)</span> since Mon 09:12:04 UTC</div>
+                <div style="height:8px"></div>
+                <div><span class="prompt">ubuntu@prod-api-01:~$</span> <span class="cmd">df -h | head -5</span></div>
+                <div class="out">Filesystem&nbsp;&nbsp;Size&nbsp;Used&nbsp;Avail&nbsp;Use%</div>
+                <div class="out">/dev/vda1&nbsp;&nbsp;&nbsp;80G&nbsp;&nbsp;31G&nbsp;&nbsp;46G&nbsp;&nbsp;41%</div>
+                <div class="out">tmpfs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.9G&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;3.9G&nbsp;&nbsp;&nbsp;0%</div>
+                <div style="height:8px"></div>
+                <div><span class="prompt">ubuntu@prod-api-01:~$</span> <span class="cmd">tail -n 3 /var/log/nginx/access.log</span></div>
+                <div class="out">10.0.1.22 - GET /api/health 200 12ms</div>
+                <div class="out">10.0.1.18 - GET /api/v1/users 200 48ms</div>
+                <div class="out">10.0.1.22 - POST /api/v1/auth 201 91ms</div>
+                <div style="height:8px"></div>
+                <div><span class="prompt">ubuntu@prod-api-01:~$</span> <span class="cmd">█</span></div>
+              </div>
+            </div>
+            <div class="two-col__col">
+              <div class="section-head"><h2>主机状态</h2></div>
+              <div class="panel two-col__surface">
+                <div class="list-row">
+                  <div class="list-body"><div class="title">nginx</div><div class="desc">:80 / :443 · worker 4</div></div>
+                  <span class="pill ok">运行中</span>
+                </div>
+                <div class="list-row">
+                  <div class="list-body"><div class="title">postgres</div><div class="desc">主库 · 连接 42</div></div>
+                  <span class="pill ok">健康</span>
+                </div>
+                <div class="list-row">
+                  <div class="list-body"><div class="title">disk-alert</div><div class="desc">/data 使用率 78%</div></div>
+                  <span class="pill warn">关注</span>
+                </div>
+                <div class="list-row">
+                  <div class="list-body"><div class="title">fail2ban</div><div class="desc">最近拦截 3 次</div></div>
+                  <span class="pill hot">防护</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

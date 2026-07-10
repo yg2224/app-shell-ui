@@ -31,6 +31,48 @@
 * 面向 **Codex / Claude Code / Grok** 等能加载 `SKILL.md` 的 agent；请**整目录安装**，不要只复制一个 `SKILL.md`。
 * 仓库当前为 **Private**；源码许可为 **Apache License 2.0**。如需协作访问权限，请联系维护者。
 
+## 案例展示
+
+同一外壳，四种业务。可运行 Demo 在 [`demos/`](demos/)，截图在 [`assets/showcase/`](assets/showcase/)。
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <p align="center"><b>终端工具 · TermDock</b></p>
+      <p align="center"><a href="demos/terminal.html"><img src="assets/showcase/terminal.png" alt="终端工具案例" width="100%"></a></p>
+      <p align="center"><sub>深色 · SSH 多会话 · 主机状态并列栏</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <p align="center"><b>渗透工具 · PulseScope</b></p>
+      <p align="center"><a href="demos/pentest.html"><img src="assets/showcase/pentest.png" alt="渗透工具案例" width="100%"></a></p>
+      <p align="center"><sub>深色 · 漏洞队列 · 授权范围提示（仅 UI 演示）</sub></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <p align="center"><b>学习工具台 · StudyBench</b></p>
+      <p align="center"><a href="demos/learning.html"><img src="assets/showcase/learning.png" alt="学习工具台案例" width="100%"></a></p>
+      <p align="center"><sub>浅色 · 路径卡片 · 复习队列 + 快速笔记等高</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <p align="center"><b>聊天软件 · LinkPane</b></p>
+      <p align="center"><a href="demos/chat.html"><img src="assets/showcase/chat.png" alt="聊天软件案例" width="100%"></a></p>
+      <p align="center"><sub>浅色 · 会话列表 + 对话区三栏信息流</sub></p>
+    </td>
+  </tr>
+</table>
+
+本地预览 Demo：
+
+```bash
+cd demos
+python3 -m http.server 8040
+# 打开 http://127.0.0.1:8040/terminal.html
+#      http://127.0.0.1:8040/pentest.html
+#      http://127.0.0.1:8040/learning.html
+#      http://127.0.0.1:8040/chat.html
+```
+
 ## 快速开始
 
 安装完成后，直接把任务描述交给 agent。下面提示词可复制使用：
@@ -186,14 +228,25 @@ app-shell-ui/
 ├── README.md                 # 本说明（给人看）
 ├── README_EN.md              # English overview
 ├── SKILL.md                  # 主指令（给 agent 加载）
+├── demos/                    # 四个案例 Demo（HTML）
+│   ├── _shell.css
+│   ├── terminal.html         # 终端工具
+│   ├── pentest.html          # 渗透工具台
+│   ├── learning.html         # 学习工具台
+│   └── chat.html             # 聊天软件
 ├── assets/
 │   ├── readme-banner.png     # README 展示横幅
-│   ├── readme-banner.svg     # 矢量横幅（备选）
-│   └── readme-preview.jpg    # 生成的 UI 预览底图
+│   ├── readme-banner.svg
+│   ├── readme-preview.jpg
+│   └── showcase/             # 案例截图
+│       ├── terminal.png
+│       ├── pentest.png
+│       ├── learning.png
+│       └── chat.png
 └── references/
-    ├── tokens.md             # 浅色/深色 Token、主题 API
-    ├── components.md         # 组件配方、图标/emoji 策略
-    └── layouts.md            # 四种布局 + 并列等高规则
+    ├── tokens.md
+    ├── components.md
+    └── layouts.md
 ```
 
 关键规则：**整夹安装**。只丢一个 `SKILL.md` 会丢失 Token / 布局 / 组件细则。

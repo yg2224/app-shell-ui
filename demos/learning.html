@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyBench · 学习工具台</title>
+  <link rel="stylesheet" href="_shell.css" />
+</head>
+<body>
+  <div class="window">
+    <div class="titlebar">
+      <div class="traffic"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+      <div class="titlebar-title">StudyBench · 学习工具台</div>
+      <div style="width:48px"></div>
+    </div>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-logo" style="background:linear-gradient(135deg,#34c759,#007aff)">SB</div>
+          <div class="brand-text"><strong>StudyBench</strong><span>路径 · 笔记 · 复习</span></div>
+        </div>
+        <div class="nav-label">学习</div>
+        <div class="nav-item active">
+          <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 10v10h14V10"/></svg>
+          今日路径
+        </div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          课程库
+        </div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          复习日历
+        </div>
+        <div class="nav-label" style="margin-top:14px">空间</div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          笔记
+        </div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2"/></svg>
+          偏好
+        </div>
+      </aside>
+      <main class="main">
+        <div class="page-header">
+          <div>
+            <h1>今日路径</h1>
+            <p><span class="status-dot"></span>计算机网络 · 第 3 周 · 目标 90 分钟</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-ghost">暂停番茄钟</button>
+            <button class="btn btn-primary">开始专注</button>
+          </div>
+        </div>
+        <div class="toolbar">
+          <div class="search">搜索课程、笔记、闪卡…</div>
+          <div class="seg">
+            <span class="active">全部</span>
+            <span>阅读</span>
+            <span>练习</span>
+            <span>复习</span>
+          </div>
+        </div>
+        <div class="content">
+          <div class="stats">
+            <div class="stat-card"><div class="label">连续打卡</div><div class="value">12<small>天</small></div></div>
+            <div class="stat-card"><div class="label">今日完成</div><div class="value">46%</div></div>
+            <div class="stat-card"><div class="label">待复习</div><div class="value">18</div></div>
+            <div class="stat-card"><div class="label">本周学时</div><div class="value">6.5h</div></div>
+          </div>
+          <div class="section-head"><h2>本周模块</h2><span>查看课表</span></div>
+          <div class="card-grid" style="margin-bottom:14px">
+            <div class="card">
+              <h3>传输层基础</h3>
+              <p>TCP 握手、可靠传输与流量控制要点梳理。</p>
+              <div class="progress"><i style="width:72%"></i></div>
+              <div class="tag-row"><span class="pill ok">进行中</span><span class="pill">42 分钟</span></div>
+            </div>
+            <div class="card">
+              <h3>拥塞控制图解</h3>
+              <p>慢启动、拥塞避免与快重传对照笔记。</p>
+              <div class="progress"><i style="width:28%"></i></div>
+              <div class="tag-row"><span class="pill hot">下一课</span></div>
+            </div>
+            <div class="card">
+              <h3>套接字练习</h3>
+              <p>完成 3 道编程题并整理错题卡。</p>
+              <div class="progress"><i style="width:0%"></i></div>
+              <div class="tag-row"><span class="pill">未开始</span></div>
+            </div>
+          </div>
+          <div class="two-col" style="min-height:240px">
+            <div class="two-col__col">
+              <div class="section-head"><h2>复习队列</h2></div>
+              <div class="panel two-col__surface">
+                <div class="list-row">
+                  <div class="list-body"><div class="title">三次握手状态机</div><div class="desc">到期：今天 · 间隔 2 天</div></div>
+                  <span class="pill warn">待复习</span>
+                </div>
+                <div class="list-row">
+                  <div class="list-body"><div class="title">滑动窗口与确认号</div><div class="desc">到期：今天 · 间隔 4 天</div></div>
+                  <span class="pill warn">待复习</span>
+                </div>
+                <div class="list-row">
+                  <div class="list-body"><div class="title">UDP 适用场景</div><div class="desc">到期：明天</div></div>
+                  <span class="pill ok">已排程</span>
+                </div>
+              </div>
+            </div>
+            <div class="two-col__col">
+              <div class="section-head"><h2>快速笔记</h2></div>
+              <div class="composer two-col__surface">
+                <h3>记录一个概念</h3>
+                <p>写下一句话总结，稍后可转成闪卡。</p>
+                <div class="box">例如：拥塞窗口是发送方根据网络反馈动态调整的发送上限…</div>
+                <div class="composer-bar">
+                  <div class="tag-row">
+                    <span class="chip active">概念</span>
+                    <span class="chip">例题</span>
+                    <span class="chip">错题</span>
+                  </div>
+                  <button class="btn btn-primary">保存</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

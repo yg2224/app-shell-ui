@@ -21,6 +21,21 @@ Clean macOS-style shell: left nav + content, dual light/dark themes, CSS tokens,
 
 Slash / name: `/app-shell-ui` or `app-shell-ui`.
 
+## Showcase
+
+Four demos, one shell — screenshots under [`assets/showcase/`](assets/showcase/), sources under [`demos/`](demos/).
+
+| Case | Demo | Screenshot |
+| --- | --- | --- |
+| Terminal · TermDock | [terminal.html](demos/terminal.html) | ![terminal](assets/showcase/terminal.png) |
+| Pentest console · PulseScope | [pentest.html](demos/pentest.html) | ![pentest](assets/showcase/pentest.png) |
+| Learning bench · StudyBench | [learning.html](demos/learning.html) | ![learning](assets/showcase/learning.png) |
+| Chat app · LinkPane | [chat.html](demos/chat.html) | ![chat](assets/showcase/chat.png) |
+
+```bash
+cd demos && python3 -m http.server 8040
+```
+
 ## Install (keep full folder)
 
 ```bash
