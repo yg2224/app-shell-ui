@@ -5,6 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TermDock · 终端工具</title>
   <link rel="stylesheet" href="_shell.css" />
+  <style>
+    .term-main { display: flex; flex-direction: column; height: 100%; min-height: 0; padding: 0 0 12px; }
+    .tab-bar {
+      display: flex; align-items: flex-end; gap: 4px; padding: 10px var(--content-padding) 0;
+      border-bottom: 1px solid var(--border); flex-shrink: 0;
+    }
+    .tab {
+      height: 30px; padding: 0 12px; border-radius: 8px 8px 0 0; font-size: 12px;
+      color: var(--text-secondary); display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid transparent; border-bottom: none; background: transparent;
+    }
+    .tab.active {
+      background: var(--bg-surface); color: var(--text-primary); border-color: var(--border);
+      position: relative; top: 1px;
+    }
+    .tab .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-success); }
+    .term-body {
+      flex: 1; display: grid; grid-template-columns: 1fr 220px; gap: 0;
+      margin: 0 var(--content-padding); min-height: 0;
+      border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px;
+      overflow: hidden; background: var(--bg-surface); box-shadow: var(--shadow-card);
+    }
+    .term-pane {
+      background: #0f1115; color: #d7dde8; padding: 14px 16px; overflow: hidden;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12.5px; line-height: 1.55; border-right: 1px solid var(--border);
+    }
+    .term-pane .prompt { color: #7dd3a7; }
+    .term-pane .cmd { color: #e8ecf3; }
+    .term-pane .out { color: #9aa4b5; }
+    .term-side {
+      display: flex; flex-direction: column; background: var(--bg-muted); min-height: 0;
+    }
+    .term-side .side-h {
+      padding: 10px 12px; font-size: 11px; font-weight: 600; color: var(--text-tertiary);
+      border-bottom: 1px solid var(--border); letter-spacing: .02em; text-transform: uppercase;
+    }
+    .metric {
+      padding: 12px; border-bottom: 1px solid var(--border);
+    }
+    .metric .k { font-size: 11px; color: var(--text-tertiary); margin-bottom: 4px; }
+    .metric .v { font-size: 18px; font-weight: 600; letter-spacing: -.02em; }
+    .metric .bar {
+      margin-top: 8px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.08); overflow: hidden;
+    }
+    .metric .bar i { display: block; height: 100%; background: var(--primary); }
+    .spark {
+      display: flex; align-items: flex-end; gap: 3px; height: 36px; margin-top: 8px;
+    }
+    .spark span {
+      flex: 1; border-radius: 2px 2px 0 0; background: color-mix(in srgb, var(--primary) 55%, transparent);
+    }
+    .status-bar {
+      display: flex; gap: 14px; padding: 8px var(--content-padding); font-size: 11.5px;
+      color: var(--text-tertiary); flex-shrink: 0;
+    }
+    .status-bar b { color: var(--text-secondary); font-weight: 500; }
+  </style>
 </head>
 <body>
   <div class="window">
@@ -53,64 +111,70 @@
             <button class="btn btn-primary">新建会话</button>
           </div>
         </div>
-        <div class="toolbar">
-          <div class="search">搜索命令历史…</div>
-          <div class="seg">
-            <span class="active">bash</span>
-            <span>zsh</span>
-            <span>fish</span>
+        <div class="term-main">
+          <div class="tab-bar">
+            <div class="tab active"><span class="dot"></span>bash · main</div>
+            <div class="tab">logs · nginx</div>
+            <div class="tab">top</div>
+            <div class="tab" style="color:var(--primary)">+</div>
           </div>
-        </div>
-        <div class="content">
-          <div class="stats">
-            <div class="stat-card"><div class="label">CPU</div><div class="value">23%<small>稳定</small></div></div>
-            <div class="stat-card"><div class="label">内存</div><div class="value">4.2G</div></div>
-            <div class="stat-card"><div class="label">负载</div><div class="value">0.41</div></div>
-            <div class="stat-card"><div class="label">会话</div><div class="value">3</div></div>
-          </div>
-          <div class="two-col" style="min-height: 360px;">
-            <div class="two-col__col">
-              <div class="section-head"><h2>终端输出</h2><span>实时</span></div>
-              <div class="terminal mono two-col__surface">
-                <div><span class="prompt">ubuntu@prod-api-01:~$</span> <span class="cmd">systemctl status nginx</span></div>
-                <div class="out">● nginx.service - A high performance web server</div>
-                <div class="out">&nbsp;&nbsp;Loaded: loaded (/lib/systemd/system/nginx.service; enabled)</div>
-                <div class="out">&nbsp;&nbsp;Active: <span style="color:#7dd3a7">active (running)</span> since Mon 09:12:04 UTC</div>
-                <div style="height:8px"></div>
-                <div><span class="prompt">ubuntu@prod-api-01:~$</span> <span class="cmd">df -h | head -5</span></div>
-                <div class="out">Filesystem&nbsp;&nbsp;Size&nbsp;Used&nbsp;Avail&nbsp;Use%</div>
-                <div class="out">/dev/vda1&nbsp;&nbsp;&nbsp;80G&nbsp;&nbsp;31G&nbsp;&nbsp;46G&nbsp;&nbsp;41%</div>
-                <div class="out">tmpfs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.9G&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;3.9G&nbsp;&nbsp;&nbsp;0%</div>
-                <div style="height:8px"></div>
-                <div><span class="prompt">ubuntu@prod-api-01:~$</span> <span class="cmd">tail -n 3 /var/log/nginx/access.log</span></div>
-                <div class="out">10.0.1.22 - GET /api/health 200 12ms</div>
-                <div class="out">10.0.1.18 - GET /api/v1/users 200 48ms</div>
-                <div class="out">10.0.1.22 - POST /api/v1/auth 201 91ms</div>
-                <div style="height:8px"></div>
-                <div><span class="prompt">ubuntu@prod-api-01:~$</span> <span class="cmd">█</span></div>
-              </div>
+          <div class="term-body">
+            <div class="term-pane">
+              <div><span class="prompt">ubuntu@prod-api-01:~$</span> <span class="cmd">systemctl status nginx --no-pager</span></div>
+              <div class="out">● nginx.service - A high performance web server</div>
+              <div class="out">&nbsp;&nbsp;Loaded: loaded (/lib/systemd/system/nginx.service; enabled)</div>
+              <div class="out">&nbsp;&nbsp;Active: <span style="color:#7dd3a7">active (running)</span> since Mon 09:12:04 UTC</div>
+              <div class="out">&nbsp;&nbsp;Main PID: 1421 (nginx)</div>
+              <div style="height:10px"></div>
+              <div><span class="prompt">ubuntu@prod-api-01:~$</span> <span class="cmd">journalctl -u nginx -n 4 --no-pager</span></div>
+              <div class="out">Mar 09 09:12:04 nginx[1421]: start worker process 1428</div>
+              <div class="out">Mar 09 10:01:12 nginx[1421]: reload config complete</div>
+              <div class="out">Mar 09 11:22:03 nginx[1421]: 10.0.1.22 GET /api/health 200</div>
+              <div class="out">Mar 09 11:22:18 nginx[1421]: 10.0.1.18 GET /api/v1/users 200</div>
+              <div style="height:10px"></div>
+              <div><span class="prompt">ubuntu@prod-api-01:~$</span> <span class="cmd">htop -d 10</span></div>
+              <div class="out">PID USER&nbsp;&nbsp;&nbsp;&nbsp;PRI&nbsp;CPU%&nbsp;MEM%&nbsp;Command</div>
+              <div class="out">1421 root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;0.2&nbsp;&nbsp;0.4&nbsp;nginx: master</div>
+              <div class="out">2204 ubuntu&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;1.1&nbsp;&nbsp;2.3&nbsp;node server.js</div>
+              <div style="height:10px"></div>
+              <div><span class="prompt">ubuntu@prod-api-01:~$</span> <span class="cmd">█</span></div>
             </div>
-            <div class="two-col__col">
-              <div class="section-head"><h2>主机状态</h2></div>
-              <div class="panel two-col__surface">
-                <div class="list-row">
-                  <div class="list-body"><div class="title">nginx</div><div class="desc">:80 / :443 · worker 4</div></div>
-                  <span class="pill ok">运行中</span>
-                </div>
-                <div class="list-row">
-                  <div class="list-body"><div class="title">postgres</div><div class="desc">主库 · 连接 42</div></div>
-                  <span class="pill ok">健康</span>
-                </div>
-                <div class="list-row">
-                  <div class="list-body"><div class="title">disk-alert</div><div class="desc">/data 使用率 78%</div></div>
-                  <span class="pill warn">关注</span>
-                </div>
-                <div class="list-row">
-                  <div class="list-body"><div class="title">fail2ban</div><div class="desc">最近拦截 3 次</div></div>
-                  <span class="pill hot">防护</span>
+            <div class="term-side">
+              <div class="side-h">Live metrics</div>
+              <div class="metric">
+                <div class="k">CPU</div>
+                <div class="v">23%</div>
+                <div class="bar"><i style="width:23%"></i></div>
+              </div>
+              <div class="metric">
+                <div class="k">Memory</div>
+                <div class="v">4.2 / 16G</div>
+                <div class="bar"><i style="width:26%"></i></div>
+              </div>
+              <div class="metric">
+                <div class="k">Network in</div>
+                <div class="v">12.4 MB/s</div>
+                <div class="spark">
+                  <span style="height:30%"></span><span style="height:55%"></span><span style="height:40%"></span>
+                  <span style="height:70%"></span><span style="height:48%"></span><span style="height:85%"></span>
+                  <span style="height:60%"></span><span style="height:75%"></span>
                 </div>
               </div>
+              <div class="metric" style="border-bottom:none;flex:1">
+                <div class="k">Services</div>
+                <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--text-secondary)">
+                  <div style="display:flex;justify-content:space-between"><span>nginx</span><span class="pill ok">up</span></div>
+                  <div style="display:flex;justify-content:space-between"><span>postgres</span><span class="pill ok">up</span></div>
+                  <div style="display:flex;justify-content:space-between"><span>redis</span><span class="pill warn">lag</span></div>
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="status-bar">
+            <span>Shell <b>bash</b></span>
+            <span>Encoding <b>UTF-8</b></span>
+            <span>Cols <b>148</b></span>
+            <span>Idle <b>2s</b></span>
           </div>
         </div>
       </main>
