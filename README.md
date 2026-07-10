@@ -40,22 +40,16 @@
 
 ### Codex 写前端对比：学习工具台
 
-同一主题「学习工具台」，**左边 / 上：未使用 skill**（Codex 自由发挥）；**右边 / 下：使用 `app-shell-ui` skill**。
+同一主题「学习工具台」——**左：未使用 skill**（Codex 自由发挥）；**右：使用 `app-shell-ui` skill**。  
+对比图两侧画布统一为 **900×720**，避免截图比例不一致导致错位。
 
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <p align="center"><b>未使用 skill</b></p>
-      <p align="center"><a href="demos/learning-before.html"><img src="assets/showcase/learning-before.png" alt="学习工具台 · 未使用 skill" width="100%"></a></p>
-      <p align="center"><sub>彩色卡片堆叠 · 通用 Web 仪表盘 · 无统一壳层</sub></p>
-    </td>
-    <td width="50%" valign="top">
-      <p align="center"><b>使用 app-shell-ui skill</b></p>
-      <p align="center"><a href="demos/learning.html"><img src="assets/showcase/learning-after.png" alt="学习工具台 · 使用 skill" width="100%"></a></p>
-      <p align="center"><sub>桌面工具壳 · 侧栏导航 · Token / 克制配色</sub></p>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <a href="demos/learning-before.html"><img src="assets/showcase/learning-compare.png" alt="学习工具台：未使用 skill vs 使用 app-shell-ui" width="100%"></a>
+</p>
+
+| 左 · [未使用 skill](demos/learning-before.html) | 右 · [使用 skill](demos/learning.html) |
+| --- | --- |
+| 彩色卡片堆叠 · 通用 Web 仪表盘 · 无统一壳层 | 桌面工具壳 · 侧栏导航 · Token / 克制配色 |
 
 ```bash
 # 对比页
@@ -270,6 +264,7 @@ app-shell-ui/
 │   ├── readme-banner.svg
 │   ├── readme-preview.jpg
 │   └── showcase/             # 案例截图
+│       ├── learning-compare.png  # 前后对比（等尺寸）
 │       ├── learning-before.png
 │       ├── learning-after.png
 │       ├── terminal.png

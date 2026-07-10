@@ -30,11 +30,12 @@ Four demos, one shell — screenshots under [`assets/showcase/`](assets/showcase
 
 ### Before / after (learning workbench)
 
-Same topic. Left: Codex **without** skill. Right: Codex **with** `app-shell-ui`.
+Same topic. Left: Codex **without** skill. Right: Codex **with** `app-shell-ui`.  
+Both panels are normalized to **900×720** so the README stays aligned.
 
-| Without skill | With app-shell-ui |
-| --- | --- |
-| [![before](assets/showcase/learning-before.png)](demos/learning-before.html) | [![after](assets/showcase/learning-after.png)](demos/learning.html) |
+<p align="center">
+  <a href="demos/learning-before.html"><img src="assets/showcase/learning-compare.png" alt="learning before vs after" width="100%"></a>
+</p>
 
 ### Four themes
 
