@@ -349,6 +349,11 @@ Codex / Claude Code / Grok 建议**新开会话**后再触发 skill，避免旧�
 
 当前 `app-shell-ui` 标记为 **Stable**。
 
+
+## 友情链接
+
+* [linux.do](https://linux.do/) — 新的理想型社区
+
 ## 许可
 
 本项目采用 [Apache License 2.0](LICENSE)。

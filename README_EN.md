@@ -94,6 +94,11 @@ references/
 5. Equal-height peer columns  
 6. Deliver runnable UI + dual-theme checklist  
 
+
+## Community
+
+* [linux.do](https://linux.do/) — a thriving developer community
+
 ## License
 
 Licensed under the [Apache License 2.0](LICENSE).
