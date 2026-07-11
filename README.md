@@ -29,7 +29,7 @@
 * 本仓库维护 **App Shell UI** skill：让 AI agent 按统一规范生成「系统设置 / Clash Verge / 桌面客户端」一类界面，而不是落地页或密运营后台。
 * 业务内容会变（水果市集、游戏论坛、AI 工作台…），**壳不换**：侧栏、画布、卡片、单主色、浅深主题、并列等高。
 * 面向 **Codex / Claude Code / Grok** 等能加载 `SKILL.md` 的 agent；请**整目录安装**，不要只复制一个 `SKILL.md`。
-* 仓库当前为 **Private**；源码许可为 **Apache License 2.0**。如需协作访问权限，请联系维护者。
+* 源码许可为 **Apache License 2.0**。
 
 ## 案例展示
 
@@ -115,9 +115,7 @@ python3 -m http.server 8040
 
 ## 主要贡献者
 
-* **yg2224**：`app-shell-ui` 维护者。
-  * GitHub: [yg2224](https://github.com/yg2224)
-  * Email: [2677406151@qq.com](mailto:2677406151@qq.com)
+* **yg2224**：`app-shell-ui` 维护者 · [GitHub](https://github.com/yg2224)
 
 ## 它能做什么
 
@@ -138,7 +136,7 @@ python3 -m http.server 8040
 ### 克隆（通用）
 
 ```bash
-# HTTPS（需有本私人仓库权限）
+# HTTPS
 git clone https://github.com/yg2224/app-shell-ui.git
 
 # 或 SSH
@@ -155,7 +153,7 @@ git clone https://github.com/yg2224/app-shell-ui.git ~/.codex/skills/app-shell-u
 或把仓库地址交给 Codex：
 
 ```text
-请从这个私人仓库安装 skill（需要本机已登录有权限的 gh/git）：
+请从该仓库安装 skill：
 https://github.com/yg2224/app-shell-ui.git
 
 安装到 ~/.codex/skills/app-shell-ui，保留完整目录（SKILL.md + references/），不要只复制 SKILL.md。
@@ -373,6 +371,4 @@ limitations under the License.
 
 你可以使用、修改、分发本 skill（含商用），但需保留版权与协议声明；修改后的文件建议注明变更。完整条款见 [LICENSE](LICENSE)。
 
-仓库可见性目前为 **Private**，获得访问权限后方可 clone；许可条款在你获得源码后仍适用。
-
-维护联系： [2677406151@qq.com](mailto:2677406151@qq.com)
+Issue 与 PR 请提交到 [yg2224/app-shell-ui](https://github.com/yg2224/app-shell-ui)。

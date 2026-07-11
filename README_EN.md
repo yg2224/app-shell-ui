@@ -116,8 +116,6 @@ limitations under the License.
 
 You may use, modify, and distribute this skill (including commercially), provided you retain the copyright and license notices. See [LICENSE](LICENSE) for full terms.
 
-The GitHub repository is currently **private**; clone access is limited to authorized users. The Apache-2.0 terms still apply once you have the source.
-
 ## Author
 
-yg2224 · 2677406151@qq.com
+[yg2224](https://github.com/yg2224) · issues and PRs welcome at [yg2224/app-shell-ui](https://github.com/yg2224/app-shell-ui)
