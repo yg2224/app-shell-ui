@@ -66,14 +66,15 @@ The newly bundled Top 50 React components were exported from the maintainer's so
 /Users/yg2224/Desktop/project/UI-合集
 ```
 
-They are the result of a single audit pipeline over AI-produced candidates, not 50 ad-hoc examples. The source audit contains **200 renderable candidates**:
+They are the result of a single audit pipeline over AI-produced candidates, not 50 ad-hoc examples. According to the generation record, three models produced 100 candidates each, or **300 raw candidates** in total. The current workspace contains **200 renderable candidates** that can still be audited:
 
-| Source | Count | Implementation | Outcome |
+| Model | Raw candidates | Current status | Implementation / outcome |
 | --- | ---: | --- | --- |
-| GPT | 100 | Named studies rendered through shared templates | Scored as benchmark candidates |
-| MiniMax | 100 | Dedicated React renderers | Source of the final Top 50 |
+| GPT-5.6 | 100 | Retained and audited | Named studies rendered through shared templates |
+| MiniMax M3 | 100 | Retained and audited | Dedicated React renderers; source of the final Top 50 |
+| GLM 5.2 | 100 | Deleted / missing from the current workspace | Not included in the current scoring or Top 50 |
 
-The source workspace also keeps `claude/` and `trea/` audit context, but those directories do not contain an independent renderable candidate catalog and are not counted as ranked submissions. Every candidate was scored with the FCBS rubric: Visual Quality (25%), Distinctiveness (10%), Product Utility (25%), Interaction & A11y (15%), and Engineering Quality (25%). The highest-ranked 50 were then hardened for responsive behavior, accessibility, and reusable exports before being copied into this skill.
+The final Top 50 was selected from the retained GPT-5.6 (100) and MiniMax M3 (100) candidates. The 100 GLM 5.2 candidates are recorded as deleted or unavailable in the current workspace, so they cannot be re-audited and are excluded from the ranking. The source workspace also keeps `claude/` and `trea/` audit context, but those directories do not contain an independent renderable candidate catalog and are not counted as ranked submissions. Every retained candidate was scored with the FCBS rubric: Visual Quality (25%), Distinctiveness (10%), Product Utility (25%), Interaction & A11y (15%), and Engineering Quality (25%). The highest-ranked 50 were then hardened for responsive behavior, accessibility, and reusable exports before being copied into this skill.
 
 The reusable output is kept here:
 

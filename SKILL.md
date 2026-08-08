@@ -191,10 +191,12 @@ progressive disclosure: read the index first, then open only the component files
 the current page.
 
 Provenance: the bundled files are exported from the maintainer's local source workspace
-`/Users/yg2224/Desktop/project/UI-合集/top50`. That workspace audits 200 renderable
-candidates (100 GPT studies and 100 MiniMax dedicated renderers) and keeps the highest-ranked
-50 after the FCBS weighted review. Treat `assets/top50-react/` as the curated reusable result;
-do not describe it as the full raw candidate set.
+`/Users/yg2224/Desktop/project/UI-合集/top50`. The generation record lists 300 raw candidates:
+100 from GPT-5.6, 100 from MiniMax M3, and 100 from GLM 5.2. The current workspace retains and
+audits only 200 (GPT-5.6 and MiniMax M3); the GLM 5.2 batch is recorded as deleted or missing and
+was not included in the current FCBS scoring or Top 50. The bundled files are the highest-ranked
+50 from the retained candidates. Treat `assets/top50-react/` as the curated reusable result; do
+not describe it as the full raw candidate set.
 
 1. Read `references/top50-components.md` and select the smallest useful set of components.
 2. Copy the matching files from `assets/top50-react/components/items/` into the consumer's

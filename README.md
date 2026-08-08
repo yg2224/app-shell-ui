@@ -94,14 +94,15 @@
 /Users/yg2224/Desktop/project/UI-合集
 ```
 
-它们不是临时拼出的 50 个示例，而是多路 AI 产出候选后，统一做源码审计、实时预览和加权评审的结果。当前可独立渲染并纳入评分的候选共 **200 个**：
+它们不是临时拼出的 50 个示例，而是多路 AI 产出候选后，统一做源码审计、实时预览和加权评审的结果。按生成记录，本次共有 3 个模型、每个模型 100 个候选，共 **300 个原始候选**。当前工作区中可独立渲染并纳入评分的候选共 **200 个**：
 
-| 来源 | 候选数 | 实现形态 | 结果 |
+| 模型 | 原始候选数 | 当前状态 | 实现形态 / 结果 |
 | --- | ---: | --- | --- |
-| GPT | 100 | named studies / shared templates | 参与统一评分，作为基准候选 |
-| MiniMax | 100 | dedicated React renderers | 最终 Top 50 的实现来源 |
+| GPT-5.6 | 100 | 保留并纳入审计 | named studies / shared templates，参与统一评分 |
+| MiniMax M3 | 100 | 保留并纳入审计 | dedicated React renderers，最终 Top 50 的实现来源 |
+| GLM 5.2 | 100 | 已删除 / 当前工作区缺失 | 未进入现有评分和 Top 50 |
 
-源项目中的 `claude/` 和 `trea/` 目录保留了审计背景，但没有可独立渲染的候选目录，因此没有被伪造为排名数据。最终 Top 50 是按以下 5 个维度加权筛选：Visual Quality（25%）、Distinctiveness（10%）、Product Utility（25%）、Interaction & A11y（15%）、Engineering Quality（25%）。
+因此，最终 Top 50 是从仍存留的 GPT-5.6 100 个和 MiniMax M3 100 个候选中筛选出来的；`GLM 5.2` 的 100 个候选按当前工作区状态已无法复核，不计入排名。源项目中的 `claude/` 和 `trea/` 目录保留了审计背景，但没有可独立渲染的候选目录，因此没有被伪造为排名数据。最终 Top 50 是按以下 5 个维度加权筛选：Visual Quality（25%）、Distinctiveness（10%）、Product Utility（25%）、Interaction & A11y（15%）、Engineering Quality（25%）。
 
 筛选完成后，排名靠前的 50 个组件被拆成独立 `.tsx` 文件，保留交互和无障碍行为，再同步到本 skill：
 

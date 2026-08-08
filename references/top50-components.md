@@ -4,7 +4,7 @@
 
 ## 来源与筛选
 
-这 50 个组件由本机源项目 `/Users/yg2224/Desktop/project/UI-合集` 的 Top 50 导出生成。源项目先汇总 200 个可独立渲染候选（GPT 100 个、MiniMax 100 个），再按 Visual Quality、Distinctiveness、Product Utility、Interaction & A11y、Engineering Quality 五个维度加权评审，最后保留排名前 50 的实现。`claude/` 和 `trea/` 仅作为源审计背景，不计入可渲染候选排名。
+这 50 个组件由本机源项目 `/Users/yg2224/Desktop/project/UI-合集` 的 Top 50 导出生成。按生成记录，3 个模型各产出 100 个候选，共 300 个原始候选：GPT-5.6 100 个、MiniMax M3 100 个、GLM 5.2 100 个。当前工作区保留并可审计的只有 GPT-5.6 和 MiniMax M3 共 200 个；GLM 5.2 的 100 个候选已删除或当前不可见，未进入现有评分和 Top 50。保留候选再按 Visual Quality、Distinctiveness、Product Utility、Interaction & A11y、Engineering Quality 五个维度加权评审，最后保留排名前 50 的实现。`claude/` 和 `trea/` 仅作为源审计背景，不计入可渲染候选排名。
 
 当前资源包中的 50 个实现均来自最终入选的 dedicated React renderer；这里保留的是可复用源码和交互参考，不是原始候选全集。
 
