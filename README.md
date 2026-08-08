@@ -86,6 +86,34 @@
   </tr>
 </table>
 
+## Top 50 组件来源与筛选
+
+本次新增的 Top 50 React 组件来自本机源项目：
+
+```text
+/Users/yg2224/Desktop/project/UI-合集
+```
+
+它们不是临时拼出的 50 个示例，而是多路 AI 产出候选后，统一做源码审计、实时预览和加权评审的结果。当前可独立渲染并纳入评分的候选共 **200 个**：
+
+| 来源 | 候选数 | 实现形态 | 结果 |
+| --- | ---: | --- | --- |
+| GPT | 100 | named studies / shared templates | 参与统一评分，作为基准候选 |
+| MiniMax | 100 | dedicated React renderers | 最终 Top 50 的实现来源 |
+
+源项目中的 `claude/` 和 `trea/` 目录保留了审计背景，但没有可独立渲染的候选目录，因此没有被伪造为排名数据。最终 Top 50 是按以下 5 个维度加权筛选：Visual Quality（25%）、Distinctiveness（10%）、Product Utility（25%）、Interaction & A11y（15%）、Engineering Quality（25%）。
+
+筛选完成后，排名靠前的 50 个组件被拆成独立 `.tsx` 文件，保留交互和无障碍行为，再同步到本 skill：
+
+```text
+assets/top50-react/components/items/   50 个可复制组件
+assets/top50-react/top50.json          机器可读排名清单
+references/top50-components.md         按需读取索引
+scripts/sync_top50_assets.py           可重复同步脚本
+```
+
+相关审计资料和完整评分表见源项目的 `UI-合集/final/docs/`；GitHub 仓库只保留可复用的 Top 50 产物，不把原始候选和构建产物全部塞进 skill。
+
 本地预览 Demo：
 
 ```bash
@@ -94,6 +122,7 @@ python3 -m http.server 8040
 # 打开 http://127.0.0.1:8040/terminal.html
 #      http://127.0.0.1:8040/pentest.html
 #      http://127.0.0.1:8040/learning.html
+#      http://127.0.0.1:8040/learning-program.html
 #      http://127.0.0.1:8040/chat.html
 ```
 
@@ -107,6 +136,7 @@ python3 -m http.server 8040
 | 控制台 / 卡片网格 | `用 app-shell-ui 控制台布局：统计卡 + 卡片网格 + 底部双栏等高。` |
 | AI 工作台空态 | `用 app-shell-ui 工作台型：侧栏会话 + 居中新会话标题 + 大输入卡。` |
 | 论坛 / 列表站 | `用 app-shell-ui 做游戏指南论坛：少 emoji，文字 + 线框图标，双主题。` |
+| 复用 Top 50 组件 | `用 app-shell-ui，从 Top 50 参考库取一个可交互的命令面板 / 看板 / AI 对话组件。` |
 | 只改视觉、不改业务 | `按 app-shell-ui 重画这个页面，保持信息架构，统一 Token 和浅深色。` |
 | 并列栏对齐 | `双栏列表和提问卡底边对齐，按 app-shell-ui 的 equal-height 规则。` |
 | 明确点名 skill | `使用 /app-shell-ui` 或 `使用 app-shell-ui skill` |
@@ -133,7 +163,7 @@ python3 -m http.server 8040
 
 ## 安装
 
-`app-shell-ui` 是一个围绕 `SKILL.md` 组织的可复用技能包。`references/` 是规则细节，**安装时必须一并保留**。
+`app-shell-ui` 是一个围绕 `SKILL.md` 组织的可复用技能包。`references/` 是规则细节，`assets/` 是可复制资源，**安装时必须一并保留**。
 
 ### 克隆（通用）
 
@@ -158,7 +188,7 @@ git clone https://github.com/yg2224/app-shell-ui.git ~/.codex/skills/app-shell-u
 请从这个私人仓库安装 skill（需要本机已登录有权限的 gh/git）：
 https://github.com/yg2224/app-shell-ui.git
 
-安装到 ~/.codex/skills/app-shell-ui，保留完整目录（SKILL.md + references/），不要只复制 SKILL.md。
+安装到 ~/.codex/skills/app-shell-ui，保留完整目录（SKILL.md + references/ + assets/），不要只复制 SKILL.md。
 ```
 
 ### Claude Code 安装方式
@@ -241,7 +271,7 @@ rsync -a --delete \
 ### 其他 agent
 
 1. 将**完整目录**复制到该 agent 的 skills / prompt library。
-2. 保留 `SKILL.md` 与 `references/*.md`。
+2. 保留 `SKILL.md`、`references/*.md` 与需要的 `assets/` 资源。
 3. 如目标平台有 frontmatter 要求，可微调但不删除 `name` / `description`。
 
 ## 目录结构
@@ -258,11 +288,13 @@ app-shell-ui/
 │   ├── pentest.html          # 渗透工具台
 │   ├── learning-before.html  # 学习工具台 · 未使用 skill（对比）
 │   ├── learning.html         # 学习工具台 · 使用 skill
+│   ├── learning-program.html  # StudyFlow · 可交互学习程序
 │   └── chat.html             # 聊天软件
 ├── assets/
 │   ├── readme-banner.png     # README 展示横幅
 │   ├── readme-banner.svg
 │   ├── readme-preview.jpg
+│   ├── top50-react/           # 50 个可复制的 React UI 与完整 gallery registry
 │   └── showcase/             # 案例截图
 │       ├── learning-compare.png  # 前后对比（等尺寸）
 │       ├── learning-before.png
@@ -271,13 +303,16 @@ app-shell-ui/
 │       ├── pentest.png
 │       ├── learning.png
 │       └── chat.png
-└── references/
-    ├── tokens.md
-    ├── components.md
-    └── layouts.md
+├── references/
+│   ├── tokens.md
+│   ├── components.md
+│   ├── layouts.md
+│   └── top50-components.md    # 50 个组件的索引与按需读取指南
+└── scripts/
+    └── sync_top50_assets.py    # 从 standalone gallery 刷新 Top 50 资源
 ```
 
-关键规则：**整夹安装**。只丢一个 `SKILL.md` 会丢失 Token / 布局 / 组件细则。
+关键规则：**整夹安装**。只丢一个 `SKILL.md` 会丢失 Token / 布局 / 组件细则和 Top 50 资源。
 
 ## 技能索引
 
@@ -291,7 +326,8 @@ app-shell-ui/
 | --- | --- |
 | [references/tokens.md](references/tokens.md) | 颜色 / 字阶 / 圆角 / 浅深 Token 与切换脚本 |
 | [references/components.md](references/components.md) | 侧栏、卡片、列表、开关、Composer 等配方 |
-| [references/layouts.md](references/layouts.md) | 设置/控制台/工作台/三栏 + **equal-height 双栏** |
+| [references/layouts.md](references/layouts.md) | 设置/控制台/工作台/三栏、**单页容量预算** + **equal-height 双栏** |
+| [references/top50-components.md](references/top50-components.md) | 50 个 React UI 的排名、export、分类与复制路径 |
 
 ## 共享设计原则
 
@@ -303,7 +339,8 @@ app-shell-ui/
 4. **内容区克制**：线框图标 + 文字 + status pill；列表/卡片默认不刷 emoji。
 5. **输出优先**：交付可运行的 HTML/React/CSS 变量实现，而不是空泛审美描述。
 6. **并列要对齐**：并排卡片/面板底边等高（`stretch` + flex surface）。
-7. **自检闭环**：浅色与深色各过交付清单再收工。
+7. **单页优先**：桌面端默认一页完成主要任务，不让常规内容把整页推成长页面；长列表才使用有边界的内部滚动。
+8. **自检闭环**：浅色与深色各过交付清单再收工。
 
 ## 你可以直接这样问（更多例子）
 
@@ -321,6 +358,10 @@ app-shell-ui/
 
 ```text
 控制台型：Banner + 四格统计 + 三列卡片，少 emoji，单主色 #007AFF。
+```
+
+```text
+用 app-shell-ui 做一页学习工具台：内容装满当前桌面视口但不需要整页下滑，次要信息放进折叠或标签页。
 ```
 
 ## 更新

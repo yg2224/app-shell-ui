@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="StudyFlow 学习程序：路径、任务、专注和闪卡复习。" />
+    <title>StudyFlow · 学习程序</title>
+    <style>
+      :root,
+      :root[data-theme="light"] {
+        --bg-app: #f4f5f7;
+        --bg-sidebar: #eef0f3;
+        --bg-surface: #ffffff;
+        --bg-muted: #f7f8fa;
+        --bg-hover: rgba(0, 0, 0, 0.04);
+        --bg-selected: color-mix(in srgb, var(--primary) 12%, white);
+        --text-primary: #1c1c1e;
+        --text-secondary: #636366;
+        --text-tertiary: #8e8e93;
+        --text-success: #34c759;
+        --text-warning: #ff9f0a;
+        --text-danger: #ff3b30;
+        --primary: #007aff;
+        --primary-foreground: #ffffff;
+        --border: rgba(0, 0, 0, 0.08);
+        --border-strong: rgba(0, 0, 0, 0.12);
+        --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06);
+        --shadow-window: 0 24px 60px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.06);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+        --radius-full: 999px;
+        --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Segoe UI", system-ui, sans-serif;
+        --sidebar-width: 232px;
+        --content-padding: 22px;
+        --titlebar-bg: linear-gradient(to bottom, #fafbfc, #f3f4f6);
+        --window-outer-bg: #cfd4dc;
+        --seg-track: rgba(0, 0, 0, 0.05);
+        --secondary-btn-bg: rgba(0, 0, 0, 0.06);
+        --toggle-off: rgba(0, 0, 0, 0.12);
+      }
+
+      :root[data-theme="dark"] {
+        --bg-app: #1c1c1e;
+        --bg-sidebar: #161617;
+        --bg-surface: #2c2c2e;
+        --bg-muted: #3a3a3c;
+        --bg-hover: rgba(255, 255, 255, 0.06);
+        --bg-selected: color-mix(in srgb, var(--primary) 22%, #2c2c2e);
+        --text-primary: #f5f5f7;
+        --text-secondary: #a1a1a6;
+        --text-tertiary: #6c6c70;
+        --text-success: #30d158;
+        --text-warning: #ffd60a;
+        --text-danger: #ff453a;
+        --primary: #0a84ff;
+        --primary-foreground: #ffffff;
+        --border: rgba(255, 255, 255, 0.08);
+        --border-strong: rgba(255, 255, 255, 0.14);
+        --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.45);
+        --shadow-window: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06);
+        --titlebar-bg: linear-gradient(to bottom, #2c2c2e, #1c1c1e);
+        --window-outer-bg: #0b0b0c;
+        --seg-track: rgba(255, 255, 255, 0.08);
+        --secondary-btn-bg: rgba(255, 255, 255, 0.1);
+        --toggle-off: rgba(255, 255, 255, 0.18);
+      }
+
+      * { box-sizing: border-box; }
+      html, body { min-height: 100%; }
+      body {
+        margin: 0;
+        color: var(--text-primary);
+        background: var(--window-outer-bg);
+        font-family: var(--font-ui);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      button, input, textarea { font: inherit; }
+      button { cursor: pointer; }
+      button:focus-visible, textarea:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+      svg { display: block; }
+      .icon { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
+
+      .window {
+        width: min(1320px, calc(100vw - 20px));
+        height: min(860px, calc(100vh - 20px));
+        margin: 10px auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--bg-app);
+        box-shadow: var(--shadow-window);
+      }
+      .titlebar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 42px;
+        padding: 0 14px;
+        flex: 0 0 auto;
+        border-bottom: 1px solid var(--border);
+        background: var(--titlebar-bg);
+      }
+      .traffic { display: flex; gap: 7px; }
+      .traffic span { width: 12px; height: 12px; border-radius: 50%; }
+      .traffic .r { background: #ff5f57; }
+      .traffic .y { background: #febc2e; }
+      .traffic .g { background: #28c840; }
+      .titlebar-title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--text-secondary);
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .titlebar-tools { display: flex; align-items: center; gap: 10px; color: var(--text-tertiary); }
+      .sync-state { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; }
+      .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-success); }
+      .icon-button {
+        width: 30px;
+        height: 30px;
+        display: inline-grid;
+        place-items: center;
+        padding: 0;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        color: var(--text-secondary);
+        background: transparent;
+      }
+      .icon-button:hover { border-color: var(--border); background: var(--bg-hover); color: var(--text-primary); }
+      .theme-sun { display: none; }
+      :root[data-theme="dark"] .theme-moon { display: none; }
+      :root[data-theme="dark"] .theme-sun { display: block; }
+
+      .shell { display: flex; min-height: 0; flex: 1; }
+      .sidebar {
+        width: var(--sidebar-width);
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 auto;
+        padding: 14px 10px;
+        border-right: 1px solid var(--border);
+        background: var(--bg-sidebar);
+      }
+      .brand { display: flex; align-items: center; gap: 10px; padding: 2px 8px 16px; }
+      .brand-logo {
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+        border-radius: 9px;
+        color: var(--primary-foreground);
+        background: var(--primary);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+      }
+      .brand-copy strong { display: block; font-size: 13.5px; font-weight: 600; }
+      .brand-copy span { display: block; margin-top: 2px; color: var(--text-tertiary); font-size: 11px; }
+      .nav-label { padding: 0 10px 6px; color: var(--text-tertiary); font-size: 11px; font-weight: 500; }
+      .nav-item {
+        width: 100%;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 2px;
+        padding: 0 10px;
+        border: 0;
+        border-radius: var(--radius-sm);
+        color: var(--text-secondary);
+        background: transparent;
+        text-align: left;
+        font-size: 13px;
+      }
+      .nav-item:hover { color: var(--text-primary); background: var(--bg-hover); }
+      .nav-item.active { color: var(--primary); background: var(--bg-selected); font-weight: 600; }
+      .nav-item .nav-count { margin-left: auto; color: var(--text-tertiary); font-size: 11px; }
+      .nav-item.active .nav-count { color: var(--primary); }
+      .sidebar-spacer { flex: 1; min-height: 18px; }
+      .sidebar-progress { padding: 12px 10px 8px; border-top: 1px solid var(--border); }
+      .sidebar-progress-head { display: flex; justify-content: space-between; gap: 8px; color: var(--text-tertiary); font-size: 11px; }
+      .sidebar-progress-head strong { color: var(--text-secondary); font-weight: 600; }
+      .bar { height: 5px; margin-top: 8px; overflow: hidden; border-radius: var(--radius-full); background: var(--bg-muted); }
+      .bar i { display: block; height: 100%; width: 68%; border-radius: inherit; background: var(--primary); transition: width 180ms ease; }
+
+      .main { min-width: 0; min-height: 0; display: flex; flex: 1; flex-direction: column; overflow: hidden; }
+      .page-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px var(--content-padding) 0;
+        flex: 0 0 auto;
+      }
+      .page-header > div:first-child { min-width: 0; }
+      .eyebrow { color: var(--text-tertiary); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+      .page-header h1 { margin: 4px 0 4px; font-size: 21px; font-weight: 650; letter-spacing: -0.02em; }
+      .page-header p { color: var(--text-tertiary); font-size: 12.5px; }
+      .header-actions { display: flex; align-items: center; gap: 8px; }
+      .btn {
+        min-height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 0 12px;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        font-weight: 550;
+        white-space: nowrap;
+      }
+      .btn-primary { color: var(--primary-foreground); background: var(--primary); }
+      .btn-primary:hover { filter: brightness(1.06); }
+      .btn-secondary { color: var(--text-primary); background: var(--secondary-btn-bg); }
+      .btn-secondary:hover { background: var(--bg-hover); }
+      .btn-ghost { border-color: var(--border); color: var(--text-secondary); background: var(--bg-surface); }
+      .btn-ghost:hover { color: var(--text-primary); background: var(--bg-hover); }
+      .content { min-height: 0; flex: 1; overflow: auto; padding: 14px var(--content-padding) 24px; }
+
+      .welcome {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 178px;
+        gap: 18px;
+        align-items: center;
+        min-height: 150px;
+        margin-bottom: 14px;
+        padding: 18px 20px;
+        border: 1px solid color-mix(in srgb, var(--primary) 16%, var(--border));
+        border-radius: var(--radius-lg);
+        background: color-mix(in srgb, var(--primary) 5%, var(--bg-surface));
+        box-shadow: var(--shadow-card);
+        min-width: 0;
+      }
+      .welcome > div { min-width: 0; }
+      .welcome h2 { margin: 5px 0 5px; font-size: 17px; font-weight: 650; letter-spacing: -0.015em; }
+      .welcome p { width: 100%; max-width: 560px; color: var(--text-secondary); font-size: 12.5px; line-height: 1.5; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+      .welcome-actions { display: flex; align-items: center; gap: 8px; margin-top: 13px; }
+      .progress-ring {
+        --progress: 68%;
+        width: 124px;
+        height: 124px;
+        display: grid;
+        place-items: center;
+        margin: 0 auto;
+        border-radius: 50%;
+        background: conic-gradient(var(--primary) var(--progress), var(--bg-muted) 0);
+      }
+      .progress-ring::after {
+        width: 92px;
+        height: 92px;
+        content: "";
+        grid-area: 1 / 1;
+        border-radius: 50%;
+        background: var(--bg-surface);
+      }
+      .progress-ring-label { z-index: 1; grid-area: 1 / 1; text-align: center; }
+      .progress-ring-label strong { display: block; font-size: 22px; font-weight: 650; letter-spacing: -0.03em; }
+      .progress-ring-label span { display: block; margin-top: 2px; color: var(--text-tertiary); font-size: 10px; }
+
+      .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; min-width: 0; }
+      .stat-card { padding: 13px 14px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-surface); box-shadow: var(--shadow-card); }
+      .stat-label { color: var(--text-tertiary); font-size: 11px; }
+      .stat-value { margin-top: 4px; font-size: 20px; font-weight: 650; letter-spacing: -0.03em; }
+      .stat-value small { margin-left: 5px; color: var(--text-success); font-size: 11px; font-weight: 550; letter-spacing: 0; }
+      .stat-meta { margin-top: 3px; color: var(--text-tertiary); font-size: 10.5px; }
+
+      .content-grid, .lower-grid { display: grid; align-items: stretch; gap: 12px; }
+      .content-grid { grid-template-columns: minmax(0, 1.24fr) minmax(280px, 0.76fr); margin-bottom: 18px; }
+      .lower-grid { grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr); }
+      .panel, .focus-card { min-width: 0; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-surface); box-shadow: var(--shadow-card); }
+      .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px 11px; }
+      .panel-head h2 { font-size: 14px; font-weight: 650; }
+      .panel-head p { margin-top: 3px; color: var(--text-tertiary); font-size: 11px; }
+      .panel-head .head-action { color: var(--primary); font-size: 11px; font-weight: 550; }
+      .task-list { border-top: 1px solid var(--border); }
+      .task-row { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+      .task-row:last-child { border-bottom: 0; }
+      .task-row:hover { background: var(--bg-hover); }
+      .task-check { width: 22px; height: 22px; display: grid; place-items: center; padding: 0; border: 1px solid var(--border-strong); border-radius: 50%; color: transparent; background: var(--bg-surface); }
+      .task-check:hover { border-color: var(--primary); }
+      .task-check .icon { width: 13px; height: 13px; stroke-width: 2.2; }
+      .task-row.completed .task-check { border-color: var(--primary); color: var(--primary-foreground); background: var(--primary); }
+      .task-row.completed .task-title { color: var(--text-tertiary); text-decoration: line-through; }
+      .task-title { font-size: 12.5px; font-weight: 560; }
+      .task-desc { margin-top: 3px; color: var(--text-tertiary); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .task-time { color: var(--text-tertiary); font-size: 10.5px; white-space: nowrap; }
+
+      .focus-card { display: flex; flex-direction: column; padding: 14px 16px 15px; }
+      .focus-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+      .focus-head h2 { font-size: 14px; font-weight: 650; }
+      .focus-head p { margin-top: 3px; color: var(--text-tertiary); font-size: 11px; }
+      .focus-state { color: var(--text-success); font-size: 10.5px; font-weight: 550; }
+      .timer-wrap { display: grid; place-items: center; margin: 14px 0 12px; }
+      .timer-ring { --progress: 0%; width: 142px; height: 142px; display: grid; place-items: center; border-radius: 50%; background: conic-gradient(var(--primary) var(--progress), var(--bg-muted) 0); }
+      .timer-ring::after { width: 116px; height: 116px; grid-area: 1 / 1; content: ""; border-radius: 50%; background: var(--bg-surface); }
+      .timer-content { z-index: 1; grid-area: 1 / 1; text-align: center; }
+      .timer-content time { display: block; font-variant-numeric: tabular-nums; font-size: 29px; font-weight: 650; letter-spacing: -0.04em; }
+      .timer-content span { display: block; margin-top: 2px; color: var(--text-tertiary); font-size: 10px; }
+      .mode-switch { display: flex; justify-content: center; gap: 4px; margin-bottom: 12px; padding: 3px; border-radius: var(--radius-sm); background: var(--seg-track); }
+      .mode-switch button { min-width: 56px; height: 27px; padding: 0 9px; border: 0; border-radius: 6px; color: var(--text-secondary); background: transparent; font-size: 10.5px; }
+      .mode-switch button.active { color: var(--primary-foreground); background: var(--primary); font-weight: 600; }
+      .timer-actions { display: flex; justify-content: center; gap: 7px; }
+      .timer-actions .btn { min-width: 78px; }
+      .focus-note { margin-top: auto; padding-top: 12px; color: var(--text-tertiary); font-size: 10.5px; text-align: center; }
+
+      .roadmap, .flashcard { height: 100%; }
+      .roadmap-body { padding: 0 16px 16px; }
+      .road-step { position: relative; display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; align-items: center; gap: 9px; width: 100%; min-height: 52px; padding: 8px 0; border: 0; border-top: 1px solid var(--border); color: var(--text-primary); background: transparent; text-align: left; }
+      .road-step:first-child { border-top: 0; }
+      .road-step:hover .step-title { color: var(--primary); }
+      .step-mark { position: relative; width: 22px; height: 22px; display: grid; place-items: center; border: 1px solid var(--border-strong); border-radius: 50%; color: var(--text-tertiary); background: var(--bg-surface); font-size: 10px; font-weight: 650; }
+      .road-step.done .step-mark { border-color: var(--text-success); color: var(--text-success); }
+      .road-step.current .step-mark { border-color: var(--primary); color: var(--primary-foreground); background: var(--primary); }
+      .step-title { font-size: 12px; font-weight: 560; }
+      .step-meta { margin-top: 2px; color: var(--text-tertiary); font-size: 10.5px; }
+      .step-score { color: var(--text-tertiary); font-size: 10.5px; white-space: nowrap; }
+      .road-step.current .step-score { color: var(--primary); font-weight: 600; }
+
+      .flashcard { display: flex; flex-direction: column; }
+      .flash-body { display: flex; flex: 1; flex-direction: column; padding: 2px 16px 16px; }
+      .flash-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--text-tertiary); font-size: 10.5px; }
+      .flash-question { display: flex; flex: 1; min-height: 110px; align-items: center; justify-content: center; padding: 14px 10px; text-align: center; font-size: 15px; font-weight: 620; line-height: 1.45; }
+      .flash-answer { margin-bottom: 12px; padding: 10px 12px; border: 1px solid color-mix(in srgb, var(--primary) 18%, var(--border)); border-radius: var(--radius-sm); color: var(--text-secondary); background: color-mix(in srgb, var(--primary) 6%, var(--bg-muted)); font-size: 11.5px; line-height: 1.5; }
+      .flash-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; }
+      .flash-actions .btn { padding: 0 8px; }
+      .flashcard .btn:disabled { cursor: default; opacity: 0.48; }
+      .note-strip { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); color: var(--text-secondary); background: var(--bg-surface); box-shadow: var(--shadow-card); }
+      .note-strip .icon-tile { width: 30px; height: 30px; }
+      .note-strip input { min-width: 0; flex: 1; border: 0; outline: 0; color: var(--text-primary); background: transparent; font-size: 12px; }
+      .note-strip input::placeholder { color: var(--text-tertiary); }
+      .toast { position: fixed; right: 24px; bottom: 24px; z-index: 10; max-width: min(320px, calc(100vw - 48px)); padding: 10px 13px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); color: var(--text-primary); background: var(--bg-surface); box-shadow: var(--shadow-window); font-size: 12px; opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity 180ms ease, transform 180ms ease; }
+      .toast.show { opacity: 1; transform: translateY(0); }
+
+      @media (max-width: 980px) {
+        .window { width: 100%; height: 100vh; margin: 0; border-radius: 0; }
+        .content-grid, .lower-grid { grid-template-columns: 1fr; }
+        .focus-card { min-height: 350px; }
+      }
+      @media (max-width: 700px) {
+        .titlebar-title { font-size: 12px; }
+        .sync-state { display: none; }
+        .shell { flex-direction: column; }
+        .sidebar { width: 100%; height: auto; max-height: 62px; flex-direction: row; align-items: center; gap: 6px; overflow-x: auto; padding: 10px 12px; border-right: 0; border-bottom: 1px solid var(--border); }
+        .brand { flex: 0 0 auto; padding: 0 7px 0 0; }
+        .brand-copy, .nav-label, .sidebar-spacer, .sidebar-progress { display: none; }
+        .nav-item[data-view="notes"], .nav-item[data-view="settings"] { display: none; }
+        .nav-item { width: auto; flex: 0 0 auto; margin: 0; padding: 0 10px; }
+        .nav-item .nav-count { display: none; }
+        .page-header { display: block; padding: 15px 14px 0; }
+        .page-header h1 { font-size: 19px; }
+        .header-actions .btn-ghost { display: none; }
+        .header-actions { width: 100%; margin-top: 10px; }
+        .header-actions .btn-primary { width: 100%; }
+        .content { padding: 12px 14px 18px; }
+        .welcome { grid-template-columns: 1fr; min-height: 0; padding: 16px; }
+        .progress-ring { display: none; }
+        .stats { grid-template-columns: 1fr; gap: 7px; }
+        .stat-card { padding: 10px; }
+        .stat-value { font-size: 17px; }
+        .stat-value small { display: block; margin: 2px 0 0; }
+        .task-row { padding: 11px 12px; }
+        .roadmap-body, .flash-body { padding-left: 12px; padding-right: 12px; }
+        .toast { right: 14px; bottom: 14px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="window">
+      <header class="titlebar">
+        <div class="traffic" aria-hidden="true"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <div class="titlebar-title">StudyFlow · 学习程序</div>
+        <div class="titlebar-tools">
+          <span class="sync-state"><span class="sync-dot" aria-hidden="true"></span>已同步</span>
+          <button class="icon-button" id="themeToggle" type="button" aria-label="切换深浅色主题">
+            <svg class="icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 15.2A8.5 8.5 0 0 1 8.8 3.6 8.5 8.5 0 1 0 20.4 15.2Z"></path></svg>
+            <svg class="icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="shell">
+        <aside class="sidebar" aria-label="学习导航">
+          <div class="brand">
+            <div class="brand-logo">SF</div>
+            <div class="brand-copy"><strong>StudyFlow</strong><span>路径 · 专注 · 复习</span></div>
+          </div>
+
+          <div class="nav-label">学习空间</div>
+          <button class="nav-item active" type="button" data-view="today" aria-current="page">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5z"></path><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20M8 7h8M8 10h6"></path></svg>
+            今日路径<span class="nav-count">4</span>
+          </button>
+          <button class="nav-item" type="button" data-view="courses">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 6 9-3 9 3-9 3z"></path><path d="M5 8.5V15c0 1.7 3.1 3 7 3s7-1.3 7-3V8.5M21 7v6"></path></svg>
+            课程库<span class="nav-count">12</span>
+          </button>
+          <button class="nav-item" type="button" data-view="review">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M8 2v4M16 2v4M3 10h18M8 14h3M8 17h6"></path></svg>
+            复习日历
+          </button>
+
+          <div class="nav-label" style="margin-top:14px">个人空间</div>
+          <button class="nav-item" type="button" data-view="notes">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17z"></path><path d="m14 7 3 3M4 4h7M4 8h5"></path></svg>
+            我的笔记
+          </button>
+          <button class="nav-item" type="button" data-view="settings">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.4 1.4-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-2v-.2a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L9 17l.1-.1A1.7 1.7 0 0 0 9.4 15a1.7 1.7 0 0 0-1.6-1H7v-2h.8a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L9 9l1.4-1.4.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6v-.2h2v.2a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L20 9l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v2h-.2a1.7 1.7 0 0 0-1.8 1Z"></path></svg>
+            偏好设置
+          </button>
+
+          <div class="sidebar-spacer"></div>
+          <div class="sidebar-progress">
+            <div class="sidebar-progress-head"><span>本周完成度</span><strong id="sidebarPercent">68%</strong></div>
+            <div class="bar" aria-hidden="true"><i id="sidebarBar"></i></div>
+          </div>
+        </aside>
+
+        <main class="main">
+          <header class="page-header">
+            <div>
+              <div class="eyebrow">周五 · 06 月 07 日</div>
+              <h1 id="pageTitle">今日学习计划</h1>
+              <p id="pageSubtitle"><span class="sync-dot" aria-hidden="true" style="display:inline-block;margin-right:5px;vertical-align:middle"></span>计算机网络 · 第 3 周 · 目标 90 分钟</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-ghost" id="reportButton" type="button">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg>
+                导出周报
+              </button>
+              <button class="btn btn-primary" id="headerStart" type="button">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"></path></svg>
+                开始专注
+              </button>
+            </div>
+          </header>
+
+          <div class="content" id="content">
+            <section class="welcome" aria-labelledby="welcomeTitle">
+              <div>
+                <div class="eyebrow">当前学习路径 · 计算机网络</div>
+                <h2 id="welcomeTitle">把今天的 90 分钟，交给传输层。</h2>
+                <p>先完成 TCP 握手与可靠传输，再用闪卡把概念压缩成可回忆的线索。你已经连续学习 12 天。</p>
+                <div class="welcome-actions">
+                  <button class="btn btn-primary" id="continueButton" type="button">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"></path></svg>
+                    继续上次进度
+                  </button>
+                  <span class="pill hot">第 3 周</span>
+                </div>
+              </div>
+              <div class="progress-ring" id="weeklyRing" style="--progress:68%" role="img" aria-label="本周学习完成度 68%">
+                <div class="progress-ring-label"><strong id="weeklyPercent">68%</strong><span>本周目标</span></div>
+              </div>
+            </section>
+
+            <section class="stats" aria-label="学习概览">
+              <article class="stat-card"><div class="stat-label">本周专注</div><div class="stat-value" id="focusStat">5h 28m <small>+18%</small></div><div class="stat-meta">比上周多 52 分钟</div></article>
+              <article class="stat-card"><div class="stat-label">任务完成</div><div class="stat-value" id="taskStat">3 / 5 <small>今日</small></div><div class="stat-meta">还剩 2 个关键任务</div></article>
+              <article class="stat-card"><div class="stat-label">连续学习</div><div class="stat-value">12 <small>天</small></div><div class="stat-meta">最长连续记录 18 天</div></article>
+            </section>
+
+            <div class="content-grid">
+              <section class="panel" aria-labelledby="tasksTitle">
+                <div class="panel-head">
+                  <div><h2 id="tasksTitle">今日任务</h2><p id="taskSummary">3 / 5 项已完成 · 预计剩余 48 分钟</p></div>
+                  <button class="head-action" id="clearTasks" type="button">清除完成项</button>
+                </div>
+                <div class="task-list" id="taskList">
+                  <div class="task-row completed" data-minutes="18">
+                    <button class="task-check" type="button" aria-label="标记 TCP 状态机为未完成" aria-pressed="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg></button>
+                    <div><div class="task-title">TCP 状态机速记</div><div class="task-desc">整理 SYN、SYN-ACK、ACK 的状态变化</div></div><span class="task-time">18 分钟</span>
+                  </div>
+                  <div class="task-row completed" data-minutes="22">
+                    <button class="task-check" type="button" aria-label="标记可靠传输为未完成" aria-pressed="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg></button>
+                    <div><div class="task-title">可靠传输机制</div><div class="task-desc">滑动窗口、超时重传与快速重传</div></div><span class="task-time">22 分钟</span>
+                  </div>
+                  <div class="task-row completed" data-minutes="14">
+                    <button class="task-check" type="button" aria-label="标记课堂笔记为未完成" aria-pressed="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg></button>
+                    <div><div class="task-title">课堂笔记归档</div><div class="task-desc">把零散记录合并到传输层章节</div></div><span class="task-time">14 分钟</span>
+                  </div>
+                  <div class="task-row" data-minutes="35">
+                    <button class="task-check" type="button" aria-label="标记套接字练习为已完成" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg></button>
+                    <div><div class="task-title">套接字练习</div><div class="task-desc">完成 3 道编程题，验证连接建立流程</div></div><span class="task-time">35 分钟</span>
+                  </div>
+                  <div class="task-row" data-minutes="18">
+                    <button class="task-check" type="button" aria-label="标记 UDP 场景卡片为已完成" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg></button>
+                    <div><div class="task-title">UDP 场景卡片</div><div class="task-desc">用 5 张闪卡解释无连接传输的取舍</div></div><span class="task-time">18 分钟</span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="focus-card" id="focusCard" aria-labelledby="focusTitle">
+                <div class="focus-head"><div><h2 id="focusTitle">专注计时</h2><p id="timerStatus">准备好开始下一轮</p></div><span class="pill hot" id="timerModeLabel">专注</span></div>
+                <div class="timer-wrap">
+                  <div class="timer-ring" id="timerRing" style="--progress:0%" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="专注进度">
+                    <div class="timer-content"><time id="timerText">25:00</time><span>专注时段</span></div>
+                  </div>
+                </div>
+                <div class="mode-switch" aria-label="选择计时模式">
+                  <button type="button" class="active" data-minutes="25" data-label="专注">25 分钟</button>
+                  <button type="button" data-minutes="5" data-label="短休息">5 分钟</button>
+                  <button type="button" data-minutes="50" data-label="深度专注">50 分钟</button>
+                </div>
+                <div class="timer-actions">
+                  <button class="btn btn-ghost" id="resetTimer" type="button">重置</button>
+                  <button class="btn btn-primary" id="toggleTimer" type="button"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"></path></svg><span>开始</span></button>
+                </div>
+                <p class="focus-note">完成一轮后休息 5 分钟，保持节奏。</p>
+              </section>
+            </div>
+
+            <div class="lower-grid">
+              <section class="panel roadmap" aria-labelledby="roadmapTitle">
+                <div class="panel-head"><div><h2 id="roadmapTitle">学习路线</h2><p>计算机网络 · 4 个阶段</p></div><span class="pill ok">进行中</span></div>
+                <div class="roadmap-body">
+                  <button class="road-step done" type="button" data-step="基础概念"><span class="step-mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg></span><span><span class="step-title">网络分层与寻址</span><span class="step-meta">已完成 · 6 个练习</span></span><span class="step-score">100%</span></button>
+                  <button class="road-step current" type="button" data-step="传输层"><span class="step-mark">2</span><span><span class="step-title">传输层</span><span class="step-meta">当前阶段 · TCP / UDP</span></span><span class="step-score">72%</span></button>
+                  <button class="road-step" type="button" data-step="应用层"><span class="step-mark">3</span><span><span class="step-title">应用层协议</span><span class="step-meta">HTTP、DNS 与缓存</span></span><span class="step-score">待开始</span></button>
+                  <button class="road-step" type="button" data-step="综合项目"><span class="step-mark">4</span><span><span class="step-title">综合项目</span><span class="step-meta">搭建一个可观测服务</span></span><span class="step-score">待开始</span></button>
+                </div>
+              </section>
+
+              <section class="panel flashcard" aria-labelledby="flashTitle">
+                <div class="panel-head"><div><h2 id="flashTitle">闪卡复习</h2><p id="flashCount">3 / 18 · 间隔重复</p></div><span class="pill warn">到期 6 张</span></div>
+                <div class="flash-body">
+                  <div class="flash-meta"><span id="flashTag">传输层 / 概念</span><span>本轮 8 分钟</span></div>
+                  <div class="flash-question" id="flashQuestion">三次握手里，为什么需要第三次 ACK？</div>
+                  <div class="flash-answer" id="flashAnswer" hidden>第三次 ACK 让服务端确认客户端已经收到 SYN-ACK，双方都能确认对方的收发能力，连接才进入稳定的数据传输状态。</div>
+                  <div class="flash-actions">
+                    <button class="btn btn-ghost" id="reviewLater" type="button">稍后再复习</button>
+                    <button class="btn btn-secondary" id="showAnswer" type="button">显示答案</button>
+                    <button class="btn btn-primary" id="rememberCard" type="button" disabled>记住了</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <form class="note-strip" id="noteForm">
+              <span class="icon-tile" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17z"></path><path d="m14 7 3 3M4 4h7M4 8h5"></path></svg></span>
+              <label class="sr-only" for="quickNote">添加学习笔记</label>
+              <input id="quickNote" type="text" placeholder="把刚才的理解记成一句话……" autocomplete="off" />
+              <button class="btn btn-secondary" type="submit">保存笔记</button>
+            </form>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const themeKey = "app-shell-theme";
+        const toast = document.getElementById("toast");
+        let toastTimer;
+
+        const showToast = (message) => {
+          toast.textContent = message;
+          toast.classList.add("show");
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+        };
+
+        const applyTheme = (theme) => {
+          root.setAttribute("data-theme", theme);
+          try { localStorage.setItem(themeKey, theme); } catch (error) { /* 无持久化权限时仍可切换 */ }
+        };
+
+        let savedTheme = null;
+        try { savedTheme = localStorage.getItem(themeKey); } catch (error) { savedTheme = null; }
+        applyTheme(savedTheme === "dark" || savedTheme === "light" ? savedTheme : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+        document.getElementById("themeToggle").addEventListener("click", () => {
+          applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+          showToast(root.getAttribute("data-theme") === "dark" ? "已切换到深色主题" : "已切换到浅色主题");
+        });
+
+        const viewNames = { today: "今日学习计划", courses: "课程库", review: "复习日历", notes: "我的笔记", settings: "偏好设置" };
+        document.querySelectorAll(".nav-item").forEach((item) => {
+          item.addEventListener("click", () => {
+            document.querySelectorAll(".nav-item").forEach((nav) => { nav.classList.remove("active"); nav.removeAttribute("aria-current"); });
+            item.classList.add("active");
+            item.setAttribute("aria-current", "page");
+            const view = item.dataset.view;
+            if (view && view !== "today") showToast(`${viewNames[view]} 视图已选中`);
+          });
+        });
+
+        const taskRows = [...document.querySelectorAll(".task-row")];
+        const taskStat = document.getElementById("taskStat");
+        const taskSummary = document.getElementById("taskSummary");
+        const weeklyRing = document.getElementById("weeklyRing");
+        const weeklyPercent = document.getElementById("weeklyPercent");
+        const sidebarPercent = document.getElementById("sidebarPercent");
+        const sidebarBar = document.getElementById("sidebarBar");
+        const updateTasks = () => {
+          const completed = taskRows.filter((row) => row.classList.contains("completed")).length;
+          const total = taskRows.length;
+          const percentage = Math.round((completed / total) * 100);
+          const remainingMinutes = taskRows.filter((row) => !row.classList.contains("completed")).reduce((sum, row) => sum + Number(row.dataset.minutes || 0), 0);
+          taskStat.innerHTML = `${completed} / ${total} <small>今日</small>`;
+          taskSummary.textContent = `${completed} / ${total} 项已完成 · 预计剩余 ${remainingMinutes} 分钟`;
+          const weekly = Math.min(100, 54 + completed * 4);
+          weeklyRing.style.setProperty("--progress", `${weekly}%`);
+          weeklyRing.setAttribute("aria-label", `本周学习完成度 ${weekly}%`);
+          weeklyPercent.textContent = `${weekly}%`;
+          sidebarPercent.textContent = `${weekly}%`;
+          sidebarBar.style.width = `${weekly}%`;
+        };
+        taskRows.forEach((row) => {
+          const check = row.querySelector(".task-check");
+          check.addEventListener("click", () => {
+            const completed = row.classList.toggle("completed");
+            check.setAttribute("aria-pressed", String(completed));
+            check.setAttribute("aria-label", completed ? `标记 ${row.querySelector(".task-title").textContent} 为未完成` : `标记 ${row.querySelector(".task-title").textContent} 为已完成`);
+            updateTasks();
+            showToast(completed ? "任务已完成，进度已更新" : "任务已移回待办");
+          });
+        });
+        document.getElementById("clearTasks").addEventListener("click", () => {
+          taskRows.forEach((row) => { row.classList.remove("completed"); const check = row.querySelector(".task-check"); check.setAttribute("aria-pressed", "false"); });
+          updateTasks();
+          showToast("已清除完成状态，可重新安排今天的节奏");
+        });
+
+        const timerText = document.getElementById("timerText");
+        const timerRing = document.getElementById("timerRing");
+        const timerStatus = document.getElementById("timerStatus");
+        const timerModeLabel = document.getElementById("timerModeLabel");
+        const toggleTimer = document.getElementById("toggleTimer");
+        let duration = 25 * 60;
+        let remaining = duration;
+        let timerId = null;
+        const formatTime = (seconds) => `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
+        const renderTimer = () => {
+          timerText.textContent = formatTime(remaining);
+          const progress = Math.round(((duration - remaining) / duration) * 100);
+          timerRing.style.setProperty("--progress", `${progress}%`);
+          timerRing.setAttribute("aria-valuenow", String(progress));
+        };
+        const setTimerButton = (running) => {
+          toggleTimer.innerHTML = running ? '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"></path></svg><span>暂停</span>' : '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"></path></svg><span>开始</span>';
+        };
+        const stopTimer = () => { clearInterval(timerId); timerId = null; setTimerButton(false); };
+        const tick = () => {
+          remaining = Math.max(0, remaining - 1);
+          renderTimer();
+          if (remaining === 0) { stopTimer(); timerStatus.textContent = "这一轮完成，休息一下"; showToast("专注完成，建议休息 5 分钟"); }
+        };
+        const startTimer = () => {
+          if (timerId) return;
+          timerStatus.textContent = "专注进行中 · 请把通知交给稍后";
+          setTimerButton(true);
+          timerId = setInterval(tick, 1000);
+        };
+        toggleTimer.addEventListener("click", () => { if (timerId) { stopTimer(); timerStatus.textContent = "已暂停 · 进度会保留"; } else startTimer(); });
+        document.getElementById("resetTimer").addEventListener("click", () => { stopTimer(); remaining = duration; timerStatus.textContent = "准备好开始下一轮"; renderTimer(); showToast("计时已重置"); });
+        document.querySelectorAll(".mode-switch button").forEach((mode) => {
+          mode.addEventListener("click", () => {
+            document.querySelectorAll(".mode-switch button").forEach((button) => button.classList.remove("active"));
+            mode.classList.add("active");
+            duration = Number(mode.dataset.minutes) * 60;
+            remaining = duration;
+            timerModeLabel.textContent = mode.dataset.label;
+            timerStatus.textContent = mode.dataset.label === "短休息" ? "让眼睛离开屏幕一会儿" : "准备好开始下一轮";
+            stopTimer();
+            renderTimer();
+          });
+        });
+        const focusStart = () => { document.getElementById("focusCard").scrollIntoView({ behavior: "smooth", block: "center" }); startTimer(); };
+        document.getElementById("headerStart").addEventListener("click", focusStart);
+        document.getElementById("continueButton").addEventListener("click", focusStart);
+
+        const cards = [
+          { tag: "传输层 / 概念", question: "三次握手里，为什么需要第三次 ACK？", answer: "第三次 ACK 让服务端确认客户端已经收到 SYN-ACK，双方都能确认对方的收发能力，连接才进入稳定的数据传输状态。" },
+          { tag: "传输层 / 对比", question: "什么时候会优先选择 UDP，而不是 TCP？", answer: "当低延迟比可靠重传更重要，且应用本身可以处理丢包或顺序时，UDP 更合适，例如实时音视频和在线游戏。" },
+          { tag: "传输层 / 机制", question: "滑动窗口解决了什么问题？", answer: "它允许发送方在等待确认前连续发送多个报文，从而把链路带宽用起来，并通过窗口大小控制流量。" }
+        ];
+        let cardIndex = 0;
+        const flashCount = document.getElementById("flashCount");
+        const flashTag = document.getElementById("flashTag");
+        const flashQuestion = document.getElementById("flashQuestion");
+        const flashAnswer = document.getElementById("flashAnswer");
+        const showAnswer = document.getElementById("showAnswer");
+        const rememberCard = document.getElementById("rememberCard");
+        const renderCard = () => {
+          const card = cards[cardIndex];
+          flashCount.textContent = `${cardIndex + 3} / 18 · 间隔重复`;
+          flashTag.textContent = card.tag;
+          flashQuestion.textContent = card.question;
+          flashAnswer.textContent = card.answer;
+          flashAnswer.hidden = true;
+          showAnswer.textContent = "显示答案";
+          rememberCard.disabled = true;
+        };
+        showAnswer.addEventListener("click", () => { flashAnswer.hidden = !flashAnswer.hidden; showAnswer.textContent = flashAnswer.hidden ? "显示答案" : "收起答案"; rememberCard.disabled = flashAnswer.hidden; });
+        const nextCard = (message) => { cardIndex = (cardIndex + 1) % cards.length; renderCard(); showToast(message); };
+        document.getElementById("rememberCard").addEventListener("click", () => nextCard("已记住，下一张闪卡已准备好"));
+        document.getElementById("reviewLater").addEventListener("click", () => nextCard("已放回稍后复习队列"));
+
+        document.querySelectorAll(".road-step").forEach((step) => step.addEventListener("click", () => showToast(`已查看「${step.dataset.step}」阶段`)));
+        document.getElementById("reportButton").addEventListener("click", () => {
+          const report = "StudyFlow 学习周报\n\n本周专注：5h 28m\n连续学习：12 天\n当前路径：计算机网络 / 传输层\n\n下一步：完成套接字练习与 UDP 场景卡片。\n";
+          const url = URL.createObjectURL(new Blob([report], { type: "text/plain;charset=utf-8" }));
+          const link = document.createElement("a"); link.href = url; link.download = "studyflow-weekly-report.txt"; link.click(); URL.revokeObjectURL(url);
+          showToast("周报已导出");
+        });
+        document.getElementById("noteForm").addEventListener("submit", (event) => {
+          event.preventDefault();
+          const input = document.getElementById("quickNote");
+          if (!input.value.trim()) { input.focus(); showToast("先写下一句想留下的理解"); return; }
+          showToast("笔记已保存到今日路径"); input.value = "";
+        });
+        renderTimer();
+        updateTasks();
+      })();
+    </script>
+  </body>
+</html>

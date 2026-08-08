@@ -1,0 +1,402 @@
+[
+  {
+    "rank": 1,
+    "name": "Command Palette",
+    "exportName": "CommandPalette",
+    "category": "Advanced UI",
+    "score": 8.37,
+    "file": "components/items/01-command-palette.tsx"
+  },
+  {
+    "rank": 2,
+    "name": "Minimalist Player",
+    "exportName": "MinimalistPlayer",
+    "category": "Advanced UI",
+    "score": 8.19,
+    "file": "components/items/02-minimalist-player.tsx"
+  },
+  {
+    "rank": 3,
+    "name": "Stepper Wizard",
+    "exportName": "StepperWizard",
+    "category": "Information",
+    "score": 8.16,
+    "file": "components/items/03-stepper-wizard.tsx"
+  },
+  {
+    "rank": 4,
+    "name": "Markdown Editor",
+    "exportName": "MarkdownEditor",
+    "category": "Advanced UI",
+    "score": 8.1,
+    "file": "components/items/04-markdown-editor.tsx"
+  },
+  {
+    "rank": 5,
+    "name": "AI Chat Window",
+    "exportName": "AIChatWindow",
+    "category": "AI Interface",
+    "score": 8.1,
+    "file": "components/items/05-ai-chat-window.tsx"
+  },
+  {
+    "rank": 6,
+    "name": "Confetti Burst",
+    "exportName": "ConfettiBurst",
+    "category": "Creative",
+    "score": 8.1,
+    "file": "components/items/06-confetti-burst.tsx"
+  },
+  {
+    "rank": 7,
+    "name": "FAQ Accordion",
+    "exportName": "FAQAccordion",
+    "category": "Information",
+    "score": 8.09,
+    "file": "components/items/07-faq-accordion.tsx"
+  },
+  {
+    "rank": 8,
+    "name": "Prompt Editor",
+    "exportName": "PromptEditor",
+    "category": "AI Interface",
+    "score": 8.06,
+    "file": "components/items/08-prompt-editor.tsx"
+  },
+  {
+    "rank": 9,
+    "name": "Water Ripple Button",
+    "exportName": "WaterRippleButton",
+    "category": "Creative",
+    "score": 8.05,
+    "file": "components/items/09-water-ripple-button.tsx"
+  },
+  {
+    "rank": 10,
+    "name": "Cookie Banner",
+    "exportName": "CookieBanner",
+    "category": "Advanced UI",
+    "score": 8.01,
+    "file": "components/items/10-cookie-banner.tsx"
+  },
+  {
+    "rank": 11,
+    "name": "API Key Manager",
+    "exportName": "APIKeyManager",
+    "category": "SaaS",
+    "score": 7.98,
+    "file": "components/items/11-api-key-manager.tsx"
+  },
+  {
+    "rank": 12,
+    "name": "Tool Call Inspector",
+    "exportName": "ToolCallInspector",
+    "category": "AI Interface",
+    "score": 7.98,
+    "file": "components/items/12-tool-call-inspector.tsx"
+  },
+  {
+    "rank": 13,
+    "name": "Tilt Pricing",
+    "exportName": "TiltPricing",
+    "category": "Advanced UI",
+    "score": 7.97,
+    "file": "components/items/13-tilt-pricing.tsx"
+  },
+  {
+    "rank": 14,
+    "name": "3D Tilt Card",
+    "exportName": "Tilt3DCard",
+    "category": "Creative",
+    "score": 7.97,
+    "file": "components/items/14-3d-tilt-card.tsx"
+  },
+  {
+    "rank": 15,
+    "name": "Sankey Flow Diagram",
+    "exportName": "SankeyFlow",
+    "category": "Data Visualization",
+    "score": 7.95,
+    "file": "components/items/15-sankey-flow-diagram.tsx"
+  },
+  {
+    "rank": 16,
+    "name": "Model Comparator",
+    "exportName": "ModelComparator",
+    "category": "AI Interface",
+    "score": 7.92,
+    "file": "components/items/16-model-comparator.tsx"
+  },
+  {
+    "rank": 17,
+    "name": "Aurora Code Block",
+    "exportName": "AuroraCodeBlock",
+    "category": "Advanced UI",
+    "score": 7.91,
+    "file": "components/items/17-aurora-code-block.tsx"
+  },
+  {
+    "rank": 18,
+    "name": "Metrics Dashboard",
+    "exportName": "MetricsDashboard",
+    "category": "Data Visualization",
+    "score": 7.9,
+    "file": "components/items/18-metrics-dashboard.tsx"
+  },
+  {
+    "rank": 19,
+    "name": "User Management Table",
+    "exportName": "UserManagementTable",
+    "category": "SaaS",
+    "score": 7.89,
+    "file": "components/items/19-user-management-table.tsx"
+  },
+  {
+    "rank": 20,
+    "name": "Feature Flag Matrix",
+    "exportName": "FeatureFlagMatrix",
+    "category": "SaaS",
+    "score": 7.89,
+    "file": "components/items/20-feature-flag-matrix.tsx"
+  },
+  {
+    "rank": 21,
+    "name": "Onboarding Checklist",
+    "exportName": "OnboardingChecklist",
+    "category": "SaaS",
+    "score": 7.89,
+    "file": "components/items/21-onboarding-checklist.tsx"
+  },
+  {
+    "rank": 22,
+    "name": "Plan Upgrade Modal",
+    "exportName": "PlanUpgradeModal",
+    "category": "SaaS",
+    "score": 7.89,
+    "file": "components/items/22-plan-upgrade-modal.tsx"
+  },
+  {
+    "rank": 23,
+    "name": "Linear-style Sidebar",
+    "exportName": "LinearSidebar",
+    "category": "Advanced UI",
+    "score": 7.88,
+    "file": "components/items/23-linear-style-sidebar.tsx"
+  },
+  {
+    "rank": 24,
+    "name": "Usage Quota Meter",
+    "exportName": "UsageQuotaMeter",
+    "category": "SaaS",
+    "score": 7.87,
+    "file": "components/items/24-usage-quota-meter.tsx"
+  },
+  {
+    "rank": 25,
+    "name": "RAG Source Viewer",
+    "exportName": "RAGSourceViewer",
+    "category": "AI Interface",
+    "score": 7.86,
+    "file": "components/items/25-rag-source-viewer.tsx"
+  },
+  {
+    "rank": 26,
+    "name": "Agent Workflow",
+    "exportName": "AgentWorkflow",
+    "category": "AI Interface",
+    "score": 7.86,
+    "file": "components/items/26-agent-workflow.tsx"
+  },
+  {
+    "rank": 27,
+    "name": "Streaming Markdown",
+    "exportName": "StreamingMarkdown",
+    "category": "AI Interface",
+    "score": 7.86,
+    "file": "components/items/27-streaming-markdown.tsx"
+  },
+  {
+    "rank": 28,
+    "name": "Pricing Table",
+    "exportName": "PricingTable",
+    "category": "SaaS",
+    "score": 7.85,
+    "file": "components/items/28-pricing-table.tsx"
+  },
+  {
+    "rank": 29,
+    "name": "Soft Pastel Form",
+    "exportName": "SoftPastelForm",
+    "category": "Advanced UI",
+    "score": 7.85,
+    "file": "components/items/29-soft-pastel-form.tsx"
+  },
+  {
+    "rank": 30,
+    "name": "Stock Candlestick",
+    "exportName": "StockCandlestick",
+    "category": "Data Visualization",
+    "score": 7.85,
+    "file": "components/items/30-stock-candlestick.tsx"
+  },
+  {
+    "rank": 31,
+    "name": "Month Calendar",
+    "exportName": "MonthCalendar",
+    "category": "Information",
+    "score": 7.84,
+    "file": "components/items/31-month-calendar.tsx"
+  },
+  {
+    "rank": 32,
+    "name": "Notification Center",
+    "exportName": "NotificationCenter",
+    "category": "Information",
+    "score": 7.82,
+    "file": "components/items/32-notification-center.tsx"
+  },
+  {
+    "rank": 33,
+    "name": "Bento Grid",
+    "exportName": "BentoGrid",
+    "category": "Advanced UI",
+    "score": 7.82,
+    "file": "components/items/33-bento-grid.tsx"
+  },
+  {
+    "rank": 34,
+    "name": "Roles & Permissions",
+    "exportName": "RolesPermissionsMatrix",
+    "category": "SaaS",
+    "score": 7.81,
+    "file": "components/items/34-roles-permissions.tsx"
+  },
+  {
+    "rank": 35,
+    "name": "Search Results",
+    "exportName": "SearchResults",
+    "category": "Information",
+    "score": 7.79,
+    "file": "components/items/35-search-results.tsx"
+  },
+  {
+    "rank": 36,
+    "name": "Kanban Board",
+    "exportName": "KanbanBoard",
+    "category": "Information",
+    "score": 7.79,
+    "file": "components/items/36-kanban-board.tsx"
+  },
+  {
+    "rank": 37,
+    "name": "Starfield Background",
+    "exportName": "StarfieldBackground",
+    "category": "Creative",
+    "score": 7.79,
+    "file": "components/items/37-starfield-background.tsx"
+  },
+  {
+    "rank": 38,
+    "name": "Particle Constellation",
+    "exportName": "ParticleConstellation",
+    "category": "Creative",
+    "score": 7.79,
+    "file": "components/items/38-particle-constellation.tsx"
+  },
+  {
+    "rank": 39,
+    "name": "Webhook Inspector",
+    "exportName": "WebhookInspector",
+    "category": "SaaS",
+    "score": 7.78,
+    "file": "components/items/39-webhook-inspector.tsx"
+  },
+  {
+    "rank": 40,
+    "name": "Radar Capability Map",
+    "exportName": "RadarCapabilityMap",
+    "category": "Data Visualization",
+    "score": 7.78,
+    "file": "components/items/40-radar-capability-map.tsx"
+  },
+  {
+    "rank": 41,
+    "name": "Comment Thread",
+    "exportName": "CommentThread",
+    "category": "Information",
+    "score": 7.77,
+    "file": "components/items/41-comment-thread.tsx"
+  },
+  {
+    "rank": 42,
+    "name": "Pricing Comparison",
+    "exportName": "PricingComparison",
+    "category": "Information",
+    "score": 7.75,
+    "file": "components/items/42-pricing-comparison.tsx"
+  },
+  {
+    "rank": 43,
+    "name": "Skeleton Loader Set",
+    "exportName": "SkeletonLoaderSet",
+    "category": "Advanced UI",
+    "score": 7.74,
+    "file": "components/items/43-skeleton-loader-set.tsx"
+  },
+  {
+    "rank": 44,
+    "name": "Parallax Hero",
+    "exportName": "ParallaxHero",
+    "category": "Creative",
+    "score": 7.74,
+    "file": "components/items/44-parallax-hero.tsx"
+  },
+  {
+    "rank": 45,
+    "name": "Magnetic Button",
+    "exportName": "MagneticButton",
+    "category": "Creative",
+    "score": 7.73,
+    "file": "components/items/45-magnetic-button.tsx"
+  },
+  {
+    "rank": 46,
+    "name": "Network Topology",
+    "exportName": "NetworkTopology",
+    "category": "Data Visualization",
+    "score": 7.71,
+    "file": "components/items/46-network-topology.tsx"
+  },
+  {
+    "rank": 47,
+    "name": "Terminal Window",
+    "exportName": "TerminalWindow",
+    "category": "Advanced UI",
+    "score": 7.7,
+    "file": "components/items/47-terminal-window.tsx"
+  },
+  {
+    "rank": 48,
+    "name": "Spotlight Card",
+    "exportName": "SpotlightCard",
+    "category": "Advanced UI",
+    "score": 7.7,
+    "file": "components/items/48-spotlight-card.tsx"
+  },
+  {
+    "rank": 49,
+    "name": "Analytics Cockpit",
+    "exportName": "AnalyticsCockpit",
+    "category": "SaaS",
+    "score": 7.69,
+    "file": "components/items/49-analytics-cockpit.tsx"
+  },
+  {
+    "rank": 50,
+    "name": "Token Consumption Panel",
+    "exportName": "TokenConsumption",
+    "category": "AI Interface",
+    "score": 7.69,
+    "file": "components/items/50-token-consumption-panel.tsx"
+  }
+]

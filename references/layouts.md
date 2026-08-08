@@ -72,6 +72,51 @@ Use for: messaging, mail list+reader, notes tree+editor+outline.
 1. Header with sync + primary bulk action  
 2. Single tall panel of status rows (pill right)
 
+## Viewport budget / 单页容量（required）
+
+App Shell UI is a desktop utility, so each route's default state is a focused one-viewport
+task surface rather than a feed that keeps growing below the fold.
+
+- Budget against the complete shell, including titlebar, sidebar, page header, actions,
+  content padding, and a 16–24px bottom breathing room. Use **1280×800** as the minimum
+  desktop check, then spot-check 1440×900 and a narrow mobile viewport.
+- A normal route should contain one primary task surface plus at most one compact supporting
+  row or panel. The console recipe is a priority order, not a mandate to render every layer;
+  choose banner **or** stats when both would push the primary content below the fold.
+- If the content exceeds the budget, reduce visible rows/cards, shorten copy, use tabs,
+  disclosure, pagination, or split the workflow into another route. Do not solve overflow by
+  tiny type, clipped controls, or arbitrary fixed heights.
+- Keep the document and main content canvas non-scrolling by default. A long log, table,
+  message history, or result list may scroll inside **one bounded child region** with a
+  reserved height; avoid several nested scroll containers.
+- Mobile may use natural vertical scrolling for genuinely long content, but the primary
+  action, current status, and page context should be visible in the first viewport.
+
+### Viewport validation
+
+For HTML/React demos, inspect the first-load state in both themes at the target viewport.
+The page passes when the document itself does not need vertical scrolling and every control
+needed for the primary task is visible; an intentional inner list may scroll independently.
+
+```js
+const pageFits = document.documentElement.scrollHeight <= document.documentElement.clientHeight + 1;
+```
+
+Use a bounded region for unavoidable long data:
+
+```css
+.content {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.scroll-region {
+  min-height: 0;
+  max-height: min(420px, 48vh);
+  overflow: auto;
+}
+```
+
 ## Responsive notes
 
 | Breakpoint | Behavior |
@@ -91,8 +136,9 @@ Use for: messaging, mail list+reader, notes tree+editor+outline.
 .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 .content {
   flex: 1;
-  overflow: auto;
-  padding: 4px var(--content-padding) 28px;
+  min-height: 0;
+  overflow: hidden;
+  padding: 4px var(--content-padding) 20px;
   background: var(--bg-app);
 }
 .fruit-grid /* or .card-grid */ {
@@ -112,7 +158,9 @@ When two (or more) content blocks sit **in one row** — e.g. 版主动态 + 快
 2. Each column root is a **flex column** with `height: 100%` / `min-height: 0`.
 3. The **primary surface** inside each column (`.panel` / `.composer` / `.card`) uses `flex: 1` so it grows to match the taller sibling.
 4. If one side is a form: the **textarea / main field grows** (`flex: 1`), not only empty padding under a short control.
-5. Prefer a shared **`min-height`** on the row (e.g. 260–320px) when both sides can be sparse.
+5. Prefer a shared **`min-height`** on the row (e.g. 260–320px) when both sides can be sparse,
+   but only when it stays inside the route's viewport budget; never let the equal-height floor
+   create page overflow.
 6. Stack to one column under ~960px; equal-height applies only while side-by-side.
 7. Do **not** fake alignment with arbitrary fixed heights that clip content; grow the shorter surface instead.
 
@@ -184,8 +232,13 @@ Both direct children of `.two-col` must participate in stretch (same wrapper pat
   margin-top: auto;
 }
 
-/* List panel: body can scroll if sibling is very tall */
+/* List panel: only the bounded body scrolls if the data is inherently long */
 .two-col__surface.panel {
+  min-height: 0;
+}
+
+.two-col__surface.panel .panel__body {
+  min-height: 0;
   overflow: auto;
 }
 
