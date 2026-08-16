@@ -1,6 +1,6 @@
 <div align="center">
   <p>
-    <img src="assets/readme-banner.png" alt="app-shell-ui 品牌封面：两个彼此分离的设计空间" width="100%">
+    <img src="assets/readme-banner.png" alt="app-shell-ui 双模式封面：独立展示 Website Mode 与 App Mode" width="100%">
   </p>
   <p>
     <strong>一个 Skill，两条独立的前端设计路线。</strong><br>
@@ -139,7 +139,7 @@ open http://127.0.0.1:8040/demos/terminal.html
 
 陶瓷示例所需图片保存在 [`assets/ceramics/`](assets/ceramics/)，Interface Fieldbook 直接使用 [`assets/showcase/`](assets/showcase/) 中的真实 Demo 截图，运行时均不请求第三方图库。Website Mode 在缺少合适素材且环境提供 `imagegen` 时，可以生成与页面构图匹配的位图；最终图片必须落入项目目录、写明 `alt`，并经过真实页面截图验证。
 
-README 顶部品牌图由 `imagegen` 使用 `gpt-image-2` 生成，只承担视觉识别，不作为 Website Mode 或 App Mode 的案例证据。
+README 顶部双模式封面由 `imagegen` 使用 `gpt-image-2`，以真实 Website 与 App Demo 截图为输入重新绘制。它只负责概括两条独立设计路线；案例证据仍以对应的浏览器截图与 HTML Demo 为准。
 
 ## 更多 App Mode 示例
 

@@ -1,6 +1,6 @@
 <div align="center">
   <p>
-    <img src="assets/readme-banner.png" alt="app-shell-ui brand cover with two deliberately separate design environments" width="100%">
+    <img src="assets/readme-banner.png" alt="app-shell-ui dual-mode cover showing Website Mode and App Mode independently" width="100%">
   </p>
   <p>
     <strong>One skill, two independent frontend design workflows.</strong><br>
@@ -122,7 +122,7 @@ open http://127.0.0.1:8040/demos/terminal.html
 
 Ceramics media lives under [`assets/ceramics/`](assets/ceramics/), while Interface Fieldbook uses real demo captures from [`assets/showcase/`](assets/showcase/). Neither demo requests third-party image hosts at runtime. When Imagegen is available and a Website Mode brief lacks suitable media, generate composition-specific bitmaps, save the selected outputs into the project, add meaningful `alt` text, and validate them inside the rendered page.
 
-The README brand cover was generated with `imagegen` using `gpt-image-2`. It provides visual identity only and is not evidence for either a Website Mode or App Mode example.
+The README dual-mode cover was redrawn with `imagegen` using `gpt-image-2`, with the real Website and App demo captures as inputs. It summarizes the two independent design routes; the linked browser captures and HTML demos remain the source of evidence.
 
 ## Capabilities
 
