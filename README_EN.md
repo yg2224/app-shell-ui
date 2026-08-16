@@ -1,10 +1,10 @@
 <div align="center">
   <p>
-    <img src="assets/readme-banner.png" alt="app-shell-ui dual-mode frontend design skill: Website Mode and App Mode" width="100%">
+    <img src="assets/readme-banner.png" alt="app-shell-ui brand cover with two deliberately separate design environments" width="100%">
   </p>
   <p>
-    <strong>Choose the surface before choosing pixels.</strong><br>
-    A dual-mode frontend design skill for AI coding agents: Website Mode for public pages, App Mode for signed-in products.
+    <strong>One skill, two independent frontend design workflows.</strong><br>
+    Website Mode serves public pages; App Mode serves signed-in products. Choose the surface before choosing pixels.
   </p>
   <p>
     <a href="LICENSE"><img alt="Apache 2.0" src="https://img.shields.io/badge/license-Apache--2.0-2ea44f"></a>
@@ -22,7 +22,7 @@
 - **App Mode** for signed-in settings, consoles, workbenches, chat, mail, and operational tools.
 - **Website Mode** for marketing sites, landing pages, portfolios, editorial content, documentation, and catalogues.
 
-The two modes may share brand tokens while using separate structures, densities, theme policies, and scrolling models.
+The two modes share brand tokens only when appropriate. Their workflows, page structures, and examples remain independent, with separate density, theme, and scrolling decisions.
 
 ## Two modes
 
@@ -58,41 +58,57 @@ Trigger it directly with `/app-shell-ui` or `use the app-shell-ui skill`.
 
 ## Dual-mode showcase
 
-Four primary examples cover two public website structures and two signed-in tools. Every screenshot is a browser capture of the linked HTML demo.
+The four primary examples are presented in separate mode groups. Website Mode validates visitor journeys and document scrolling; App Mode validates signed-in task canvases and operational state. Every screenshot is a browser capture of the linked HTML demo.
+
+### Website Mode: public pages
+
+These examples do not use App Shell chrome. Their structure, pacing, media, and interaction are designed for public visitors.
 
 <table>
   <tr>
     <td width="50%" valign="top">
-      <p align="center"><strong>01 · Qingxiu Ceramics</strong><br><sub>Website Mode</sub></p>
+      <p align="center"><strong>WEB 01 · Qingxiu Ceramics</strong><br><sub>Experience / Catalog</sub></p>
       <a href="demos/ceramics-final.html"><img src="assets/showcase/ceramics-website.png" alt="Qingxiu Ceramics public website" width="100%"></a>
-      <p align="center"><sub>Experience / Catalog · document scroll · photography · mobile menu and lightbox</sub></p>
+      <p align="center"><sub>immersive object photography · asymmetric index · process disclosure and lightbox</sub></p>
     </td>
     <td width="50%" valign="top">
-      <p align="center"><strong>02 · Interface Fieldbook</strong><br><sub>Website Mode</sub></p>
+      <p align="center"><strong>WEB 02 · Interface Fieldbook</strong><br><sub>Experience / Work Index</sub></p>
       <a href="demos/interface-fieldbook.html"><img src="assets/showcase/interface-fieldbook.png" alt="Interface Fieldbook UI work index" width="100%"></a>
-      <p align="center"><sub>Experience / Work Index · project filters · real demo captures · responsive project rows</sub></p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <p align="center"><strong>03 · Qingxiu Studio Console</strong><br><sub>App Mode</sub></p>
-      <a href="demos/ceramics-studio-app.html"><img src="assets/showcase/ceramics-app-dark.png" alt="Qingxiu Ceramics studio console in dark mode" width="100%"></a>
-      <p align="center"><sub>Console shell · one-viewport task canvas · Light / Dark · search, filters, and validation</sub></p>
-    </td>
-    <td width="50%" valign="top">
-      <p align="center"><strong>04 · TermDock</strong><br><sub>App Mode</sub></p>
-      <a href="demos/terminal.html"><img src="assets/showcase/terminal.png" alt="TermDock terminal and host status workbench" width="100%"></a>
-      <p align="center"><sub>Workbench shell · SSH sessions · terminal canvas · bounded live host status</sub></p>
+      <p align="center"><sub>full-screen study switcher · real demo captures · responsive work index</sub></p>
     </td>
   </tr>
 </table>
 
-| Example | Mode and structure | Primary job | Key implementation |
-| --- | --- | --- | --- |
-| Qingxiu Ceramics | Website · Experience / Catalog | Understand the studio and browse its work and process | Local bitmaps, document scroll, mobile menu, lightbox |
-| Interface Fieldbook | Website · Experience / Work Index | Browse and filter four interface studies | Real demo captures, project filters, mobile navigation, visible focus |
-| Qingxiu Studio Console | App · Console | Manage production stages, kiln runs, and delivery | One-viewport canvas, Light / Dark, search, filters, form validation |
-| TermDock | App · Workbench | Judge SSH sessions, terminal output, and host state together | Stable sidebar, terminal canvas, bounded status rail |
+| Website example | Primary job | Key implementation |
+| --- | --- | --- |
+| Qingxiu Ceramics | Understand the studio and browse its work and process | Local bitmaps, document scroll, mobile menu, lightbox |
+| Interface Fieldbook | Browse and filter four interface studies | Real demo captures, project filters, mobile navigation, visible focus |
+
+### App Mode: signed-in products
+
+These examples do not use Website Mode's marketing or editorial structures. Stable chrome, state evaluation, and repeated action come first.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <p align="center"><strong>APP 01 · Qingxiu Studio Console</strong><br><sub>Console</sub></p>
+      <a href="demos/ceramics-studio-app.html"><img src="assets/showcase/ceramics-app-dark.png" alt="Qingxiu Ceramics studio console in dark mode" width="100%"></a>
+      <p align="center"><sub>one-viewport task canvas · Light / Dark · search, filters, and validation</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <p align="center"><strong>APP 02 · TermDock</strong><br><sub>Workbench</sub></p>
+      <a href="demos/terminal.html"><img src="assets/showcase/terminal.png" alt="TermDock terminal and host status workbench" width="100%"></a>
+      <p align="center"><sub>SSH sessions · terminal canvas · bounded live host status</sub></p>
+    </td>
+  </tr>
+</table>
+
+| App example | Primary job | Key implementation |
+| --- | --- | --- |
+| Qingxiu Studio Console | Manage production stages, kiln runs, and delivery | One-viewport canvas, Light / Dark, search, filters, form validation |
+| TermDock | Judge SSH sessions, terminal output, and host state together | Stable sidebar, terminal canvas, bounded status rail |
+
+### Local preview
 
 ```bash
 cd app-shell-ui
@@ -105,6 +121,8 @@ open http://127.0.0.1:8040/demos/terminal.html
 ```
 
 Ceramics media lives under [`assets/ceramics/`](assets/ceramics/), while Interface Fieldbook uses real demo captures from [`assets/showcase/`](assets/showcase/). Neither demo requests third-party image hosts at runtime. When Imagegen is available and a Website Mode brief lacks suitable media, generate composition-specific bitmaps, save the selected outputs into the project, add meaningful `alt` text, and validate them inside the rendered page.
+
+The README brand cover was generated with `imagegen` using `gpt-image-2`. It provides visual identity only and is not evidence for either a Website Mode or App Mode example.
 
 ## Capabilities
 
@@ -189,6 +207,7 @@ app-shell-ui/
 │   ├── web-frontend.md            # complete Website Mode guide
 │   └── top50-components.md        # React component index
 ├── assets/
+│   ├── readme-banner.png          # Imagegen-generated README brand cover
 │   ├── ceramics/                  # local ceramics demo bitmaps
 │   ├── showcase/                  # README screenshots
 │   └── top50-react/               # 50 React components and gallery resources

@@ -3,539 +3,1023 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="青岫陶作，一页关于泥、釉与火的陶瓷品牌概念网站。" />
-  <meta name="theme-color" content="#f5f6f3" />
-  <title>青岫陶作 | 泥土与火的日用器物</title>
+  <meta name="description" content="青岫陶作，一场关于泥、釉与火的器物展览。" />
+  <meta name="theme-color" content="#f3f3ee" />
+  <title>青岫陶作 | 泥土留下手的温度</title>
   <link rel="icon" href="data:," />
   <link rel="preload" as="image" href="../assets/ceramics/hero-vessels.jpg" fetchpriority="high" />
   <script>document.documentElement.classList.add('js');</script>
   <style>
     :root {
-      --page: #f5f6f3;
-      --surface: #ffffff;
-      --ink: #171917;
-      --muted: #5b625d;
-      --line: #cfd5d0;
-      --cobalt: #1547b7;
-      --cobalt-deep: #0e338b;
-      --cobalt-soft: #dfe8ff;
-      --mineral: #286858;
-      --vermilion: #d4482e;
-      --focus: #d4482e;
-      --on-dark: #f5f6f3;
-      --on-dark-muted: #c3cbc5;
-      --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
-      --font-body: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      --container: 1280px;
+      --paper: #f3f3ee;
+      --white: #ffffff;
+      --ink: #121511;
+      --muted: #5c625d;
+      --line: #bfc5bf;
+      --cobalt: #1645b8;
+      --cobalt-dark: #0c2e82;
+      --fire: #d63b24;
+      --focus: #d63b24;
+      --on-dark: #f7f8f4;
+      --on-dark-muted: #bfc6c0;
+      --container: 1320px;
       --gutter: 48px;
       --header-height: 76px;
+      --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+      --font-body: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
+
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; background: var(--page); }
+    html { scroll-behavior: smooth; background: var(--paper); }
     body {
-      margin: 0; overflow-x: hidden; background: var(--page); color: var(--ink);
-      font-family: var(--font-body); font-size: 16px; line-height: 1.7; letter-spacing: 0;
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+      letter-spacing: 0;
       -webkit-font-smoothing: antialiased;
     }
     body.menu-open { overflow: hidden; }
     img { display: block; width: 100%; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
-    button, input, textarea, select { color: inherit; font: inherit; letter-spacing: 0; }
-    button { cursor: pointer; }
+    button { color: inherit; font: inherit; letter-spacing: 0; }
+    button, a { -webkit-tap-highlight-color: transparent; }
     :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
-    ::selection { background: var(--cobalt); color: #ffffff; }
+    ::selection { background: var(--cobalt); color: var(--white); }
+
     .skip-link {
-      position: fixed; top: 12px; left: 12px; z-index: 200; padding: 10px 14px;
-      transform: translateY(-160%); background: var(--ink); color: var(--on-dark);
-      border-radius: 4px; transition: transform 160ms ease-out;
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 400;
+      padding: 10px 14px;
+      transform: translateY(-160%);
+      background: var(--ink);
+      color: var(--white);
+      font-weight: 700;
+      transition: transform 160ms ease-out;
     }
     .skip-link:focus { transform: translateY(0); }
+
     .site-header {
-      position: fixed; inset: 0 0 auto; z-index: 100; height: var(--header-height);
-      border-bottom: 1px solid transparent; background: transparent;
-      transition: background-color 180ms ease-out, border-color 180ms ease-out;
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 120;
+      height: var(--header-height);
+      border-bottom: 1px solid transparent;
+      color: var(--ink);
+      transition: background-color 180ms ease-out, border-color 180ms ease-out, color 180ms ease-out;
     }
-    .site-header.is-scrolled, body.menu-open .site-header {
-      border-color: rgba(23, 25, 23, 0.14); background: rgba(245, 246, 243, 0.96);
+    .site-header.is-scrolled,
+    body.menu-open .site-header {
+      border-color: rgba(18, 21, 17, 0.22);
+      background: rgba(243, 243, 238, 0.97);
     }
     .header-inner {
-      width: min(100%, calc(var(--container) + var(--gutter) * 2)); height: 100%; margin: 0 auto;
-      padding: 0 var(--gutter); display: flex; align-items: center; justify-content: space-between;
-      gap: 32px;
+      width: min(100%, calc(var(--container) + var(--gutter) * 2));
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 calc(var(--gutter) + 72px) 0 var(--gutter);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 28px;
     }
     .brand {
-      position: relative; z-index: 102; display: inline-flex; align-items: center; gap: 12px;
-      min-width: 0; font-weight: 700; line-height: 1; white-space: nowrap;
+      position: relative;
+      z-index: 122;
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      width: max-content;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
     }
-    .brand-mark {
-      display: grid; width: 34px; height: 34px; place-items: center; flex: 0 0 auto;
-      background: var(--cobalt); color: #ffffff; font-family: var(--font-display);
-      font-size: 19px; font-weight: 600;
+    .brand-seal {
+      display: grid;
+      width: 31px;
+      height: 31px;
+      place-items: center;
+      flex: 0 0 auto;
+      background: var(--fire);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 600;
     }
-    .brand-name { font-size: 15px; }
     .desktop-nav { display: flex; align-items: center; gap: 32px; }
     .desktop-nav a {
-      position: relative; padding: 10px 0; color: #2f3531; font-size: 14px;
-      font-weight: 600; white-space: nowrap;
+      position: relative;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
     }
     .desktop-nav a::after {
-      position: absolute; right: 0; bottom: 5px; left: 0; height: 2px; content: "";
-      transform: scaleX(0); transform-origin: right; background: var(--cobalt);
+      position: absolute;
+      right: 0;
+      bottom: 7px;
+      left: 0;
+      height: 2px;
+      content: "";
+      transform: scaleX(0);
+      transform-origin: right;
+      background: var(--cobalt);
       transition: transform 180ms ease-out;
     }
     .desktop-nav a:hover::after, .desktop-nav a:focus-visible::after {
-      transform: scaleX(1); transform-origin: left;
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    .header-note {
+      justify-self: end;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
     .menu-toggle {
-      position: relative; z-index: 102; display: none; width: 44px; height: 44px; padding: 0;
-      border: 0; background: transparent; color: var(--ink); font-size: 25px; line-height: 1;
+      position: relative;
+      z-index: 122;
+      display: none;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font-size: 27px;
+      line-height: 1;
+      cursor: pointer;
     }
     .mobile-nav {
-      position: fixed; inset: 0; z-index: 101; display: none; place-content: center; gap: 8px;
-      padding: calc(var(--header-height) + 40px) 28px 48px; visibility: hidden; opacity: 0;
-      transform: translateY(-16px); background: var(--page);
-      transition: opacity 180ms ease-out, transform 180ms ease-out, visibility 180ms;
+      position: fixed;
+      inset: 0;
+      z-index: 118;
+      display: none;
+      align-content: center;
+      gap: 4px;
+      padding: calc(var(--header-height) + 30px) var(--gutter) 44px;
+      pointer-events: none;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-12px);
+      background: var(--paper);
+      transition: opacity 180ms ease-out, transform 180ms ease-out, visibility 0s linear 180ms;
     }
-    body.menu-open .mobile-nav { visibility: visible; opacity: 1; transform: translateY(0); }
     .mobile-nav a {
-      padding: 9px 0; font-family: var(--font-display); font-size: 34px; line-height: 1.3;
-      text-align: center; white-space: nowrap;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--font-display);
+      font-size: 35px;
+      font-weight: 600;
+      line-height: 1.35;
     }
+    .mobile-nav small {
+      margin-top: 24px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    body.menu-open .mobile-nav {
+      pointer-events: auto;
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0s;
+    }
+
     main:focus { outline: none; }
-    section { scroll-margin-top: calc(var(--header-height) + 12px); }
+    section { scroll-margin-top: calc(var(--header-height) + 14px); }
+    .container {
+      width: min(100%, calc(var(--container) + var(--gutter) * 2));
+      margin: 0 auto;
+      padding-inline: var(--gutter);
+    }
+
     .hero {
-      position: relative; display: grid; height: min(720px, calc(100svh - 72px));
-      min-height: 620px; overflow: hidden; background: var(--surface);
+      position: relative;
+      height: min(760px, calc(100svh - 56px));
+      min-height: 640px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--ink);
+      background: #e8e8e3;
     }
     .hero-media { position: absolute; inset: 0; }
-    .hero-media img { height: 100%; object-fit: cover; object-position: 50% 62%; }
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 58%;
+    }
     .hero-inner {
-      position: relative; z-index: 1; width: min(100%, calc(var(--container) + var(--gutter) * 2));
-      height: 100%; margin: 0 auto; padding: calc(var(--header-height) + 62px) var(--gutter) 52px;
-      display: grid; grid-template-columns: minmax(0, 1fr) 86px; gap: 32px;
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding-top: calc(var(--header-height) + 28px);
+      padding-right: calc(var(--gutter) + 84px);
+      padding-bottom: 30px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(250px, 0.42fr);
+      gap: 56px;
+      align-items: start;
     }
-    .hero-copy { align-self: start; max-width: 590px; min-width: 0; }
+    .hero-title-wrap { min-width: 0; }
     .hero-kicker {
-      display: flex; align-items: center; gap: 10px; margin: 0 0 14px; color: var(--cobalt-deep);
-      font-size: 13px; font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin: 0 0 10px;
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
     }
-    .hero-kicker::before { width: 32px; height: 2px; content: ""; background: var(--cobalt); }
+    .hero-kicker::before { width: 42px; height: 2px; content: ""; background: currentColor; }
     .hero h1 {
-      max-width: 100%; margin: 0; color: var(--ink); font-family: var(--font-display);
-      font-size: 88px; font-weight: 500; line-height: 1.02; letter-spacing: 0;
+      max-width: 700px;
+      margin: 0;
+      color: var(--cobalt);
+      font-family: var(--font-display);
+      font-size: 116px;
+      font-weight: 600;
+      line-height: 0.94;
+      letter-spacing: 0;
       overflow-wrap: anywhere;
     }
-    .hero-lead {
-      max-width: 420px; margin: 22px 0 0; color: #343a35; font-size: 18px; line-height: 1.65;
+    .hero h1 span { display: block; margin-left: 102px; }
+    .hero-copy {
+      align-self: start;
+      margin-top: 96px;
+      padding-top: 15px;
+      border-top: 2px solid var(--ink);
     }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-    .cta {
-      display: inline-flex; min-height: 46px; align-items: center; justify-content: center; gap: 10px;
-      padding: 0 20px; border: 1px solid transparent; border-radius: 4px; font-size: 14px;
-      font-weight: 700; line-height: 1; white-space: nowrap;
-      transition: color 160ms ease-out, background-color 160ms ease-out,
-        border-color 160ms ease-out, transform 160ms ease-out;
+    .hero-copy p { margin: 0; color: #30342f; font-size: 15px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 18px 26px; margin-top: 24px; }
+    .text-link {
+      display: inline-flex;
+      min-height: 36px;
+      align-items: center;
+      gap: 9px;
+      padding-bottom: 3px;
+      border-bottom: 2px solid currentColor;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
     }
-    .cta:hover { transform: translateY(-2px); }
-    .cta-primary { background: var(--cobalt); color: #ffffff; }
-    .cta-primary:hover { background: var(--cobalt-deep); }
-    .cta-secondary {
-      border-color: rgba(23, 25, 23, 0.42); background: rgba(255, 255, 255, 0.52); color: var(--ink);
+    .text-link.primary { color: var(--cobalt); }
+    .text-link:hover { color: var(--fire); }
+    .hero-folio {
+      position: absolute;
+      bottom: 24px;
+      left: var(--gutter);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
     }
-    .cta-secondary:hover { border-color: var(--ink); background: #ffffff; }
-    .hero-side-note {
-      align-self: center; justify-self: end; padding-left: 18px;
-      border-left: 1px solid rgba(23, 25, 23, 0.34); color: #3f4641;
-      font-family: var(--font-display); font-size: 14px; line-height: 1.7; writing-mode: vertical-rl;
+    .hero-folio::after { width: 64px; height: 1px; content: ""; background: currentColor; }
+    .hero-rail {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 3;
+      width: 72px;
+      padding: 26px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+      background: var(--cobalt);
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
     }
-    .hero-index {
-      position: absolute; right: var(--gutter); bottom: 36px; display: flex; align-items: center;
-      gap: 12px; color: #444b46; font-size: 12px; font-weight: 700;
+    .hero-rail strong { color: #dfe7ff; font-size: 12px; }
+
+    .declaration {
+      position: relative;
+      overflow: hidden;
+      background: var(--ink);
+      color: var(--on-dark);
     }
-    .hero-index::before { width: 44px; height: 1px; content: ""; background: currentColor; }
-    .manifesto { background: var(--ink); color: var(--on-dark); }
-    .manifesto-inner {
-      width: min(100%, calc(var(--container) + var(--gutter) * 2)); margin: 0 auto;
-      padding: 108px var(--gutter) 116px; display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr); gap: 96px; align-items: end;
+    .declaration-inner {
+      min-height: 520px;
+      padding-top: 94px;
+      padding-bottom: 102px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.36fr) minmax(280px, 0.64fr);
+      gap: 90px;
+      align-items: end;
     }
-    .section-number {
-      display: block; margin-bottom: 24px; color: var(--on-dark-muted); font-size: 12px; font-weight: 700;
+    .section-mark {
+      display: block;
+      margin-bottom: 22px;
+      color: var(--fire);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
     }
-    .manifesto h2 {
-      max-width: 840px; margin: 0; font-family: var(--font-display); font-size: 56px;
-      font-weight: 500; line-height: 1.25; letter-spacing: 0; overflow-wrap: anywhere;
+    .declaration h2 {
+      max-width: 840px;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 62px;
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
     }
-    .manifesto-copy { padding-top: 18px; border-top: 2px solid var(--cobalt-soft); }
-    .manifesto-copy p { margin: 0; color: var(--on-dark-muted); font-size: 15px; }
-    .manifesto-copy strong {
-      display: block; margin-bottom: 12px; color: var(--on-dark); font-family: var(--font-display);
-      font-size: 22px; font-weight: 500;
+    .declaration h2 em { color: #89a9ff; font-style: normal; }
+    .declaration-copy {
+      padding-top: 18px;
+      border-top: 2px solid var(--fire);
+      color: var(--on-dark-muted);
+      font-size: 14px;
     }
-    .collection { padding: 120px 0 148px; background: var(--page); }
-    .section-inner {
-      width: min(100%, calc(var(--container) + var(--gutter) * 2)); margin: 0 auto; padding: 0 var(--gutter);
+    .declaration-copy strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--on-dark);
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 500;
     }
-    .section-heading {
-      display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 0.48fr); gap: 72px;
-      align-items: end; margin-bottom: 72px;
+    .declaration-copy p { margin: 0; }
+    .declaration-code {
+      position: absolute;
+      top: 54px;
+      right: -18px;
+      color: rgba(255, 255, 255, 0.06);
+      font-family: var(--font-display);
+      font-size: 230px;
+      font-weight: 600;
+      line-height: 1;
+      pointer-events: none;
     }
-    .section-heading h2 {
-      margin: 0; font-family: var(--font-display); font-size: 58px; font-weight: 500;
-      line-height: 1.16; letter-spacing: 0; overflow-wrap: anywhere;
+
+    .collection {
+      padding: 106px 0 138px;
+      background: var(--paper);
     }
-    .section-heading p { margin: 0; color: var(--muted); font-size: 15px; }
+    .collection-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr);
+      gap: 64px;
+      align-items: end;
+      margin-bottom: 44px;
+    }
+    .collection h2, .process h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+    .collection-head p { margin: 0; color: var(--muted); font-size: 14px; }
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 0;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+    .filters {
+      display: flex;
+      max-width: 100%;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+    .filter {
+      min-height: 40px;
+      padding: 0 15px;
+      border: 1px solid transparent;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .filter:hover { border-color: var(--line); }
+    .filter[aria-pressed="true"] { border-color: var(--cobalt); background: var(--cobalt); color: var(--white); }
+    .filter-count {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
     .work-grid {
-      display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 48px 24px; align-items: start;
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 58px 24px;
+      align-items: start;
+      margin-top: 62px;
     }
     .piece { min-width: 0; margin: 0; }
+    .piece[hidden] { display: none; }
     .piece-a { grid-column: 1 / span 7; }
-    .piece-b { grid-column: 9 / span 4; margin-top: 160px; }
-    .piece-c { grid-column: 4 / span 8; margin-top: 40px; }
+    .piece-b { grid-column: 9 / span 4; margin-top: 126px; }
+    .piece-c { grid-column: 4 / span 8; margin-top: 14px; }
     .image-button {
-      position: relative; display: block; width: 100%; padding: 0; overflow: hidden; border: 0;
-      border-radius: 2px; background: #e4e7e3; text-align: left;
+      position: relative;
+      width: 100%;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      border-radius: 0;
+      background: #dfe2de;
+      text-align: left;
+      cursor: zoom-in;
     }
     .piece-a .image-button { aspect-ratio: 5 / 4; }
     .piece-b .image-button { aspect-ratio: 4 / 5; }
     .piece-c .image-button { aspect-ratio: 8 / 5; }
-    .image-button img { height: 100%; object-fit: cover; transition: transform 420ms ease-out; }
-    .piece-b .image-button img { object-position: 50% 52%; }
+    .image-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 420ms ease-out;
+    }
+    .piece-b .image-button img { object-position: 50% 50%; }
     .image-button::after {
-      position: absolute; right: 14px; bottom: 14px; display: grid; width: 36px; height: 36px;
-      place-items: center; content: "+"; border-radius: 50%; background: rgba(245, 246, 243, 0.94);
-      color: var(--ink); font-size: 22px; line-height: 1; opacity: 0; transform: translateY(8px);
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      content: "+";
+      background: var(--fire);
+      color: var(--white);
+      font-size: 23px;
+      line-height: 1;
+      opacity: 0;
+      transform: translateY(8px);
       transition: opacity 180ms ease-out, transform 180ms ease-out;
     }
     .image-button:hover img, .image-button:focus-visible img { transform: scale(1.025); }
     .image-button:hover::after, .image-button:focus-visible::after { opacity: 1; transform: translateY(0); }
     .piece-caption {
-      display: flex; align-items: baseline; justify-content: space-between; gap: 20px;
-      padding-top: 14px; border-top: 1px solid var(--line); margin-top: 14px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: baseline;
+      padding-top: 14px;
+      margin-top: 14px;
+      border-top: 1px solid var(--line);
     }
-    .piece-caption strong { font-family: var(--font-display); font-size: 20px; font-weight: 500; }
-    .piece-caption span {
-      flex: 0 0 auto; color: var(--muted); font-size: 12px; font-weight: 700; white-space: nowrap;
+    .piece-caption b { color: var(--fire); font-family: var(--font-mono); font-size: 10px; }
+    .piece-caption strong { font-family: var(--font-display); font-size: 22px; font-weight: 500; }
+    .piece-caption span { color: var(--muted); font-size: 11px; font-weight: 700; white-space: nowrap; }
+
+    .process {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(400px, 0.88fr);
+      min-height: 790px;
+      background: var(--cobalt);
+      color: var(--white);
     }
-    .process { background: var(--cobalt); color: #ffffff; }
-    .process-inner {
-      width: min(100%, calc(var(--container) + var(--gutter) * 2)); min-height: 760px;
-      margin: 0 auto; padding-left: var(--gutter); display: grid;
-      grid-template-columns: minmax(360px, 0.78fr) minmax(0, 1.22fr); align-items: stretch;
-    }
+    .process-media { min-width: 0; overflow: hidden; }
+    .process-media img { height: 100%; object-fit: cover; object-position: 50% 44%; }
     .process-copy {
-      min-width: 0; padding: 104px 72px 104px 0; display: flex; flex-direction: column; justify-content: center;
+      min-width: 0;
+      padding: 84px clamp(42px, 6vw, 92px) 78px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-    .process-copy .section-number { color: #dce5ff; }
-    .process h2 {
-      margin: 0; font-family: var(--font-display); font-size: 52px; font-weight: 500;
-      line-height: 1.22; letter-spacing: 0; overflow-wrap: anywhere;
+    .process .section-mark { color: #ffb0a4; }
+    .process h2 { max-width: 540px; }
+    .process-lead { max-width: 510px; margin: 24px 0 38px; color: #dce5ff; font-size: 15px; }
+    .steps { border-top: 1px solid rgba(255, 255, 255, 0.46); }
+    .step { border-bottom: 1px solid rgba(255, 255, 255, 0.46); }
+    .step-button {
+      width: 100%;
+      min-height: 66px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--white);
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr) 32px;
+      gap: 12px;
+      align-items: center;
+      text-align: left;
+      cursor: pointer;
     }
-    .process-lead { max-width: 470px; margin: 24px 0 42px; color: #dce5ff; font-size: 16px; }
-    .process-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(255, 255, 255, 0.38); }
-    .process-list li {
-      display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; gap: 12px; align-items: center;
-      min-height: 64px; border-bottom: 1px solid rgba(255, 255, 255, 0.38);
+    .step-button b { font-family: var(--font-mono); font-size: 10px; }
+    .step-button strong { font-family: var(--font-display); font-size: 21px; font-weight: 500; }
+    .step-icon { justify-self: end; font-size: 23px; font-weight: 400; }
+    .step-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 220ms ease-out;
     }
-    .process-list b { font-size: 12px; font-weight: 700; }
-    .process-list strong { font-family: var(--font-display); font-size: 20px; font-weight: 500; }
-    .process-list span { color: #dce5ff; font-size: 13px; white-space: nowrap; }
-    .process-media { min-width: 0; min-height: 100%; }
-    .process-media img {
-      height: 100%; min-height: 760px; object-fit: cover; object-position: center;
-    }
-    .closing { position: relative; overflow: hidden; background: var(--surface); }
-    .closing::before {
-      position: absolute; inset: 0 auto 0 0; width: 12px; content: ""; background: var(--mineral);
+    .step-panel > div { overflow: hidden; }
+    .step-panel p { max-width: 470px; margin: 0; padding: 0 32px 20px 50px; color: #dce5ff; font-size: 13px; }
+    .step.is-open .step-panel { grid-template-rows: 1fr; }
+
+    .closing {
+      padding: 108px 0 118px;
+      background: var(--white);
     }
     .closing-inner {
-      width: min(100%, calc(var(--container) + var(--gutter) * 2)); margin: 0 auto;
-      padding: 128px var(--gutter) 136px; display: grid;
-      grid-template-columns: minmax(0, 1fr) 260px; gap: 88px; align-items: end;
+      display: grid;
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+      gap: 80px;
+      align-items: end;
     }
+    .closing-meta {
+      padding-top: 16px;
+      border-top: 2px solid var(--fire);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .closing-meta strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+    }
+    .closing-meta p { margin: 0 0 22px; }
     .closing h2 {
-      max-width: 860px; margin: 0; font-family: var(--font-display); font-size: 64px;
-      font-weight: 500; line-height: 1.18; letter-spacing: 0; overflow-wrap: anywhere;
+      margin: 0;
+      color: var(--cobalt);
+      font-family: var(--font-display);
+      font-size: 72px;
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
     }
-    .closing-action p { margin: 0 0 22px; color: var(--muted); font-size: 14px; }
+
     .site-footer { background: var(--ink); color: var(--on-dark); }
-    .footer-inner {
-      width: min(100%, calc(var(--container) + var(--gutter) * 2)); margin: 0 auto;
-      padding: 44px var(--gutter) 52px; display: grid;
-      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 48px; align-items: end;
+    .footer-main {
+      min-height: 180px;
+      padding-top: 42px;
+      padding-bottom: 42px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: 32px;
     }
-    .footer-brand { font-family: var(--font-display); font-size: 24px; }
-    .footer-brand small {
-      display: block; margin-top: 6px; color: var(--on-dark-muted); font-family: var(--font-body); font-size: 12px;
-    }
-    .photo-credits {
-      margin: 0; color: var(--on-dark-muted); font-size: 12px; line-height: 1.8; text-align: right;
-    }
-    .photo-credits a { color: #ffffff; text-decoration: underline; text-underline-offset: 3px; }
+    .footer-brand { font-family: var(--font-display); font-size: 28px; font-weight: 500; }
+    .footer-index { color: var(--on-dark-muted); font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; }
+    .footer-top { justify-self: end; padding-bottom: 3px; border-bottom: 1px solid currentColor; font-size: 12px; font-weight: 700; }
+
     .lightbox {
-      width: min(94vw, 1120px); max-width: 1120px; padding: 0; overflow: visible; border: 0;
-      border-radius: 2px; background: var(--ink); color: var(--on-dark);
+      width: min(1120px, calc(100vw - 48px));
+      max-width: none;
+      max-height: calc(100vh - 48px);
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      background: var(--ink);
+      color: var(--white);
     }
-    .lightbox::backdrop { background: rgba(8, 10, 9, 0.86); }
-    .lightbox img { max-height: 78vh; object-fit: contain; background: #0d0f0e; }
-    .lightbox-footer {
-      display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 18px;
+    .lightbox::backdrop { background: rgba(9, 11, 9, 0.84); }
+    .lightbox-stage { position: relative; display: grid; min-height: min(760px, calc(100vh - 48px)); place-items: center; }
+    .lightbox img { width: 100%; height: min(680px, calc(100vh - 128px)); object-fit: contain; }
+    .lightbox-close, .lightbox-prev, .lightbox-next {
+      position: absolute;
+      z-index: 2;
+      display: grid;
+      width: 46px;
+      height: 46px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      background: rgba(18, 21, 17, 0.82);
+      color: var(--white);
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
     }
-    .lightbox-title { margin: 0; font-family: var(--font-display); font-size: 18px; }
-    .lightbox-close {
-      display: grid; width: 44px; height: 44px; place-items: center; flex: 0 0 auto; padding: 0;
-      border: 1px solid rgba(255, 255, 255, 0.34); border-radius: 50%; background: transparent;
-      color: #ffffff; font-size: 28px; line-height: 1;
-      transition: background-color 160ms ease-out, border-color 160ms ease-out;
+    .lightbox-close { top: 14px; right: 14px; }
+    .lightbox-prev { top: 50%; left: 14px; transform: translateY(-50%); }
+    .lightbox-next { top: 50%; right: 14px; transform: translateY(-50%); }
+    .lightbox-caption {
+      position: absolute;
+      right: 82px;
+      bottom: 16px;
+      left: 22px;
+      font-family: var(--font-display);
+      font-size: 18px;
     }
-    .lightbox-close:hover { border-color: #ffffff; background: rgba(255, 255, 255, 0.12); }
-    @media (max-width: 1080px) {
-      :root { --gutter: 32px; }
-      .hero h1 { font-size: 72px; }
-      .manifesto-inner { gap: 56px; }
-      .manifesto h2, .section-heading h2 { font-size: 48px; }
-      .process-copy { padding-right: 48px; }
-      .closing h2 { font-size: 54px; }
+
+    .js [data-reveal] {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 520ms ease-out, transform 520ms ease-out;
     }
+    .js [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1040px) {
+      :root { --gutter: 30px; }
+      .hero h1 { font-size: 96px; }
+      .hero-inner { grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.5fr); gap: 34px; }
+      .declaration-inner { gap: 54px; }
+      .process { grid-template-columns: minmax(0, 1fr) minmax(360px, 0.9fr); }
+    }
+
     @media (max-width: 780px) {
-      :root { --gutter: 22px; --header-height: 68px; }
-      .desktop-nav { display: none; }
-      .menu-toggle { display: grid; place-items: center; }
+      :root { --gutter: 20px; --header-height: 68px; }
+      .header-inner { grid-template-columns: 1fr auto; padding-right: calc(var(--gutter) + 46px); }
+      .desktop-nav, .header-note { display: none; }
+      .menu-toggle { display: grid; place-items: center; justify-self: end; }
       .mobile-nav { display: grid; }
-      .hero { height: min(680px, calc(100svh - 44px)); min-height: 520px; }
+      .hero {
+        height: auto;
+        min-height: calc(100svh - 36px);
+      }
+      .hero-media img { object-position: 50% 72%; }
       .hero-inner {
-        padding-top: calc(var(--header-height) + 52px); padding-bottom: 38px;
-        grid-template-columns: minmax(0, 1fr);
+        min-height: calc(100svh - 36px);
+        padding-top: calc(var(--header-height) + 34px);
+        padding-right: calc(var(--gutter) + 54px);
+        padding-bottom: 76px;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        align-content: start;
       }
-      .hero-media img { object-position: 57% 64%; }
-      .hero-copy { max-width: 470px; }
-      .hero h1 { font-size: 56px; }
-      .hero-lead { max-width: 330px; margin-top: 16px; font-size: 16px; }
-      .hero-actions { margin-top: 22px; }
-      .hero-side-note {
-        position: absolute; right: var(--gutter); bottom: 34px; padding: 0; border: 0;
-        font-size: 12px; writing-mode: horizontal-tb;
+      .hero h1 { max-width: 440px; font-size: 69px; line-height: 0.96; }
+      .hero h1 span { margin-left: 54px; }
+      .hero-copy { max-width: 330px; margin-top: 8px; padding-top: 11px; }
+      .hero-copy p { font-size: 13px; }
+      .hero-actions { margin-top: 16px; }
+      .hero-folio { bottom: 18px; }
+      .hero-rail { width: 44px; padding-block: 18px; }
+      .declaration-inner {
+        min-height: 0;
+        padding-top: 76px;
+        padding-bottom: 82px;
+        grid-template-columns: 1fr;
+        gap: 48px;
       }
-      .hero-index { display: none; }
-      .manifesto-inner, .section-heading, .process-inner, .closing-inner, .footer-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .manifesto-inner { padding-top: 80px; padding-bottom: 84px; gap: 48px; }
-      .manifesto h2, .section-heading h2, .process h2, .closing h2 { font-size: 42px; }
-      .collection { padding: 88px 0 104px; }
-      .section-heading { gap: 24px; margin-bottom: 48px; }
-      .work-grid { grid-template-columns: minmax(0, 1fr); gap: 54px; }
-      .piece-a, .piece-b, .piece-c { grid-column: 1; margin-top: 0; }
-      .piece-b { width: 76%; margin-left: auto; }
-      .process-inner { min-height: 0; padding: 0; }
-      .process-copy { padding: 88px var(--gutter) 80px; }
-      .process-media { height: 66vw; min-height: 420px; }
-      .process-media img { min-height: 0; }
-      .closing-inner { padding-top: 96px; padding-bottom: 104px; gap: 40px; }
-      .closing-action { max-width: 360px; }
-      .footer-inner { gap: 28px; }
-      .photo-credits { text-align: left; }
+      .declaration h2 { font-size: 46px; }
+      .declaration-code { top: 40px; font-size: 160px; }
+      .collection { padding: 78px 0 94px; }
+      .collection-head { grid-template-columns: 1fr; gap: 24px; }
+      .collection h2, .process h2 { font-size: 48px; }
+      .filter-bar { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .filters { width: 100%; padding-bottom: 3px; }
+      .work-grid { grid-template-columns: 1fr; gap: 50px; margin-top: 44px; }
+      .piece-a, .piece-b, .piece-c { grid-column: auto; margin-top: 0; }
+      .piece-a .image-button, .piece-b .image-button, .piece-c .image-button { aspect-ratio: 4 / 3; }
+      .piece-b .image-button { aspect-ratio: 4 / 5; }
+      .process { grid-template-columns: 1fr; min-height: 0; }
+      .process-media { aspect-ratio: 4 / 5; }
+      .process-copy { padding: 68px var(--gutter) 72px; }
+      .closing { padding: 78px 0 86px; }
+      .closing-inner { grid-template-columns: 1fr; gap: 50px; }
+      .closing h2 { font-size: 52px; }
+      .footer-main { grid-template-columns: 1fr auto; min-height: 150px; }
+      .footer-index { display: none; }
+      .lightbox { width: calc(100vw - 24px); max-height: calc(100vh - 24px); }
+      .lightbox-stage { min-height: calc(100vh - 24px); }
     }
-    @media (max-width: 480px) {
-      :root { --gutter: 18px; }
-      .brand-name { font-size: 14px; }
-      .hero h1 { font-size: 48px; }
-      .hero-kicker { margin-bottom: 10px; font-size: 12px; }
-      .hero-actions { align-items: flex-start; flex-direction: column; }
-      .hero-side-note { display: none; }
-      .cta { min-width: 138px; }
-      .manifesto h2, .section-heading h2, .process h2, .closing h2 { font-size: 36px; }
-      .piece-b { width: 84%; }
-      .piece-caption { gap: 12px; }
-      .piece-caption strong { font-size: 18px; }
-      .process-list li { grid-template-columns: 34px minmax(0, 1fr); padding: 10px 0; }
-      .process-list span { grid-column: 2; white-space: normal; }
-      .process-media { min-height: 360px; }
-      .closing::before { width: 7px; }
-      .lightbox { width: calc(100vw - 24px); }
+
+    @media (max-width: 420px) {
+      :root { --gutter: 16px; }
+      .brand { font-size: 13px; }
+      .hero-inner { padding-right: calc(var(--gutter) + 48px); }
+      .hero h1 { font-size: 60px; }
+      .hero h1 span { margin-left: 38px; }
+      .hero-kicker { font-size: 9px; }
+      .hero-copy { max-width: 270px; }
+      .hero-copy p { display: none; }
+      .hero-actions { gap: 12px 18px; }
+      .text-link { font-size: 12px; }
+      .declaration h2 { font-size: 39px; }
+      .collection h2, .process h2 { font-size: 42px; }
+      .piece-caption { grid-template-columns: auto 1fr; }
+      .piece-caption span { grid-column: 2; }
+      .step-panel p { padding-left: 0; }
+      .closing h2 { font-size: 45px; }
+      .footer-brand { font-size: 24px; }
     }
-    @media (max-width: 340px) {
-      .hero h1 { font-size: 43px; }
-      .hero-lead { font-size: 15px; }
-      .manifesto h2, .section-heading h2, .process h2, .closing h2 { font-size: 32px; }
-      .mobile-nav a { font-size: 30px; }
-    }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important; transition-duration: 0.01ms !important;
-      }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+      .js [data-reveal] { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#main-content">跳到主要内容</a>
-  <header class="site-header" data-header>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <header class="site-header" id="site-header">
     <div class="header-inner">
       <a class="brand" href="#top" aria-label="青岫陶作，返回顶部">
-        <span class="brand-mark" aria-hidden="true">青</span><span class="brand-name">青岫陶作</span>
+        <span class="brand-seal" aria-hidden="true">青</span>
+        <span>青岫陶作</span>
       </a>
-      <nav class="desktop-nav" aria-label="主导航">
-        <a href="#idea">理念</a><a href="#collection">器物</a><a href="#process">手作</a>
+      <nav class="desktop-nav" aria-label="主要导航">
+        <a href="#collection">本季器物</a>
+        <a href="#process">制作过程</a>
+        <a href="#about">关于青岫</a>
       </nav>
-      <button class="menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="打开菜单" title="打开菜单" data-menu-toggle>
-        <span aria-hidden="true" data-menu-icon>☰</span>
-      </button>
+      <span class="header-note">Clay / Glaze / Fire</span>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="打开菜单">+</button>
     </div>
-    <nav class="mobile-nav" id="mobile-menu" aria-label="移动端导航" aria-hidden="true" data-mobile-nav>
-      <a href="#idea">理念</a><a href="#collection">器物</a><a href="#process">手作</a>
-    </nav>
   </header>
-  <main id="main-content" tabindex="-1">
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="移动导航">
+    <a href="#collection">本季器物</a>
+    <a href="#process">制作过程</a>
+    <a href="#about">关于青岫</a>
+    <small>Spring firing / Collection 01</small>
+  </nav>
+
+  <main id="main" tabindex="-1">
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-media">
-        <img src="../assets/ceramics/hero-vessels.jpg" width="2200" height="1400" alt="一组具有不同器形与表面肌理的陶瓷花器" fetchpriority="high" />
+        <img src="../assets/ceramics/hero-vessels.jpg" alt="一组形态与釉色各异的手作陶瓷器物" width="2200" height="1400" />
       </div>
-      <div class="hero-inner">
+      <div class="hero-inner container">
+        <div class="hero-title-wrap">
+          <p class="hero-kicker">Spring firing / Collection 01</p>
+          <h1 id="hero-title">青岫<span>陶作</span></h1>
+        </div>
         <div class="hero-copy">
-          <p class="hero-kicker">泥土、釉色与日常</p>
-          <h1 id="hero-title">青岫陶作</h1>
-          <p class="hero-lead">让泥土保留手的力度，让每一次使用继续完成器物。</p>
+          <p>让泥土保留指尖的偏差，让釉色接受火焰的偶然。这里陈列的是器物，也是时间留下的表面。</p>
           <div class="hero-actions">
-            <a class="cta cta-primary" href="#collection">浏览器物 <span aria-hidden="true">→</span></a>
-            <a class="cta cta-secondary" href="#process">了解手作</a>
+            <a class="text-link primary" href="#collection">看本季器物 <span aria-hidden="true">↓</span></a>
+            <a class="text-link" href="#process">看制作过程 <span aria-hidden="true">↘</span></a>
           </div>
         </div>
-        <p class="hero-side-note">器以载日常，火以成其色</p>
-        <p class="hero-index" aria-hidden="true">QINGXIU / CERAMICS</p>
+        <span class="hero-folio">Jingdezhen / Concept archive</span>
+      </div>
+      <aside class="hero-rail" aria-label="本季刊号">
+        <span>Qingxiu Ceramics</span>
+        <strong>01 / 26</strong>
+      </aside>
+    </section>
+
+    <section class="declaration" aria-labelledby="declaration-title">
+      <span class="declaration-code" aria-hidden="true">土</span>
+      <div class="declaration-inner container">
+        <div data-reveal>
+          <span class="section-mark">00 / 起点</span>
+          <h2 id="declaration-title">器物不是被画出来的。它从转动的泥里生长，再由<em>火</em>决定最后的表情。</h2>
+        </div>
+        <div class="declaration-copy" data-reveal>
+          <strong>慢一点，才看得见材料。</strong>
+          <p>拉坯留下手势，修坯留下克制，施釉留下选择。每一道痕迹都服务于拿起、盛放与日常使用。</p>
+        </div>
       </div>
     </section>
-    <section class="manifesto" id="idea" aria-labelledby="idea-title">
-      <div class="manifesto-inner">
-        <div class="reveal">
-          <span class="section-number">01 / 理念</span>
-          <h2 id="idea-title">器物不必喧哗。它只需要在握住、盛放与清洗之间，越来越像你的生活。</h2>
-        </div>
-        <div class="manifesto-copy reveal">
-          <strong>从一团泥开始</strong>
-          <p>保留拉坯留下的细微转纹，也接受釉在火里产生的自然变化。相似的器形，并不追求完全一样的表面。</p>
-        </div>
-      </div>
-    </section>
+
     <section class="collection" id="collection" aria-labelledby="collection-title">
-      <div class="section-inner">
-        <header class="section-heading reveal">
-          <h2 id="collection-title">本季器物索引</h2>
-          <p>从青蓝餐器、素坯花器到安静的日用杯组，器形服务于手和桌面，而釉色保留各自的偶然。</p>
-        </header>
+      <div class="container">
+        <div class="collection-head">
+          <div data-reveal>
+            <span class="section-mark">01 / 本季器物</span>
+            <h2 id="collection-title">从桌面开始，<br />回到手中。</h2>
+          </div>
+          <p data-reveal>以器形、表面与使用关系编排的三组习作，分别回应桌面、瓶器与日用杯器。</p>
+        </div>
+
+        <div class="filter-bar">
+          <div class="filters" role="group" aria-label="筛选器物">
+            <button class="filter" type="button" data-filter="all" aria-pressed="true">全部</button>
+            <button class="filter" type="button" data-filter="table" aria-pressed="false">桌面</button>
+            <button class="filter" type="button" data-filter="vessel" aria-pressed="false">瓶器</button>
+            <button class="filter" type="button" data-filter="cup" aria-pressed="false">杯器</button>
+          </div>
+          <span class="filter-count" aria-live="polite">03 works</span>
+        </div>
+
         <div class="work-grid">
-          <figure class="piece piece-a reveal">
-            <button class="image-button" type="button" data-lightbox data-src="../assets/ceramics/cobalt-table.jpg" data-title="青蓝餐器 / 釉色索引" aria-label="放大查看青蓝餐器">
-              <img src="../assets/ceramics/cobalt-table.jpg" width="1500" height="1200" alt="俯拍木桌上不同青蓝与白色釉面的陶瓷餐器" loading="lazy" />
+          <figure class="piece piece-a" data-category="table" data-reveal>
+            <button class="image-button" type="button" data-lightbox-index="0" aria-label="放大查看钴蓝席器物组合">
+              <img src="../assets/ceramics/cobalt-table.jpg" alt="深色木桌上排列的蓝白与陶土色餐具" width="1500" height="1200" loading="lazy" />
             </button>
-            <figcaption class="piece-caption"><strong>青蓝餐器</strong><span>釉色索引 01</span></figcaption>
+            <figcaption class="piece-caption">
+              <b>01</b><strong>钴蓝席</strong><span>桌面器组</span>
+            </figcaption>
           </figure>
-          <figure class="piece piece-b reveal">
-            <button class="image-button" type="button" data-lightbox data-src="../assets/ceramics/raw-vessels.jpg" data-title="素坯花器 / 器形练习" aria-label="放大查看素坯花器">
-              <img src="../assets/ceramics/raw-vessels.jpg" width="1200" height="1500" alt="一组尚未上釉的陶土长颈花器" loading="lazy" />
+
+          <figure class="piece piece-b" data-category="vessel" data-reveal>
+            <button class="image-button" type="button" data-lightbox-index="1" aria-label="放大查看素胎瓶组">
+              <img src="../assets/ceramics/raw-vessels.jpg" alt="暖色光线中的一组未施釉陶瓶" width="1200" height="1500" loading="lazy" />
             </button>
-            <figcaption class="piece-caption"><strong>素坯花器</strong><span>器形练习 02</span></figcaption>
+            <figcaption class="piece-caption">
+              <b>02</b><strong>素胎瓶组</strong><span>土与光</span>
+            </figcaption>
           </figure>
-          <figure class="piece piece-c reveal">
-            <button class="image-button" type="button" data-lightbox data-src="../assets/ceramics/quiet-cups.jpg" data-title="日用杯组 / 温润白釉" aria-label="放大查看日用杯组">
-              <img src="../assets/ceramics/quiet-cups.jpg" width="1600" height="1100" alt="白色背景前一组米白与暖白釉面的陶瓷杯器" loading="lazy" />
+
+          <figure class="piece piece-c" data-category="cup" data-reveal>
+            <button class="image-button" type="button" data-lightbox-index="2" aria-label="放大查看留白杯组">
+              <img src="../assets/ceramics/quiet-cups.jpg" alt="白色空间里釉色克制的手作杯组" width="1600" height="1100" loading="lazy" />
             </button>
-            <figcaption class="piece-caption"><strong>日用杯组</strong><span>温润白釉 03</span></figcaption>
+            <figcaption class="piece-caption">
+              <b>03</b><strong>留白杯组</strong><span>日用器</span>
+            </figcaption>
           </figure>
         </div>
       </div>
     </section>
+
     <section class="process" id="process" aria-labelledby="process-title">
-      <div class="process-inner">
-        <div class="process-copy reveal">
-          <span class="section-number">02 / 手作</span>
-          <h2 id="process-title">手留下尺度，窑火完成颜色。</h2>
-          <p class="process-lead">每一道工序都在回应上一道工序留下的状态。形、触感与釉色，不被拆成彼此无关的决定。</p>
-          <ol class="process-list">
-            <li><b>01</b><strong>揉泥</strong><span>排出空气，统一湿度</span></li>
-            <li><b>02</b><strong>拉坯</strong><span>以手感控制厚薄</span></li>
-            <li><b>03</b><strong>修坯</strong><span>整理足部与比例</span></li>
-            <li><b>04</b><strong>施釉</strong><span>让表面回应器形</span></li>
-            <li><b>05</b><strong>烧成</strong><span>交给温度与时间</span></li>
-          </ol>
-        </div>
-        <div class="process-media reveal">
-          <img src="../assets/ceramics/wheel-process.jpg" width="1400" height="1600" alt="陶艺师在拉坯机上用双手塑造陶器" loading="lazy" />
+      <div class="process-media">
+        <img src="../assets/ceramics/wheel-process.jpg" alt="陶艺师在拉坯机上用双手塑造陶土" width="1400" height="1600" loading="lazy" />
+      </div>
+      <div class="process-copy">
+        <span class="section-mark">02 / 手与火</span>
+        <h2 id="process-title">形在手中，色在窑里。</h2>
+        <p class="process-lead">制作不是把图纸复制到泥土上，而是在含水量、转速、厚薄与火候之间持续判断。</p>
+        <div class="steps">
+          <article class="step is-open">
+            <button class="step-button" type="button" aria-expanded="true">
+              <b>01</b><strong>拉坯 · 定下重心</strong><span class="step-icon" aria-hidden="true">−</span>
+            </button>
+            <div class="step-panel"><div><p>双手固定泥团的中心，再从内部推开空间。器壁的厚薄从这一刻开始决定。</p></div></div>
+          </article>
+          <article class="step">
+            <button class="step-button" type="button" aria-expanded="false">
+              <b>02</b><strong>修坯 · 留下分寸</strong><span class="step-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="step-panel"><div><p>待泥坯半干后削去多余重量，收紧足部，让器物拿在手中更平衡。</p></div></div>
+          </article>
+          <article class="step">
+            <button class="step-button" type="button" aria-expanded="false">
+              <b>03</b><strong>入窑 · 接受偶然</strong><span class="step-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="step-panel"><div><p>釉层、摆放位置和火焰路径共同作用。出窑时，每件器物都会带回不同的表面。</p></div></div>
+          </article>
         </div>
       </div>
     </section>
-    <section class="closing" aria-labelledby="closing-title">
-      <div class="closing-inner">
-        <h2 id="closing-title" class="reveal">好的器物，不把日常变成仪式；它让日常本身更值得留意。</h2>
-        <div class="closing-action reveal">
-          <p>从器形、釉色与使用方式里，找到适合你的那一件。</p>
-          <a class="cta cta-primary" href="#collection">浏览器物 <span aria-hidden="true">→</span></a>
+
+    <section class="closing" id="about" aria-labelledby="closing-title">
+      <div class="closing-inner container">
+        <div class="closing-meta" data-reveal>
+          <strong>青岫陶作</strong>
+          <p>一个围绕日用器物、材料表面与手工过程建立的概念陶瓷品牌。</p>
+          <a class="text-link primary" href="#collection">回到本季器物 <span aria-hidden="true">↑</span></a>
         </div>
+        <h2 id="closing-title" data-reveal>愿每一次拿起，<br />都能摸到泥土曾经柔软。</h2>
       </div>
     </section>
   </main>
+
   <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">青岫陶作<small>陶瓷品牌概念页面 · 2026</small></div>
-      <p class="photo-credits">
-        摄影素材来自 Unsplash：
-        <a href="https://unsplash.com/photos/white-and-brown-ceramic-vase-R0qthXq3jec" target="_blank" rel="noopener noreferrer">Chloe Bolton</a>、
-        <a href="https://unsplash.com/photos/flatlay-photo-of-ceramic-mugs-and-bowls-IJZY2yXYsp8" target="_blank" rel="noopener noreferrer">Angèle Kamp</a>、
-        <a href="https://unsplash.com/photos/white-clay-vases-on-table-EQpXnijYejQ" target="_blank" rel="noopener noreferrer">Oshin Khandelwal</a>、
-        <a href="https://unsplash.com/photos/white-and-brown-ceramic-bowls-NPPIq1XFdck" target="_blank" rel="noopener noreferrer">Vladimir Gladkov</a>、
-        <a href="https://unsplash.com/photos/person-in-blue-denim-jeans-making-clay-pot-7ZK_CuHroq4" target="_blank" rel="noopener noreferrer">Earl Wilcox</a>。
-        依据 <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash License</a> 使用。
-      </p>
+    <div class="footer-main container">
+      <span class="footer-brand">青岫陶作</span>
+      <span class="footer-index">Concept website / 2026</span>
+      <a class="footer-top" href="#top">回到顶部 ↑</a>
     </div>
   </footer>
-  <dialog class="lightbox" aria-labelledby="lightbox-title" data-lightbox-dialog>
-    <img alt="" data-lightbox-image />
-    <div class="lightbox-footer">
-      <p class="lightbox-title" id="lightbox-title" data-lightbox-title></p>
-      <button class="lightbox-close" type="button" aria-label="关闭大图" title="关闭大图" data-lightbox-close>×</button>
+
+  <dialog class="lightbox" aria-labelledby="lightbox-caption">
+    <div class="lightbox-stage">
+      <button class="lightbox-close" type="button" aria-label="关闭图片" title="关闭">×</button>
+      <button class="lightbox-prev" type="button" aria-label="上一张图片" title="上一张">←</button>
+      <img src="" alt="" />
+      <button class="lightbox-next" type="button" aria-label="下一张图片" title="下一张">→</button>
+      <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
   </dialog>
+
   <script>
-    (() => {
-      const body = document.body;
-      const header = document.querySelector('[data-header]');
-      const menuToggle = document.querySelector('[data-menu-toggle]');
-      const menuIcon = document.querySelector('[data-menu-icon]');
-      const mobileNav = document.querySelector('[data-mobile-nav]');
-      const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
-      const setMenu = (isOpen) => {
-        body.classList.toggle('menu-open', isOpen);
-        menuToggle.setAttribute('aria-expanded', String(isOpen));
-        menuToggle.setAttribute('aria-label', isOpen ? '关闭菜单' : '打开菜单');
-        menuToggle.setAttribute('title', isOpen ? '关闭菜单' : '打开菜单');
-        mobileNav.setAttribute('aria-hidden', String(!isOpen));
-        menuIcon.textContent = isOpen ? '×' : '☰';
-        if (isOpen) mobileNav.querySelector('a').focus();
-        else if (document.activeElement && mobileNav.contains(document.activeElement)) menuToggle.focus();
-      };
-      updateHeader();
-      window.addEventListener('scroll', updateHeader, { passive: true });
-      menuToggle.addEventListener('click', () => setMenu(menuToggle.getAttribute('aria-expanded') !== 'true'));
-      mobileNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
-      window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && body.classList.contains('menu-open')) setMenu(false);
+    const body = document.body;
+    const header = document.querySelector('.site-header');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileLinks = mobileNav.querySelectorAll('a');
+    const filterButtons = document.querySelectorAll('.filter');
+    const pieces = document.querySelectorAll('.piece');
+    const filterCount = document.querySelector('.filter-count');
+    const steps = document.querySelectorAll('.step');
+    const dialog = document.querySelector('.lightbox');
+    const dialogImage = dialog.querySelector('img');
+    const dialogCaption = dialog.querySelector('.lightbox-caption');
+    const lightboxItems = [
+      { src: '../assets/ceramics/cobalt-table.jpg', alt: '深色木桌上排列的蓝白与陶土色餐具', title: '01 / 钴蓝席 · 桌面器组' },
+      { src: '../assets/ceramics/raw-vessels.jpg', alt: '暖色光线中的一组未施釉陶瓶', title: '02 / 素胎瓶组 · 土与光' },
+      { src: '../assets/ceramics/quiet-cups.jpg', alt: '白色空间里釉色克制的手作杯组', title: '03 / 留白杯组 · 日用器' },
+    ];
+    let activeLightboxIndex = 0;
+
+    function setMenu(open) {
+      body.classList.toggle('menu-open', open);
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+      menuToggle.textContent = open ? '×' : '+';
+      if (open) mobileLinks[0].focus();
+    }
+
+    function updateHeader() {
+      header.classList.toggle('is-scrolled', window.scrollY > 28);
+    }
+
+    function renderLightbox(index) {
+      activeLightboxIndex = (index + lightboxItems.length) % lightboxItems.length;
+      const item = lightboxItems[activeLightboxIndex];
+      dialogImage.src = item.src;
+      dialogImage.alt = item.alt;
+      dialogCaption.textContent = item.title;
+    }
+
+    menuToggle.addEventListener('click', () => setMenu(menuToggle.getAttribute('aria-expanded') !== 'true'));
+    mobileLinks.forEach((link) => link.addEventListener('click', () => setMenu(false)));
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 780 && body.classList.contains('menu-open')) setMenu(false);
+    });
+    updateHeader();
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && body.classList.contains('menu-open')) {
+        setMenu(false);
+        menuToggle.focus();
+      }
+      if (dialog.open && event.key === 'ArrowLeft') renderLightbox(activeLightboxIndex - 1);
+      if (dialog.open && event.key === 'ArrowRight') renderLightbox(activeLightboxIndex + 1);
+    });
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selected = button.dataset.filter;
+        let visible = 0;
+        filterButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        pieces.forEach((piece) => {
+          const show = selected === 'all' || piece.dataset.category === selected;
+          piece.hidden = !show;
+          if (show) visible += 1;
+        });
+        filterCount.textContent = `${String(visible).padStart(2, '0')} ${visible === 1 ? 'work' : 'works'}`;
       });
-      const lightbox = document.querySelector('[data-lightbox-dialog]');
-      const lightboxImage = document.querySelector('[data-lightbox-image]');
-      const lightboxTitle = document.querySelector('[data-lightbox-title]');
-      const lightboxClose = document.querySelector('[data-lightbox-close]');
-      document.querySelectorAll('[data-lightbox]').forEach((trigger) => {
-        trigger.addEventListener('click', () => {
-          lightboxImage.src = trigger.dataset.src;
-          lightboxImage.alt = trigger.querySelector('img').alt;
-          lightboxTitle.textContent = trigger.dataset.title;
-          lightbox.showModal();
+    });
+
+    steps.forEach((step) => {
+      const button = step.querySelector('.step-button');
+      button.addEventListener('click', () => {
+        steps.forEach((item) => {
+          const open = item === step && !item.classList.contains('is-open');
+          item.classList.toggle('is-open', open);
+          item.querySelector('.step-button').setAttribute('aria-expanded', String(open));
+          item.querySelector('.step-icon').textContent = open ? '−' : '+';
         });
       });
-      lightboxClose.addEventListener('click', () => lightbox.close());
-      lightbox.addEventListener('click', (event) => { if (event.target === lightbox) lightbox.close(); });
-    })();
+    });
+
+    document.querySelectorAll('[data-lightbox-index]').forEach((button) => {
+      button.addEventListener('click', () => {
+        renderLightbox(Number(button.dataset.lightboxIndex));
+        dialog.showModal();
+      });
+    });
+    dialog.querySelector('.lightbox-close').addEventListener('click', () => dialog.close());
+    dialog.querySelector('.lightbox-prev').addEventListener('click', () => renderLightbox(activeLightboxIndex - 1));
+    dialog.querySelector('.lightbox-next').addEventListener('click', () => renderLightbox(activeLightboxIndex + 1));
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    const revealItems = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add('is-visible'));
+    }
   </script>
 </body>
 </html>

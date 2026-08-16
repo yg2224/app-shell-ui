@@ -3,31 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Interface Fieldbook is a browsable index of four product interface studies." />
-  <meta name="theme-color" content="#f4f4ef" />
-  <title>Interface Fieldbook | Product UI Studies</title>
+  <meta name="description" content="Interface Fieldbook is an interactive archive of four working product interface studies." />
+  <meta name="theme-color" content="#0b0b0b" />
+  <title>Interface Fieldbook | Four Working Systems</title>
   <link rel="icon" href="data:," />
   <link rel="preload" as="image" href="../assets/showcase/terminal.png" fetchpriority="high" />
   <script>document.documentElement.classList.add('js');</script>
   <style>
     :root {
-      --paper: #f4f4ef;
+      --paper: #f2f2ed;
       --white: #ffffff;
-      --ink: #111111;
-      --muted: #62625d;
-      --line: #c9c9c2;
-      --red: #d6281f;
-      --red-deep: #a91d17;
-      --focus: #d6281f;
-      --container: 1320px;
+      --ink: #0b0b0b;
+      --muted: #676762;
+      --line: #bdbdb6;
+      --signal: #df2b20;
+      --signal-dark: #a91812;
+      --focus: #ff3b30;
+      --container: 1360px;
       --gutter: 44px;
-      --header-height: 68px;
+      --header-height: 70px;
       --font-sans: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
       --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; background: var(--paper); }
+    html { scroll-behavior: smooth; background: var(--ink); }
     body {
       margin: 0;
       overflow-x: hidden;
@@ -40,33 +40,41 @@
       -webkit-font-smoothing: antialiased;
     }
     body.menu-open { overflow: hidden; }
+    img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
     button { color: inherit; font: inherit; letter-spacing: 0; }
-    img { display: block; max-width: 100%; }
+    button, a { -webkit-tap-highlight-color: transparent; }
     :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
-    ::selection { background: var(--red); color: var(--white); }
+    ::selection { background: var(--signal); color: var(--white); }
 
     .skip-link {
       position: fixed;
-      top: 10px;
+      top: 12px;
       left: 12px;
-      z-index: 300;
+      z-index: 400;
       padding: 10px 14px;
       transform: translateY(-160%);
-      background: var(--ink);
-      color: var(--white);
-      font-weight: 700;
+      background: var(--white);
+      color: var(--ink);
+      font-weight: 800;
       transition: transform 160ms ease-out;
     }
     .skip-link:focus { transform: translateY(0); }
 
     .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 140;
       height: var(--header-height);
-      border-bottom: 1px solid var(--ink);
-      background: rgba(244, 244, 239, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.42);
+      color: var(--white);
+      transition: background-color 180ms ease-out, border-color 180ms ease-out, color 180ms ease-out;
+    }
+    .site-header.is-scrolled,
+    body.menu-open .site-header {
+      border-color: var(--ink);
+      background: rgba(242, 242, 237, 0.98);
+      color: var(--ink);
     }
     .header-inner {
       width: min(100%, calc(var(--container) + var(--gutter) * 2));
@@ -76,47 +84,69 @@
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      gap: 24px;
+      gap: 28px;
     }
     .brand {
+      position: relative;
+      z-index: 142;
       display: inline-flex;
       align-items: center;
       gap: 11px;
       width: max-content;
       min-width: 0;
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 900;
       text-transform: uppercase;
       white-space: nowrap;
     }
     .brand-mark {
       display: grid;
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       place-items: center;
       flex: 0 0 auto;
-      background: var(--red);
+      background: var(--signal);
       color: var(--white);
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10px;
     }
-    .desktop-nav { display: flex; align-items: center; gap: 28px; }
+    .desktop-nav { display: flex; align-items: center; gap: 30px; }
     .desktop-nav a {
-      padding: 9px 0;
-      border-bottom: 2px solid transparent;
-      font-size: 13px;
-      font-weight: 700;
+      position: relative;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
     }
-    .desktop-nav a:hover, .desktop-nav a:focus-visible { border-color: var(--red); }
+    .desktop-nav a::after {
+      position: absolute;
+      right: 0;
+      bottom: 6px;
+      left: 0;
+      height: 2px;
+      content: "";
+      transform: scaleX(0);
+      transform-origin: right;
+      background: var(--signal);
+      transition: transform 180ms ease-out;
+    }
+    .desktop-nav a:hover::after, .desktop-nav a:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
     .edition {
       justify-self: end;
-      color: var(--muted);
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10px;
+      font-weight: 700;
       text-transform: uppercase;
       white-space: nowrap;
     }
     .menu-toggle {
+      position: relative;
+      z-index: 142;
       display: none;
       width: 44px;
       height: 44px;
@@ -127,35 +157,36 @@
       line-height: 1;
       cursor: pointer;
     }
-    .mobile-menu {
+    .mobile-nav {
       position: fixed;
-      inset: var(--header-height) 0 0;
-      z-index: 90;
+      inset: 0;
+      z-index: 138;
       display: none;
       align-content: center;
-      gap: 8px;
-      padding: 32px var(--gutter) 48px;
+      gap: 4px;
+      padding: calc(var(--header-height) + 32px) var(--gutter) 48px;
       pointer-events: none;
       visibility: hidden;
       opacity: 0;
-      transform: translateY(-12px);
-      background: var(--paper);
-      transition: opacity 160ms ease-out, transform 160ms ease-out, visibility 0s linear 160ms;
+      transform: translateY(-14px);
+      background: var(--signal);
+      color: var(--white);
+      transition: opacity 180ms ease-out, transform 180ms ease-out, visibility 0s linear 180ms;
     }
-    .mobile-menu a {
+    .mobile-nav a {
       padding: 10px 0;
-      border-bottom: 1px solid var(--line);
-      font-size: 32px;
-      font-weight: 800;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+      font-size: 34px;
+      font-weight: 900;
+      line-height: 1.25;
     }
-    .mobile-menu small {
+    .mobile-nav small {
       margin-top: 24px;
-      color: var(--muted);
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10px;
       text-transform: uppercase;
     }
-    body.menu-open .mobile-menu {
+    body.menu-open .mobile-nav {
       pointer-events: auto;
       visibility: visible;
       opacity: 1;
@@ -164,133 +195,226 @@
     }
 
     main:focus { outline: none; }
-    section { scroll-margin-top: calc(var(--header-height) + 18px); }
+    section { scroll-margin-top: calc(var(--header-height) + 16px); }
     .container {
       width: min(100%, calc(var(--container) + var(--gutter) * 2));
       margin: 0 auto;
       padding-inline: var(--gutter);
     }
 
-    .hero {
-      height: min(780px, calc(100svh - 104px));
-      min-height: 640px;
-      display: grid;
-      grid-template-rows: minmax(270px, 0.76fr) minmax(300px, 1fr);
-      border-bottom: 1px solid var(--ink);
-      background: var(--paper);
+    .archive-hero {
+      position: relative;
+      height: min(820px, calc(100svh - 42px));
+      min-height: 680px;
+      overflow: hidden;
+      background: var(--ink);
+      color: var(--white);
     }
-    .hero-copy {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(250px, 0.5fr);
-      gap: 56px;
-      align-items: end;
-      padding-top: 48px;
-      padding-bottom: 42px;
+    .hero-slides { position: absolute; inset: 0; }
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      visibility: hidden;
+      opacity: 0;
+      transform: scale(1.015);
+      transition: opacity 340ms ease-out, transform 540ms ease-out, visibility 0s linear 540ms;
     }
-    .eyebrow {
+    .hero-slide.is-active {
+      visibility: visible;
+      opacity: 1;
+      transform: scale(1);
+      transition-delay: 0s;
+    }
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.7;
+    }
+    .hero-slide::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background: rgba(0, 0, 0, 0.28);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      height: 100%;
+      padding-top: calc(var(--header-height) + 42px);
+      padding-bottom: 112px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .hero-topline {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin: 0 0 15px;
-      color: var(--red);
+      gap: 12px;
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
     }
-    .eyebrow::before { width: 34px; height: 2px; content: ""; background: currentColor; }
-    .hero h1 {
-      max-width: 890px;
-      margin: 0;
-      font-size: 86px;
+    .hero-topline::before { width: 44px; height: 3px; content: ""; background: var(--signal); }
+    .archive-hero h1 {
+      max-width: 1040px;
+      margin: 12px 0 0;
+      font-size: 104px;
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-shadow: 0 2px 24px rgba(0, 0, 0, 0.48);
+      overflow-wrap: anywhere;
+    }
+    .archive-hero h1 span { display: block; margin-left: 146px; color: transparent; -webkit-text-stroke: 2px var(--white); }
+    .hero-project {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(280px, 0.36fr);
+      gap: 68px;
+      align-items: end;
+    }
+    .hero-project-name { min-width: 0; }
+    .hero-project-name small {
+      display: block;
+      margin-bottom: 8px;
+      color: #d4d4ce;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .hero-project-name strong {
+      display: block;
+      font-size: 46px;
+      font-weight: 900;
+      line-height: 1;
+      overflow-wrap: anywhere;
+    }
+    .hero-project-copy {
+      padding-top: 14px;
+      border-top: 2px solid var(--white);
+    }
+    .hero-project-copy p { margin: 0; color: #e0e0dc; font-size: 13px; }
+    .hero-live-link {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding-bottom: 3px;
+      border-bottom: 2px solid var(--signal);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .hero-live-link:hover { color: #ff786f; }
+    .hero-number {
+      position: absolute;
+      top: 50%;
+      right: var(--gutter);
+      z-index: 4;
+      transform: translateY(-50%);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      writing-mode: vertical-rl;
+    }
+    .hero-number strong { color: #ff7d74; font-size: 18px; }
+    .carousel-bar {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 5;
+      min-height: 74px;
+      background: var(--signal);
+      color: var(--white);
+    }
+    .carousel-inner {
+      min-height: 74px;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 24px;
+    }
+    .carousel-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .slide-tabs { display: flex; align-items: center; gap: 2px; }
+    .slide-tab {
+      width: 46px;
+      height: 46px;
+      padding: 0;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 11px;
       font-weight: 800;
-      line-height: 0.94;
+      cursor: pointer;
+    }
+    .slide-tab:hover { border-color: rgba(255, 255, 255, 0.55); }
+    .slide-tab[aria-pressed="true"] { border-color: var(--white); background: var(--white); color: var(--signal); }
+    .carousel-arrows { display: flex; gap: 2px; }
+    .carousel-arrow {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      background: transparent;
+      color: var(--white);
+      font-size: 21px;
+      cursor: pointer;
+    }
+    .carousel-arrow:hover { background: var(--white); color: var(--signal); }
+
+    .work-index {
+      padding: 108px 0 132px;
+      background: var(--paper);
+    }
+    .work-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.38fr);
+      gap: 68px;
+      align-items: end;
+      margin-bottom: 50px;
+    }
+    .section-code {
+      display: block;
+      margin-bottom: 18px;
+      color: var(--signal);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .work-head h2, .method h2 {
+      max-width: 940px;
+      margin: 0;
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 0.98;
       letter-spacing: 0;
       overflow-wrap: anywhere;
     }
-    .hero-summary {
-      align-self: end;
-      padding-top: 16px;
-      border-top: 2px solid var(--ink);
-    }
-    .hero-summary p { margin: 0; color: #343431; font-size: 15px; }
-    .hero-summary dl {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 6px 14px;
-      margin: 22px 0 0;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      text-transform: uppercase;
-    }
-    .hero-summary dt { color: var(--muted); }
-    .hero-summary dd { margin: 0; text-align: right; }
-    .hero-media {
-      position: relative;
-      min-height: 0;
-      overflow: hidden;
-      border-top: 1px solid var(--ink);
-      background: #0f1115;
-    }
-    .hero-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center top;
-    }
-    .hero-media-label {
-      position: absolute;
-      top: 16px;
-      left: 0;
-      display: inline-flex;
-      align-items: center;
-      min-height: 34px;
-      padding: 0 16px;
-      background: var(--red);
-      color: var(--white);
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .work {
-      padding: 92px 0 126px;
-      background: var(--white);
-    }
-    .section-intro {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.45fr);
-      gap: 56px;
-      align-items: end;
-      margin-bottom: 48px;
-    }
-    .section-index {
-      display: block;
-      margin-bottom: 15px;
-      color: var(--red);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-    }
-    .section-intro h2, .method h2 {
-      margin: 0;
-      font-size: 52px;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: 0;
-    }
-    .section-intro > p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .filter-row {
+    .work-head p { margin: 0; color: var(--muted); font-size: 14px; }
+    .filter-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      padding: 14px 0;
+      padding: 12px 0;
       border-top: 1px solid var(--ink);
       border-bottom: 1px solid var(--ink);
     }
@@ -302,12 +426,12 @@
       scrollbar-width: thin;
     }
     .filter {
-      min-height: 38px;
-      padding: 0 14px;
+      min-height: 40px;
+      padding: 0 15px;
       border: 1px solid transparent;
       background: transparent;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       white-space: nowrap;
       cursor: pointer;
     }
@@ -320,55 +444,78 @@
       font-size: 10px;
       text-transform: uppercase;
     }
-    .project-list { border-bottom: 1px solid var(--ink); }
+    .projects { border-bottom: 1px solid var(--ink); }
     .project {
+      position: relative;
       display: grid;
-      grid-template-columns: 64px minmax(230px, 0.62fr) minmax(0, 1.38fr);
-      gap: 28px;
-      align-items: start;
-      padding: 38px 0 44px;
+      grid-template-columns: 70px minmax(230px, 0.55fr) minmax(0, 1.45fr);
+      gap: 30px;
+      align-items: center;
+      min-height: 470px;
+      padding: 42px 0;
       border-top: 1px solid var(--ink);
+      transition: background-color 180ms ease-out, color 180ms ease-out;
     }
+    .project::before {
+      position: absolute;
+      top: -1px;
+      right: 50%;
+      bottom: -1px;
+      left: 50%;
+      z-index: 0;
+      content: "";
+      background: var(--signal);
+      transition: right 260ms ease-out, left 260ms ease-out;
+    }
+    .project:hover, .project:focus-within { color: var(--white); }
+    .project:hover::before, .project:focus-within::before { right: calc(50% - 50vw); left: calc(50% - 50vw); }
     .project[hidden] { display: none; }
+    .project > * { position: relative; z-index: 1; }
     .project-number {
-      padding-top: 4px;
-      color: var(--red);
+      align-self: start;
+      color: var(--signal);
       font-family: var(--font-mono);
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 900;
+      transition: color 180ms ease-out;
     }
+    .project:hover .project-number, .project:focus-within .project-number { color: var(--white); }
     .project-copy { min-width: 0; }
     .project-type {
-      margin: 0 0 13px;
+      margin: 0 0 12px;
       color: var(--muted);
       font-family: var(--font-mono);
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
+      transition: color 180ms ease-out;
     }
+    .project:hover .project-type, .project:focus-within .project-type,
+    .project:hover .project-description, .project:focus-within .project-description { color: rgba(255, 255, 255, 0.78); }
     .project h3 {
       margin: 0;
-      font-size: 31px;
-      font-weight: 800;
-      line-height: 1.05;
+      font-size: 35px;
+      font-weight: 900;
+      line-height: 1;
       letter-spacing: 0;
       overflow-wrap: anywhere;
     }
     .project-description {
       max-width: 370px;
-      margin: 18px 0 22px;
+      margin: 18px 0 20px;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13px;
+      transition: color 180ms ease-out;
     }
     .project-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 7px 14px;
+      gap: 6px 14px;
       margin: 0;
       padding: 0;
       list-style: none;
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: 9px;
       text-transform: uppercase;
     }
     .project-meta li { position: relative; }
@@ -380,21 +527,22 @@
       height: 3px;
       content: "";
       transform: translateY(-50%);
-      background: var(--red);
+      background: currentColor;
     }
     .project-link {
       display: inline-flex;
+      min-height: 38px;
       align-items: center;
       gap: 9px;
-      margin-top: 26px;
-      padding-bottom: 4px;
-      border-bottom: 2px solid var(--red);
-      font-size: 12px;
-      font-weight: 800;
+      margin-top: 24px;
+      padding-bottom: 3px;
+      border-bottom: 2px solid var(--signal);
+      font-size: 11px;
+      font-weight: 900;
       text-transform: uppercase;
+      white-space: nowrap;
     }
-    .project-link:hover { color: var(--red-deep); }
-    .project-link span { font-size: 17px; line-height: 1; }
+    .project:hover .project-link, .project:focus-within .project-link { border-color: var(--white); }
     .project-visual {
       position: relative;
       display: block;
@@ -402,94 +550,76 @@
       aspect-ratio: 14 / 9;
       min-width: 0;
       overflow: hidden;
-      border: 1px solid #2a2a2a;
-      background: #111111;
+      border: 1px solid #303030;
+      background: var(--ink);
     }
     .project-visual img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transition: transform 240ms ease-out;
+      transition: transform 360ms ease-out;
     }
-    .project-visual::after {
-      position: absolute;
-      inset: 0;
-      content: "";
-      border: 0 solid var(--red);
-      pointer-events: none;
-      transition: border-width 160ms ease-out;
+    .project-visual:hover img, .project-visual:focus-visible img { transform: scale(1.018); }
+
+    .field-note {
+      padding: 98px 0 110px;
+      background: var(--signal);
+      color: var(--white);
     }
-    .project-visual:hover img, .project-visual:focus-visible img { transform: scale(1.012); }
-    .project-visual:hover::after, .project-visual:focus-visible::after { border-width: 5px; }
+    .field-note-inner {
+      display: grid;
+      grid-template-columns: minmax(180px, 0.32fr) minmax(0, 1.68fr);
+      gap: 64px;
+      align-items: start;
+    }
+    .field-note-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .field-note blockquote {
+      max-width: 1050px;
+      margin: 0;
+      font-size: 49px;
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+    .field-note blockquote span { color: #ffc1bc; }
 
     .method {
-      padding: 96px 0 112px;
-      border-top: 1px solid var(--ink);
-      border-bottom: 1px solid var(--ink);
-      background: var(--paper);
-    }
-    .method-heading {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.45fr);
-      gap: 56px;
-      align-items: end;
-      margin-bottom: 54px;
-    }
-    .method-heading p { margin: 0; color: var(--muted); font-size: 14px; }
-    .method-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      border-top: 1px solid var(--ink);
-      border-bottom: 1px solid var(--ink);
-    }
-    .method-item {
-      min-width: 0;
-      padding: 30px 34px 34px 0;
-    }
-    .method-item + .method-item { padding-left: 34px; border-left: 1px solid var(--ink); }
-    .method-item b {
-      display: block;
-      margin-bottom: 36px;
-      color: var(--red);
-      font-family: var(--font-mono);
-      font-size: 11px;
-    }
-    .method-item h3 { margin: 0 0 12px; font-size: 22px; line-height: 1.15; }
-    .method-item p { margin: 0; color: var(--muted); font-size: 13px; }
-
-    .notes {
-      padding: 76px 0 86px;
+      padding: 98px 0 112px;
       background: var(--ink);
       color: var(--white);
     }
-    .notes-inner {
+    .method-head {
       display: grid;
-      grid-template-columns: 0.55fr 1.45fr;
-      gap: 70px;
-      align-items: start;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.38fr);
+      gap: 64px;
+      align-items: end;
+      margin-bottom: 54px;
     }
-    .notes-label {
-      color: #b6b6ae;
+    .method-head p { margin: 0; color: #aaa9a2; font-size: 13px; }
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid rgba(255, 255, 255, 0.44);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.44);
+    }
+    .method-item { min-width: 0; padding: 30px 34px 34px 0; }
+    .method-item + .method-item { padding-left: 34px; border-left: 1px solid rgba(255, 255, 255, 0.44); }
+    .method-item b {
+      display: block;
+      margin-bottom: 40px;
+      color: #ff6a61;
       font-family: var(--font-mono);
       font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
     }
-    .notes blockquote {
-      max-width: 940px;
-      margin: 0;
-      font-size: 34px;
-      font-weight: 700;
-      line-height: 1.18;
-      letter-spacing: 0;
-    }
-    .notes blockquote span { color: #b6b6ae; }
+    .method-item h3 { margin: 0 0 12px; font-size: 22px; line-height: 1.1; }
+    .method-item p { margin: 0; color: #aaa9a2; font-size: 13px; }
 
-    .site-footer {
-      padding: 28px 0;
-      background: var(--red);
-      color: var(--white);
-    }
+    .site-footer { padding: 30px 0; background: var(--white); }
     .footer-inner {
       display: flex;
       align-items: center;
@@ -497,80 +627,96 @@
       gap: 28px;
       font-family: var(--font-mono);
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
     }
     .footer-inner a { padding-bottom: 3px; border-bottom: 1px solid currentColor; }
 
-    @media (max-width: 980px) {
+    .js [data-reveal] {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 480ms ease-out, transform 480ms ease-out;
+    }
+    .js [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1040px) {
       :root { --gutter: 28px; }
-      .hero h1 { font-size: 68px; }
-      .project { grid-template-columns: 46px minmax(200px, 0.7fr) minmax(0, 1.3fr); gap: 20px; }
-      .project h3 { font-size: 26px; }
+      .archive-hero h1 { font-size: 84px; }
+      .hero-project { grid-template-columns: minmax(0, 0.66fr) minmax(260px, 0.42fr); gap: 40px; }
+      .project { grid-template-columns: 50px minmax(210px, 0.62fr) minmax(0, 1.38fr); gap: 20px; }
     }
 
-    @media (max-width: 760px) {
-      :root { --gutter: 20px; --header-height: 64px; }
+    @media (max-width: 780px) {
+      :root { --gutter: 20px; --header-height: 66px; }
       .header-inner { grid-template-columns: 1fr auto; }
       .desktop-nav, .edition { display: none; }
       .menu-toggle { display: grid; place-items: center; justify-self: end; }
-      .mobile-menu { display: grid; }
-      .hero {
-        height: auto;
-        min-height: 0;
-        grid-template-rows: auto auto;
+      .mobile-nav { display: grid; }
+      .archive-hero { height: auto; min-height: calc(100svh - 34px); }
+      .hero-slide img { object-fit: contain; object-position: center; opacity: 0.62; }
+      .hero-slide::after { background: rgba(0, 0, 0, 0.38); }
+      .hero-content {
+        min-height: calc(100svh - 34px);
+        padding-top: calc(var(--header-height) + 34px);
+        padding-bottom: 94px;
       }
-      .hero-copy {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        align-content: start;
-        padding-top: 42px;
-        padding-bottom: 24px;
-      }
-      .hero h1 { max-width: 560px; font-size: 52px; line-height: 0.96; }
-      .hero-summary { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: end; padding-top: 12px; }
-      .hero-summary dl { margin: 0; }
-      .hero-summary p { font-size: 13px; }
-      .hero-media-label { top: 10px; min-height: 30px; padding-inline: 12px; }
-      .hero-media { aspect-ratio: 14 / 9; }
-      .work { padding: 72px 0 90px; }
-      .section-intro, .method-heading { grid-template-columns: 1fr; gap: 22px; }
-      .section-intro h2, .method h2 { font-size: 42px; }
-      .filter-row { align-items: flex-start; flex-direction: column; gap: 10px; }
-      .filters { width: 100%; padding-bottom: 4px; }
-      .project { grid-template-columns: 42px minmax(0, 1fr); padding: 30px 0 38px; }
-      .project-copy { padding-right: 4px; }
+      .archive-hero h1 { font-size: 58px; line-height: 0.92; }
+      .archive-hero h1 span { margin-left: 38px; -webkit-text-stroke-width: 1px; }
+      .hero-project { grid-template-columns: 1fr; gap: 16px; }
+      .hero-project-name strong { font-size: 34px; }
+      .hero-project-copy { max-width: 310px; padding-top: 10px; }
+      .hero-project-copy p { display: none; }
+      .hero-number { right: var(--gutter); font-size: 10px; }
+      .carousel-bar, .carousel-inner { min-height: 64px; }
+      .carousel-label { display: none; }
+      .carousel-inner { grid-template-columns: 1fr auto; gap: 10px; }
+      .slide-tab, .carousel-arrow { width: 42px; height: 42px; }
+      .work-index { padding: 76px 0 92px; }
+      .work-head, .method-head { grid-template-columns: 1fr; gap: 24px; }
+      .work-head h2, .method h2 { font-size: 45px; }
+      .filter-bar { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .filters { width: 100%; padding-bottom: 3px; }
+      .project { grid-template-columns: 38px minmax(0, 1fr); min-height: 0; padding: 34px 0 40px; }
       .project-visual { grid-column: 1 / -1; }
-      .method { padding: 72px 0 82px; }
+      .project::before { display: none; }
+      .project:hover, .project:focus-within { color: var(--ink); }
+      .project:hover .project-number, .project:focus-within .project-number { color: var(--signal); }
+      .project:hover .project-type, .project:focus-within .project-type,
+      .project:hover .project-description, .project:focus-within .project-description { color: var(--muted); }
+      .project:hover .project-link, .project:focus-within .project-link { border-color: var(--signal); }
+      .field-note { padding: 72px 0 80px; }
+      .field-note-inner { grid-template-columns: 1fr; gap: 24px; }
+      .field-note blockquote { font-size: 34px; }
+      .method { padding: 76px 0 84px; }
       .method-grid { grid-template-columns: 1fr; }
-      .method-item { padding: 24px 0 26px; }
-      .method-item + .method-item { padding-left: 0; border-top: 1px solid var(--ink); border-left: 0; }
-      .method-item b { margin-bottom: 18px; }
-      .notes { padding: 64px 0 70px; }
-      .notes-inner { grid-template-columns: 1fr; gap: 26px; }
-      .notes blockquote { font-size: 28px; }
+      .method-item { padding: 26px 0 28px; }
+      .method-item + .method-item { padding-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.44); border-left: 0; }
+      .method-item b { margin-bottom: 20px; }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 440px) {
       :root { --gutter: 16px; }
       .brand { font-size: 12px; }
-      .hero h1 { font-size: 43px; }
-      .hero-summary { grid-template-columns: 1fr; gap: 10px; }
-      .hero-summary p { max-width: 310px; }
-      .hero-summary dl { display: none; }
-      .section-intro h2, .method h2 { font-size: 36px; }
-      .project { grid-template-columns: 32px minmax(0, 1fr); gap: 12px; }
-      .project h3 { font-size: 25px; }
-      .project-description { margin-top: 14px; }
-      .project-link { margin-top: 21px; }
+      .archive-hero h1 { font-size: 48px; }
+      .archive-hero h1 span { margin-left: 24px; }
+      .hero-topline { font-size: 9px; }
+      .hero-project-name strong { font-size: 29px; }
+      .hero-live-link { margin-top: 10px; }
+      .slide-tab { width: 37px; }
+      .carousel-arrow { display: none; }
+      .work-head h2, .method h2 { font-size: 39px; }
+      .project { grid-template-columns: 30px minmax(0, 1fr); gap: 10px; }
+      .project h3 { font-size: 29px; }
       .project-visual { aspect-ratio: 5 / 4; }
-      .notes blockquote { font-size: 25px; }
+      .field-note blockquote { font-size: 29px; }
       .footer-inner { align-items: flex-start; flex-direction: column; gap: 14px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+      .js [data-reveal] { opacity: 1; transform: none; }
+      .hero-slide { transform: none; }
     }
   </style>
 </head>
@@ -579,61 +725,91 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="#top" aria-label="Interface Fieldbook, back to top">
+      <a class="brand" href="#top" aria-label="Interface Fieldbook, return to top">
         <span class="brand-mark" aria-hidden="true">IF</span>
         <span>Interface Fieldbook</span>
       </a>
       <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#work">Work</a>
+        <a href="#work">Index</a>
+        <a href="#note">Field note</a>
         <a href="#method">Method</a>
-        <a href="#notes">Notes</a>
       </nav>
-      <span class="edition">Edition 01 / Demo Archive</span>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">+</button>
+      <span class="edition">Edition 01 / Four systems</span>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">+</button>
     </div>
   </header>
 
-  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
-    <a href="#work">Work</a>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="#work">Index</a>
+    <a href="#note">Field note</a>
     <a href="#method">Method</a>
-    <a href="#notes">Notes</a>
-    <small>Edition 01 / Demo Archive</small>
+    <small>Edition 01 / Four working systems</small>
   </nav>
 
   <main id="main" tabindex="-1">
-    <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero-copy container">
+    <section class="archive-hero" id="top" aria-labelledby="hero-title" aria-roledescription="carousel">
+      <div class="hero-slides">
+        <figure class="hero-slide is-active" data-slide="0" aria-hidden="false">
+          <img src="../assets/showcase/terminal.png" alt="TermDock terminal workspace with SSH sessions and host metrics" width="1400" height="900" />
+        </figure>
+        <figure class="hero-slide" data-slide="1" aria-hidden="true">
+          <img src="../assets/showcase/learning.png" alt="StudyBench learning workspace with lesson and review panels" width="900" height="720" />
+        </figure>
+        <figure class="hero-slide" data-slide="2" aria-hidden="true">
+          <img src="../assets/showcase/chat.png" alt="LinkPane three-column conversation workspace" width="1400" height="900" />
+        </figure>
+        <figure class="hero-slide" data-slide="3" aria-hidden="true">
+          <img src="../assets/showcase/pentest.png" alt="PulseScope security operations workspace" width="1400" height="900" />
+        </figure>
+      </div>
+
+      <div class="hero-content container">
         <div>
-          <p class="eyebrow">Independent product UI studies</p>
-          <h1 id="hero-title">Interface Fieldbook</h1>
+          <span class="hero-topline">Four working systems / Live archive</span>
+          <h1 id="hero-title">Interface<span>Fieldbook</span></h1>
         </div>
-        <div class="hero-summary">
-          <p>A working index of four interfaces shaped around distinct jobs, densities, and interaction patterns.</p>
-          <dl>
-            <dt>Format</dt><dd>Live HTML</dd>
-            <dt>Entries</dt><dd>04</dd>
-            <dt>Status</dt><dd>Demo archive</dd>
-          </dl>
+        <div class="hero-project">
+          <div class="hero-project-name" aria-live="polite">
+            <small>Featured study / 01</small>
+            <strong>TermDock</strong>
+          </div>
+          <div class="hero-project-copy">
+            <p>A terminal-first operations workspace for sessions, command output, and host health.</p>
+            <a class="hero-live-link" href="terminal.html">Open live prototype <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
       </div>
-      <div class="hero-media">
-        <img src="../assets/showcase/terminal.png" alt="TermDock terminal workspace with SSH sessions and live host metrics" width="1400" height="900" />
-        <span class="hero-media-label">Featured / TermDock</span>
+      <span class="hero-number"><strong>01</strong> / 04</span>
+
+      <div class="carousel-bar">
+        <div class="carousel-inner container">
+          <span class="carousel-label">Archive navigator / 01—04</span>
+          <div class="slide-tabs" role="group" aria-label="Select featured study">
+            <button class="slide-tab" type="button" data-slide-target="0" aria-pressed="true">01</button>
+            <button class="slide-tab" type="button" data-slide-target="1" aria-pressed="false">02</button>
+            <button class="slide-tab" type="button" data-slide-target="2" aria-pressed="false">03</button>
+            <button class="slide-tab" type="button" data-slide-target="3" aria-pressed="false">04</button>
+          </div>
+          <div class="carousel-arrows">
+            <button class="carousel-arrow prev-slide" type="button" aria-label="Previous study" title="Previous study">←</button>
+            <button class="carousel-arrow next-slide" type="button" aria-label="Next study" title="Next study">→</button>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="work" id="work" aria-labelledby="work-title">
+    <section class="work-index" id="work" aria-labelledby="work-title">
       <div class="container">
-        <div class="section-intro">
-          <div>
-            <span class="section-index">01 / INDEX</span>
-            <h2 id="work-title">Selected studies</h2>
+        <div class="work-head">
+          <div data-reveal>
+            <span class="section-code">01 / Work index</span>
+            <h2 id="work-title">Four jobs.<br />Four interface structures.</h2>
           </div>
-          <p>Each entry links to its working prototype. The images are direct captures of those prototypes, not presentation mockups.</p>
+          <p data-reveal>Browser-captured studies across operations, learning, and communication.</p>
         </div>
 
-        <div class="filter-row">
-          <div class="filters" role="group" aria-label="Filter projects">
+        <div class="filter-bar">
+          <div class="filters" role="group" aria-label="Filter studies">
             <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
             <button class="filter" type="button" data-filter="operations" aria-pressed="false">Operations</button>
             <button class="filter" type="button" data-filter="learning" aria-pressed="false">Learning</button>
@@ -642,18 +818,14 @@
           <span class="result-count" aria-live="polite">Showing 04 studies</span>
         </div>
 
-        <div class="project-list">
+        <div class="projects">
           <article class="project" data-category="operations">
             <span class="project-number">01</span>
             <div class="project-copy">
               <p class="project-type">Operations / Terminal</p>
               <h3>TermDock</h3>
-              <p class="project-description">A dense SSH workspace that keeps sessions, command output, and host health visible without breaking terminal focus.</p>
-              <ul class="project-meta" aria-label="Project traits">
-                <li>Dark shell</li>
-                <li>Three zones</li>
-                <li>Live state</li>
-              </ul>
+              <p class="project-description">Sessions, command output, and machine state share one bounded operations canvas.</p>
+              <ul class="project-meta" aria-label="Project traits"><li>Dark shell</li><li>Three zones</li><li>Live state</li></ul>
               <a class="project-link" href="terminal.html">Open prototype <span aria-hidden="true">↗</span></a>
             </div>
             <a class="project-visual" href="terminal.html" aria-label="Open the TermDock prototype">
@@ -666,12 +838,8 @@
             <div class="project-copy">
               <p class="project-type">Learning / Workbench</p>
               <h3>StudyBench</h3>
-              <p class="project-description">A study workspace balancing the current lesson, review queue, and quick capture inside one stable task canvas.</p>
-              <ul class="project-meta" aria-label="Project traits">
-                <li>Light shell</li>
-                <li>Equal height</li>
-                <li>Task focus</li>
-              </ul>
+              <p class="project-description">The current lesson, review queue, and quick capture stay visible without competing for focus.</p>
+              <ul class="project-meta" aria-label="Project traits"><li>Light shell</li><li>Equal height</li><li>Task focus</li></ul>
               <a class="project-link" href="learning.html">Open prototype <span aria-hidden="true">↗</span></a>
             </div>
             <a class="project-visual" href="learning.html" aria-label="Open the StudyBench prototype">
@@ -684,16 +852,12 @@
             <div class="project-copy">
               <p class="project-type">Communication / Messaging</p>
               <h3>LinkPane</h3>
-              <p class="project-description">A three-column conversation client with compact navigation, scannable threads, and a focused message pane.</p>
-              <ul class="project-meta" aria-label="Project traits">
-                <li>Three columns</li>
-                <li>Conversation</li>
-                <li>Composer</li>
-              </ul>
+              <p class="project-description">Compact navigation, scannable threads, and a focused message pane form a stable conversation surface.</p>
+              <ul class="project-meta" aria-label="Project traits"><li>Three columns</li><li>Conversation</li><li>Composer</li></ul>
               <a class="project-link" href="chat.html">Open prototype <span aria-hidden="true">↗</span></a>
             </div>
             <a class="project-visual" href="chat.html" aria-label="Open the LinkPane prototype">
-              <img src="../assets/showcase/chat.png" alt="LinkPane three-column conversation client" width="1400" height="900" loading="lazy" />
+              <img src="../assets/showcase/chat.png" alt="LinkPane conversation client" width="1400" height="900" loading="lazy" />
             </a>
           </article>
 
@@ -702,61 +866,45 @@
             <div class="project-copy">
               <p class="project-type">Operations / Security</p>
               <h3>PulseScope</h3>
-              <p class="project-description">A security operations console that separates authorized scope, the active queue, and tool readiness.</p>
-              <ul class="project-meta" aria-label="Project traits">
-                <li>Scope first</li>
-                <li>Risk states</li>
-                <li>Queue view</li>
-              </ul>
+              <p class="project-description">Authorized scope, the active queue, and tool readiness remain distinct under operational pressure.</p>
+              <ul class="project-meta" aria-label="Project traits"><li>Scope first</li><li>Risk states</li><li>Queue view</li></ul>
               <a class="project-link" href="pentest.html">Open prototype <span aria-hidden="true">↗</span></a>
             </div>
             <a class="project-visual" href="pentest.html" aria-label="Open the PulseScope prototype">
-              <img src="../assets/showcase/pentest.png" alt="PulseScope security operations console" width="1400" height="900" loading="lazy" />
+              <img src="../assets/showcase/pentest.png" alt="PulseScope security operations workspace" width="1400" height="900" loading="lazy" />
             </a>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="method" id="method" aria-labelledby="method-title">
-      <div class="container">
-        <div class="method-heading">
-          <div>
-            <span class="section-index">02 / METHOD</span>
-            <h2 id="method-title">From task to surface</h2>
-          </div>
-          <p>The archive uses the same evaluation order for every interface: job, hierarchy, then visual treatment.</p>
-        </div>
-        <div class="method-grid">
-          <article class="method-item">
-            <b>01</b>
-            <h3>Name the job</h3>
-            <p>Define the primary action and the state a person must judge before allocating space.</p>
-          </article>
-          <article class="method-item">
-            <b>02</b>
-            <h3>Budget the viewport</h3>
-            <p>Keep navigation stable, protect the main canvas, and bound long collections deliberately.</p>
-          </article>
-          <article class="method-item">
-            <b>03</b>
-            <h3>Verify the edges</h3>
-            <p>Check real content, keyboard focus, themes, narrow screens, and overflow in the browser.</p>
-          </article>
-        </div>
+    <section class="field-note" id="note" aria-labelledby="field-note-title">
+      <div class="field-note-inner container">
+        <span class="field-note-label" id="field-note-title">02 / Field note</span>
+        <blockquote data-reveal>Interface character should come from the job. <span>Structure earns attention before decoration asks for it.</span></blockquote>
       </div>
     </section>
 
-    <section class="notes" id="notes" aria-labelledby="notes-title">
-      <div class="container notes-inner">
-        <span class="notes-label" id="notes-title">03 / Field note</span>
-        <blockquote>Structure carries the task. <span>Color, type, and motion should make that structure easier to read.</span></blockquote>
+    <section class="method" id="method" aria-labelledby="method-title">
+      <div class="container">
+        <div class="method-head">
+          <div data-reveal>
+            <span class="section-code">03 / Method</span>
+            <h2 id="method-title">From task to surface.</h2>
+          </div>
+          <p data-reveal>The same three checks guide every study in the archive.</p>
+        </div>
+        <div class="method-grid">
+          <article class="method-item"><b>01</b><h3>Name the job</h3><p>Define the primary action and the state a person must judge.</p></article>
+          <article class="method-item"><b>02</b><h3>Budget the viewport</h3><p>Protect the main canvas and bound long collections deliberately.</p></article>
+          <article class="method-item"><b>03</b><h3>Verify the edges</h3><p>Test real content, keyboard focus, themes, and narrow screens.</p></article>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
+    <div class="footer-inner container">
       <span>Interface Fieldbook / Edition 01</span>
       <a href="#top">Return to top ↑</a>
     </div>
@@ -764,12 +912,26 @@
 
   <script>
     const body = document.body;
+    const header = document.querySelector('.site-header');
     const menuToggle = document.querySelector('.menu-toggle');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const mobileLinks = mobileMenu.querySelectorAll('a');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileLinks = mobileNav.querySelectorAll('a');
+    const slides = document.querySelectorAll('.hero-slide');
+    const slideTabs = document.querySelectorAll('.slide-tab');
+    const heroProject = document.querySelector('.hero-project-name');
+    const heroCopy = document.querySelector('.hero-project-copy p');
+    const heroLink = document.querySelector('.hero-live-link');
+    const heroNumber = document.querySelector('.hero-number');
     const filterButtons = document.querySelectorAll('.filter');
     const projects = document.querySelectorAll('.project');
     const resultCount = document.querySelector('.result-count');
+    const studies = [
+      { number: '01', name: 'TermDock', type: 'Featured study', copy: 'A terminal-first operations workspace for sessions, command output, and host health.', href: 'terminal.html' },
+      { number: '02', name: 'StudyBench', type: 'Featured study', copy: 'A learning workbench balancing the current lesson, review queue, and quick capture.', href: 'learning.html' },
+      { number: '03', name: 'LinkPane', type: 'Featured study', copy: 'A three-column communication surface for navigation, threads, and focused messaging.', href: 'chat.html' },
+      { number: '04', name: 'PulseScope', type: 'Featured study', copy: 'A security operations console separating scope, queue priority, and tool readiness.', href: 'pentest.html' },
+    ];
+    let activeSlide = 0;
 
     function setMenu(open) {
       body.classList.toggle('menu-open', open);
@@ -779,41 +941,72 @@
       if (open) mobileLinks[0].focus();
     }
 
-    menuToggle.addEventListener('click', () => {
-      setMenu(menuToggle.getAttribute('aria-expanded') !== 'true');
-    });
+    function updateHeader() {
+      header.classList.toggle('is-scrolled', window.scrollY > 28);
+    }
 
+    function showSlide(index) {
+      activeSlide = (index + slides.length) % slides.length;
+      slides.forEach((slide, position) => {
+        const active = position === activeSlide;
+        slide.classList.toggle('is-active', active);
+        slide.setAttribute('aria-hidden', String(!active));
+      });
+      slideTabs.forEach((tab, position) => tab.setAttribute('aria-pressed', String(position === activeSlide)));
+      const study = studies[activeSlide];
+      heroProject.querySelector('small').textContent = `${study.type} / ${study.number}`;
+      heroProject.querySelector('strong').textContent = study.name;
+      heroCopy.textContent = study.copy;
+      heroLink.href = study.href;
+      heroNumber.innerHTML = `<strong>${study.number}</strong> / 04`;
+    }
+
+    menuToggle.addEventListener('click', () => setMenu(menuToggle.getAttribute('aria-expanded') !== 'true'));
     mobileLinks.forEach((link) => link.addEventListener('click', () => setMenu(false)));
-
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 780 && body.classList.contains('menu-open')) setMenu(false);
+    });
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && body.classList.contains('menu-open')) {
         setMenu(false);
         menuToggle.focus();
       }
     });
+    updateHeader();
 
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 760 && body.classList.contains('menu-open')) setMenu(false);
-    });
+    slideTabs.forEach((tab) => tab.addEventListener('click', () => showSlide(Number(tab.dataset.slideTarget))));
+    document.querySelector('.prev-slide').addEventListener('click', () => showSlide(activeSlide - 1));
+    document.querySelector('.next-slide').addEventListener('click', () => showSlide(activeSlide + 1));
 
     filterButtons.forEach((button) => {
       button.addEventListener('click', () => {
         const selected = button.dataset.filter;
         let visible = 0;
-
-        filterButtons.forEach((item) => {
-          item.setAttribute('aria-pressed', String(item === button));
-        });
-
+        filterButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
         projects.forEach((project) => {
           const show = selected === 'all' || project.dataset.category === selected;
           project.hidden = !show;
           if (show) visible += 1;
         });
-
         resultCount.textContent = `Showing ${String(visible).padStart(2, '0')} ${visible === 1 ? 'study' : 'studies'}`;
       });
     });
+
+    const revealItems = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add('is-visible'));
+    }
   </script>
 </body>
 </html>

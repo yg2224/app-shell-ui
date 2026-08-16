@@ -1,10 +1,10 @@
 <div align="center">
   <p>
-    <img src="assets/readme-banner.png" alt="app-shell-ui 双模式前端设计 Skill：Website Mode 与 App Mode" width="100%">
+    <img src="assets/readme-banner.png" alt="app-shell-ui 品牌封面：两个彼此分离的设计空间" width="100%">
   </p>
   <p>
-    <strong>先判断界面，再决定像素。</strong><br>
-    面向 AI coding agent 的双模式前端设计 Skill：公开网站用 Website Mode，登录后产品用 App Mode。
+    <strong>一个 Skill，两条独立的前端设计路线。</strong><br>
+    公开网站使用 Website Mode；登录后产品使用 App Mode。先判断界面，再决定像素。
   </p>
   <p>
     <a href="LICENSE"><img alt="Apache 2.0" src="https://img.shields.io/badge/license-Apache--2.0-2ea44f"></a>
@@ -32,7 +32,7 @@
 - **App Mode**：面向登录后的设置、控制台、工作台、聊天、邮件和运营工具。
 - **Website Mode**：面向官网、落地页、作品集、内容页、文档站和产品目录。
 
-两种模式可以共享品牌 Token，各自使用适合任务的结构、密度和滚动方式。
+两种模式仅在合适时共享品牌 Token；工作流、页面结构和案例彼此独立，各自使用适合任务的密度与滚动方式。
 
 ## 双模式
 
@@ -72,43 +72,57 @@
 
 ## 双模式示例
 
-4 个核心示例覆盖 2 种公开网站结构和 2 种登录后工具。截图均来自对应 HTML 的真实浏览器渲染，点击图片可进入 Demo。
+4 个核心示例按模式独立展示。Website Mode 示例只验证公开网页的访客旅程与自然滚动；App Mode 示例只验证登录后工具的任务画布与操作状态。截图均来自对应 HTML 的真实浏览器渲染，点击图片可进入 Demo。
+
+### Website Mode：公开网页
+
+这组示例不使用 App Shell。页面结构、内容节奏、图片与交互均围绕公开访问者设计。
 
 <table>
   <tr>
     <td width="50%" valign="top">
-      <p align="center"><strong>01 · 青岫陶作官网</strong><br><sub>Website Mode</sub></p>
+      <p align="center"><strong>WEB 01 · 青岫陶作官网</strong><br><sub>Experience / Catalog</sub></p>
       <a href="demos/ceramics-final.html"><img src="assets/showcase/ceramics-website.png" alt="青岫陶作公开品牌官网" width="100%"></a>
-      <p align="center"><sub>Experience / Catalog · 自然滚动 · 作品摄影 · 移动菜单与图片灯箱</sub></p>
+      <p align="center"><sub>沉浸式器物摄影 · 不对称目录 · 工序折叠与图片灯箱</sub></p>
     </td>
     <td width="50%" valign="top">
-      <p align="center"><strong>02 · Interface Fieldbook</strong><br><sub>Website Mode</sub></p>
+      <p align="center"><strong>WEB 02 · Interface Fieldbook</strong><br><sub>Experience / Work Index</sub></p>
       <a href="demos/interface-fieldbook.html"><img src="assets/showcase/interface-fieldbook.png" alt="Interface Fieldbook UI 作品索引网站" width="100%"></a>
-      <p align="center"><sub>Experience / Work Index · 项目筛选 · 真实 Demo 截图 · 响应式作品列表</sub></p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <p align="center"><strong>03 · 青岫陶作管理台</strong><br><sub>App Mode</sub></p>
-      <a href="demos/ceramics-studio-app.html"><img src="assets/showcase/ceramics-app-dark.png" alt="青岫陶作工作室管理台深色主题" width="100%"></a>
-      <p align="center"><sub>控制台型 · 一屏任务画布 · Light / Dark · 搜索、筛选与表单状态</sub></p>
-    </td>
-    <td width="50%" valign="top">
-      <p align="center"><strong>04 · TermDock</strong><br><sub>App Mode</sub></p>
-      <a href="demos/terminal.html"><img src="assets/showcase/terminal.png" alt="TermDock 深色终端与主机状态工作台" width="100%"></a>
-      <p align="center"><sub>工作台型 · SSH 多会话 · 终端主画布 · 实时主机状态侧栏</sub></p>
+      <p align="center"><sub>全屏作品切换 · 真实 Demo 截图 · 响应式作品索引</sub></p>
     </td>
   </tr>
 </table>
 
-| 示例 | 模式与结构 | 主要任务 | 关键实现 |
-| --- | --- | --- | --- |
-| 青岫陶作官网 | Website · Experience / Catalog | 认识品牌、浏览器物与制作过程 | 本地位图、自然滚动、移动菜单、图片灯箱 |
-| Interface Fieldbook | Website · Experience / Work Index | 浏览并筛选 4 个界面研究 | 真实 Demo 截图、项目筛选、移动导航、可见焦点 |
-| 青岫陶作管理台 | App · Console | 管理器物工序、窑次和交付 | 一屏任务画布、Light / Dark、搜索筛选、表单校验 |
-| TermDock | App · Workbench | 同时判断 SSH 会话、终端输出和主机状态 | 稳定侧栏、终端主画布、有边界的状态区 |
+| Website 示例 | 主要任务 | 关键实现 |
+| --- | --- | --- |
+| 青岫陶作官网 | 认识品牌、浏览器物与制作过程 | 本地位图、自然滚动、移动菜单、图片灯箱 |
+| Interface Fieldbook | 浏览并筛选 4 个界面研究 | 真实 Demo 截图、项目筛选、移动导航、可见焦点 |
 
-本地预览：
+### App Mode：登录后产品
+
+这组示例不使用 Website 的营销或编辑式结构。固定壳层、状态判断和高频操作优先。
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <p align="center"><strong>APP 01 · 青岫陶作管理台</strong><br><sub>Console</sub></p>
+      <a href="demos/ceramics-studio-app.html"><img src="assets/showcase/ceramics-app-dark.png" alt="青岫陶作工作室管理台深色主题" width="100%"></a>
+      <p align="center"><sub>一屏任务画布 · Light / Dark · 搜索、筛选与表单状态</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <p align="center"><strong>APP 02 · TermDock</strong><br><sub>Workbench</sub></p>
+      <a href="demos/terminal.html"><img src="assets/showcase/terminal.png" alt="TermDock 深色终端与主机状态工作台" width="100%"></a>
+      <p align="center"><sub>SSH 多会话 · 终端主画布 · 实时主机状态侧栏</sub></p>
+    </td>
+  </tr>
+</table>
+
+| App 示例 | 主要任务 | 关键实现 |
+| --- | --- | --- |
+| 青岫陶作管理台 | 管理器物工序、窑次和交付 | 一屏任务画布、Light / Dark、搜索筛选、表单校验 |
+| TermDock | 同时判断 SSH 会话、终端输出和主机状态 | 稳定侧栏、终端主画布、有边界的状态区 |
+
+### 本地预览
 
 ```bash
 cd app-shell-ui
@@ -124,6 +138,8 @@ open http://127.0.0.1:8040/demos/terminal.html
 ```
 
 陶瓷示例所需图片保存在 [`assets/ceramics/`](assets/ceramics/)，Interface Fieldbook 直接使用 [`assets/showcase/`](assets/showcase/) 中的真实 Demo 截图，运行时均不请求第三方图库。Website Mode 在缺少合适素材且环境提供 `imagegen` 时，可以生成与页面构图匹配的位图；最终图片必须落入项目目录、写明 `alt`，并经过真实页面截图验证。
+
+README 顶部品牌图由 `imagegen` 使用 `gpt-image-2` 生成，只承担视觉识别，不作为 Website Mode 或 App Mode 的案例证据。
 
 ## 更多 App Mode 示例
 
@@ -241,6 +257,7 @@ app-shell-ui/
 │   ├── web-frontend.md            # Website Mode 完整规范
 │   └── top50-components.md        # React 组件索引
 ├── assets/
+│   ├── readme-banner.png          # Imagegen 生成的 README 品牌封面
 │   ├── ceramics/                  # 陶瓷示例位图
 │   ├── showcase/                  # README 截图
 │   └── top50-react/               # 50 个 React 组件与 Gallery 资源
