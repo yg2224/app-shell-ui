@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">ORBIT FOLD 01 movement diagram</title>
+  <desc id="desc">A technical line diagram comparing the lamp in home, task, and ambient positions.</desc>
+  <rect width="960" height="560" fill="#11110f"/>
+  <g fill="none" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M72 438H888" stroke="#fffdf5" stroke-width="2"/>
+    <path d="M248 420L405 285L608 162" stroke="#ef3f27" stroke-width="24"/>
+    <path d="M608 162L748 162" stroke="#ef3f27" stroke-width="24"/>
+    <circle cx="248" cy="420" r="28" fill="#ef3f27" stroke="#fffdf5" stroke-width="3"/>
+    <circle cx="405" cy="285" r="19" fill="#11110f" stroke="#fffdf5" stroke-width="3"/>
+    <circle cx="608" cy="162" r="19" fill="#11110f" stroke="#fffdf5" stroke-width="3"/>
+    <ellipse cx="782" cy="162" rx="58" ry="26" fill="#ef3f27" stroke="#fffdf5" stroke-width="3"/>
+    <path d="M248 420L454 374L700 338" stroke="#fffdf5" stroke-width="3" stroke-dasharray="10 10" opacity=".72"/>
+    <ellipse cx="740" cy="332" rx="58" ry="25" stroke="#fffdf5" stroke-width="3" stroke-dasharray="10 10" opacity=".72"/>
+    <path d="M248 420L420 420L626 420" stroke="#c8f000" stroke-width="3" stroke-dasharray="10 10"/>
+    <ellipse cx="669" cy="414" rx="58" ry="25" stroke="#c8f000" stroke-width="3" stroke-dasharray="10 10"/>
+    <path d="M263 390A120 120 0 0 1 334 314" stroke="#c8f000" stroke-width="2"/>
+    <path d="M434 267A122 122 0 0 1 536 191" stroke="#c8f000" stroke-width="2"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-weight="700" letter-spacing="0">
+    <text x="70" y="74" fill="#fffdf5" font-size="34">FOLD RANGE</text>
+    <text x="70" y="102" fill="#8f908b" font-family="Courier New, monospace" font-size="14">THREE LEGIBLE RESTING POSITIONS</text>
+    <text x="770" y="126" fill="#ef3f27" font-size="14">TASK</text>
+    <text x="764" y="306" fill="#fffdf5" font-size="14">AMBIENT</text>
+    <text x="704" y="466" fill="#c8f000" font-size="14">HOME</text>
+    <text x="70" y="504" fill="#8f908b" font-family="Courier New, monospace" font-size="12">VISUAL STUDY / NOT AN ENGINEERING DRAWING</text>
+    <text x="738" y="504" fill="#fffdf5" font-family="Courier New, monospace" font-size="12">ORBIT / 01</text>
+  </g>
+</svg>

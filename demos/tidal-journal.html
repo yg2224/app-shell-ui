@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="TIDAL / 07 潮间带观察长文阅读示例。">
+  <link rel="icon" href="data:,">
+  <title>TIDAL / 07 — 退潮之后</title>
+  <style>
+    :root {
+      --paper: #f2efe6;
+      --ink: #171815;
+      --muted: #62655d;
+      --rule: #92968a;
+      --acid: #c8f000;
+      --signal: #f05235;
+      --focus: #0047ff;
+      --header-height: 66px;
+      color-scheme: light;
+      font-family: Arial, Helvetica, sans-serif;
+      font-synthesis: none;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    button, a { font: inherit; }
+
+    a { color: inherit; }
+
+    .reading-progress {
+      position: fixed;
+      z-index: 30;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 4px;
+      background: var(--signal);
+    }
+
+    .skip-link {
+      position: fixed;
+      z-index: 40;
+      top: 10px;
+      left: 10px;
+      padding: 10px 14px;
+      background: var(--ink);
+      color: var(--paper);
+      transform: translateY(-140%);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 5px var(--paper);
+    }
+
+    .masthead {
+      min-height: var(--header-height);
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 30px;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--ink);
+      background: var(--paper);
+    }
+
+    .journal-mark {
+      text-decoration: none;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 24px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .journal-mark span { color: var(--signal); }
+
+    .masthead nav {
+      display: flex;
+      justify-content: center;
+      gap: 26px;
+    }
+
+    .masthead nav a {
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .masthead nav a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+
+    .issue-stamp {
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .menu-button,
+    .mobile-nav { display: none; }
+
+    .hero { border-bottom: 1px solid var(--ink); }
+
+    .hero-head {
+      min-height: 292px;
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr) minmax(260px, 0.55fr);
+      gap: 30px;
+      align-items: end;
+      padding: 34px 28px 30px;
+    }
+
+    .hero-index {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 4px;
+      border-top: 6px solid var(--acid);
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.55;
+      text-transform: uppercase;
+    }
+
+    .hero-index strong { font-size: 38px; line-height: 1; }
+
+    .hero-title-wrap { min-width: 0; }
+
+    .section-label {
+      margin: 0 0 12px;
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      max-width: 820px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 86px;
+      font-weight: 400;
+      line-height: 0.96;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-deck {
+      align-self: end;
+      padding-top: 16px;
+      border-top: 1px solid var(--ink);
+    }
+
+    .hero-deck p {
+      margin: 0 0 20px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .read-button {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .read-button:hover { background: var(--acid); color: var(--ink); }
+
+    .lead-figure {
+      position: relative;
+      margin: 0;
+      border-top: 1px solid var(--ink);
+      background: var(--ink);
+    }
+
+    .lead-figure img {
+      width: 100%;
+      height: min(500px, calc(100svh - 440px));
+      min-height: 330px;
+      object-fit: cover;
+      object-position: center 48%;
+    }
+
+    .lead-caption {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr) auto;
+      gap: 30px;
+      align-items: center;
+      padding: 14px 28px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .lead-caption span:last-child { color: var(--acid); white-space: nowrap; }
+
+    .abstract {
+      display: none;
+      grid-template-columns: 150px minmax(0, 760px) minmax(220px, 1fr);
+      gap: 30px;
+      padding: 38px 28px;
+      border-bottom: 1px solid var(--ink);
+      background: var(--acid);
+    }
+
+    .abstract.is-open { display: grid; }
+
+    .abstract h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .abstract p {
+      margin: 0;
+      max-width: 740px;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .abstract-meta {
+      align-self: end;
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .story {
+      display: grid;
+      grid-template-columns: minmax(180px, 0.45fr) minmax(0, 1fr) minmax(240px, 0.55fr);
+      gap: 44px;
+      padding: 72px 28px 90px;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .story-nav {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+      padding-top: 12px;
+      border-top: 1px solid var(--ink);
+    }
+
+    .story-nav a {
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .article-copy { max-width: 760px; }
+
+    .article-copy h2 {
+      margin: 0 0 28px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 50px;
+      font-weight: 400;
+      line-height: 1.08;
+    }
+
+    .article-copy p {
+      margin: 0 0 24px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 20px;
+      line-height: 1.75;
+    }
+
+    .article-copy p:first-of-type::first-letter {
+      float: left;
+      margin: 7px 10px 0 0;
+      font-size: 72px;
+      line-height: 0.72;
+    }
+
+    .field-notes {
+      align-self: start;
+      border-top: 6px solid var(--signal);
+    }
+
+    .field-notes details { border-bottom: 1px solid var(--ink); }
+
+    .field-notes summary {
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    .field-notes summary::-webkit-details-marker { display: none; }
+
+    .field-notes summary::after { content: "+"; font-size: 20px; }
+
+    .field-notes details[open] summary::after { content: "−"; }
+
+    .field-notes details p {
+      margin: 0;
+      padding: 0 0 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .field-plates {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .field-plates figure { min-width: 0; margin: 0; }
+
+    .field-plates figure:first-child { border-right: 1px solid var(--ink); }
+
+    .field-plates img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      background: var(--paper);
+    }
+
+    .field-plates figure:nth-child(2) img { object-fit: contain; }
+
+    .field-plates figcaption {
+      min-height: 78px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 22px;
+      align-items: center;
+      padding: 14px 20px;
+      border-top: 1px solid var(--ink);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .field-plates figcaption strong {
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 30px;
+      padding: 46px 28px;
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .footer strong {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 36px;
+      font-weight: 400;
+    }
+
+    .footer p {
+      max-width: 460px;
+      margin: 8px 0 0;
+      color: rgba(242, 239, 230, 0.7);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .footer a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 16px;
+      border: 1px solid var(--paper);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .footer a:hover { background: var(--acid); color: var(--ink); border-color: var(--acid); }
+
+    @media (max-width: 920px) {
+      .masthead {
+        grid-template-columns: 1fr auto;
+        padding: 0 20px;
+      }
+
+      .masthead nav,
+      .issue-stamp { display: none; }
+
+      .menu-button {
+        min-width: 72px;
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--ink);
+        background: transparent;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .mobile-nav {
+        padding: 10px 20px 16px;
+        border-bottom: 1px solid var(--ink);
+        background: var(--paper);
+      }
+
+      .mobile-nav.is-open { display: grid; }
+
+      .mobile-nav a {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid var(--rule);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .hero-head {
+        grid-template-columns: 100px minmax(0, 1fr);
+      }
+
+      .hero-deck { grid-column: 2; }
+
+      .abstract { grid-template-columns: 100px minmax(0, 1fr); }
+
+      .abstract-meta { grid-column: 2; }
+
+      .story { grid-template-columns: minmax(0, 1fr) minmax(220px, 0.45fr); }
+
+      .story-nav { display: none; }
+
+      .field-plates { grid-template-columns: 1fr; }
+
+      .field-plates figure:first-child { border-right: 0; border-bottom: 1px solid var(--ink); }
+    }
+
+    @media (max-width: 620px) {
+      .masthead { min-height: 58px; --header-height: 58px; }
+
+      .journal-mark { font-size: 21px; }
+
+      .hero-head {
+        min-height: 304px;
+        grid-template-columns: 68px minmax(0, 1fr);
+        gap: 18px;
+        padding: 24px 18px 22px;
+      }
+
+      .hero-index strong { font-size: 28px; }
+
+      .hero-title { font-size: 54px; line-height: 0.98; }
+
+      .hero-deck {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: end;
+        gap: 16px;
+      }
+
+      .hero-deck p { margin: 0; font-size: 15px; }
+
+      .lead-figure img { height: 260px; min-height: 0; }
+
+      .lead-caption {
+        grid-template-columns: 1fr auto;
+        gap: 14px;
+        padding: 12px 18px;
+      }
+
+      .lead-caption span:first-child { display: none; }
+
+      .abstract {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 28px 18px;
+      }
+
+      .abstract-meta { grid-column: auto; }
+
+      .story {
+        grid-template-columns: 1fr;
+        padding: 48px 18px 64px;
+      }
+
+      .field-notes { margin-top: 12px; }
+
+      .field-plates figcaption { grid-template-columns: 1fr; gap: 6px; }
+
+      .article-copy h2 { font-size: 38px; }
+
+      .article-copy p { font-size: 18px; }
+
+      .footer {
+        grid-template-columns: 1fr;
+        padding: 38px 18px;
+      }
+    }
+
+    @media (max-width: 380px), (max-height: 650px) and (max-width: 620px) {
+      .hero-head { min-height: 260px; padding-top: 18px; }
+      .hero-title { font-size: 46px; }
+      .lead-figure img { height: 190px; min-height: 0; }
+      .lead-caption { padding-top: 9px; padding-bottom: 9px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <header>
+    <div class="masthead">
+      <a class="journal-mark" href="#top" aria-label="TIDAL 期刊首页">TIDAL <span>/ 07</span></a>
+      <nav aria-label="主导航">
+        <a href="#dispatch">本期观察</a>
+        <a href="#field-notes">现场注记</a>
+        <a href="#about">关于本刊</a>
+      </nav>
+      <span class="issue-stamp">Field journal / sample issue</span>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav">目录</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="移动导航">
+      <a href="#dispatch">本期观察</a>
+      <a href="#field-notes">现场注记</a>
+      <a href="#about">关于本刊</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article id="top">
+      <header class="hero">
+        <div class="hero-head">
+          <div class="hero-index">
+            <strong>07</strong>
+            <span>Coast<br>Ecology<br>Field note</span>
+          </div>
+          <div class="hero-title-wrap">
+            <p class="section-label">A sample editorial / North Atlantic shore</p>
+            <h1 class="hero-title">退潮之后</h1>
+          </div>
+          <div class="hero-deck">
+            <p>海水退出岩缝，短暂显露一座由水、石和附着生命共同维护的边界。</p>
+            <button class="read-button" id="abstract-button" type="button" aria-expanded="false" aria-controls="abstract">阅读摘要</button>
+          </div>
+        </div>
+
+        <figure class="lead-figure">
+          <img src="../assets/tidal/tidal-field.jpg" width="1600" height="900" alt="一名穿红色防水服的海岸研究者走过黑色玄武岩潮池，岩石间生长着绿色海藻">
+          <figcaption class="lead-caption">
+            <span>Plate 01 / Field image</span>
+            <span>玄武岩潮池在低潮时形成彼此分离的微小环境。</span>
+            <span>Generated editorial image</span>
+          </figcaption>
+        </figure>
+      </header>
+
+      <section class="abstract" id="abstract" aria-labelledby="abstract-title">
+        <h2 id="abstract-title">摘要</h2>
+        <p>这是一篇用于演示 Website Mode 阅读体验的样本文本。它以潮间带观察为线索，展示长文页面如何组织标题、摘要、图像、正文导航与现场注记，不将未经来源支持的数字包装成研究结论。</p>
+        <div class="abstract-meta">Reading mode<br>Editorial narrative<br>Approx. 4 minutes</div>
+      </section>
+
+      <section class="story" id="dispatch" aria-labelledby="dispatch-title">
+        <nav class="story-nav" aria-label="文章目录">
+          <p class="section-label">In this dispatch</p>
+          <a href="#dispatch-title">01 / 岩石记忆</a>
+          <a href="#field-notes">02 / 现场注记</a>
+          <a href="#about">03 / 编辑说明</a>
+        </nav>
+
+        <div class="article-copy">
+          <p class="section-label">Dispatch 01</p>
+          <h2 id="dispatch-title">水退去，尺度才重新出现。</h2>
+          <p>潮池不是缩小的海洋。它有自己的边缘、阴影和时间：一道岩脊决定水如何留下，一次短暂的日照改变表面温度，附着在石壁上的生物则把每一次水位变化记录成身体的方向。</p>
+          <p>观察从放慢脚步开始。研究者避开松动的藻带，把工具箱放在裸露的岩面上，再沿同一条路径返回。页面也采用同样的节奏：先建立方向，再逐步打开细节，不用连续卡片把阅读切成碎片。</p>
+          <p>当下一次潮水越过岩脊，这些边界会再次隐没。留下的不是宏大的结论，而是一套可以复查的观察顺序。</p>
+        </div>
+
+        <aside class="field-notes" id="field-notes" aria-label="现场注记">
+          <p class="section-label">Field notes</p>
+          <details open>
+            <summary>观察路径</summary>
+            <p>从稳定裸岩进入，避开湿滑藻带；退出时沿原路返回，减少对样地的扰动。</p>
+          </details>
+          <details>
+            <summary>图像说明</summary>
+            <p>主图为本示例专门生成的编辑图片，不作为真实研究记录或地理位置证据。</p>
+          </details>
+          <details>
+            <summary>内容边界</summary>
+            <p>页面不提供物种清单、测量值或研究结论，避免把演示文案伪装成科学数据。</p>
+          </details>
+        </aside>
+      </section>
+
+      <section class="field-plates" aria-label="现场图版">
+        <figure>
+          <img src="../assets/tidal/tidal-detail.jpg" width="1200" height="800" loading="lazy" alt="俯视黑色潮池，清水中分布着绿色海藻和少量贝壳碎片">
+          <figcaption><strong>Plate 02 / Pool edge</strong><span>近景图像提供材质与尺度线索，不附会具体物种身份。</span></figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/tidal/tidal-cycle.svg" width="960" height="560" loading="lazy" alt="观察、记录和在涨潮前退出的三步潮间带现场顺序图">
+          <figcaption><strong>Diagram 01 / Sequence</strong><span>SVG 图解表达可逆的观察顺序，不代表测量比例。</span></figcaption>
+        </figure>
+      </section>
+    </article>
+  </main>
+
+  <footer class="footer" id="about">
+    <div>
+      <strong>TIDAL / Field Journal</strong>
+      <p>一个用于展示编辑阅读、内容层级与响应式长文节奏的独立 Website Mode 示例。</p>
+    </div>
+    <a href="#top">返回本期顶部</a>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector('.menu-button');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const abstractButton = document.querySelector('#abstract-button');
+    const abstract = document.querySelector('#abstract');
+    const progress = document.querySelector('#reading-progress');
+
+    menuButton.addEventListener('click', () => {
+      const open = menuButton.getAttribute('aria-expanded') !== 'true';
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.textContent = open ? '关闭' : '目录';
+      mobileNav.classList.toggle('is-open', open);
+    });
+
+    mobileNav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.textContent = '目录';
+        mobileNav.classList.remove('is-open');
+      });
+    });
+
+    abstractButton.addEventListener('click', () => {
+      const open = abstractButton.getAttribute('aria-expanded') !== 'true';
+      abstractButton.setAttribute('aria-expanded', String(open));
+      abstractButton.textContent = open ? '收起摘要' : '阅读摘要';
+      abstract.classList.toggle('is-open', open);
+      if (open) abstract.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    const updateProgress = () => {
+      const available = document.documentElement.scrollHeight - window.innerHeight;
+      const percent = available > 0 ? Math.min(100, Math.max(0, window.scrollY / available * 100)) : 0;
+      progress.style.width = `${percent}%`;
+    };
+
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+  </script>
+</body>
+</html>

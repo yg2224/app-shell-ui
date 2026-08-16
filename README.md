@@ -72,7 +72,7 @@
 
 ## 双模式示例
 
-4 个核心示例按模式独立展示。Website Mode 示例只验证公开网页的访客旅程与自然滚动；App Mode 示例只验证登录后工具的任务画布与操作状态。截图均来自对应 HTML 的真实浏览器渲染，点击图片可进入 Demo。
+8 个核心示例按模式独立展示，每种模式各 4 个。Website Mode 示例只验证公开网页的访客旅程与自然滚动；App Mode 示例只验证登录后工具的任务画布与操作状态。截图均来自对应 HTML 的真实浏览器渲染，点击图片可进入 Demo。
 
 ### Website Mode：公开网页
 
@@ -91,12 +91,26 @@
       <p align="center"><sub>全屏作品切换 · 真实 Demo 截图 · 响应式作品索引</sub></p>
     </td>
   </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <p align="center"><strong>WEB 03 · ORBIT FOLD 01</strong><br><sub>Persuade / Product Reveal</sub></p>
+      <a href="demos/orbit-lamp.html"><img src="assets/showcase/orbit-lamp.png" alt="ORBIT FOLD 01 高饱和折叠工作灯产品发布页" width="100%"></a>
+      <p align="center"><sub>硬光产品摄影 · 配色与折叠状态 · SVG 运动图解</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <p align="center"><strong>WEB 04 · TIDAL / 07</strong><br><sub>Read / Editorial Narrative</sub></p>
+      <a href="demos/tidal-journal.html"><img src="assets/showcase/tidal-journal.png" alt="TIDAL 07 潮间带观察编辑长文页" width="100%"></a>
+      <p align="center"><sub>纸媒网格 · 阅读进度与摘要 · 现场图版和 SVG 顺序图</sub></p>
+    </td>
+  </tr>
 </table>
 
 | Website 示例 | 主要任务 | 关键实现 |
 | --- | --- | --- |
 | 青岫陶作官网 | 认识品牌、浏览器物与制作过程 | 本地位图、自然滚动、移动菜单、图片灯箱 |
 | Interface Fieldbook | 浏览并筛选 4 个界面研究 | 真实 Demo 截图、项目筛选、移动导航、可见焦点 |
+| ORBIT FOLD 01 | 理解产品形态并体验颜色与折叠状态 | 产品发布结构、生成摄影、状态控件、SVG 技术图 |
+| TIDAL / 07 | 阅读潮间带观察长文并查阅现场注记 | 编辑叙事、生成摄影、阅读进度、原生 `details` |
 
 ### App Mode：登录后产品
 
@@ -115,12 +129,26 @@
       <p align="center"><sub>SSH 多会话 · 终端主画布 · 实时主机状态侧栏</sub></p>
     </td>
   </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <p align="center"><strong>APP 03 · LinkPane</strong><br><sub>IM / Three-column</sub></p>
+      <a href="demos/chat.html"><img src="assets/showcase/linkpane.png" alt="LinkPane 浅色即时通讯三栏工作台" width="100%"></a>
+      <p align="center"><sub>稳定图标导航 · 会话列表 · 对话详情与固定输入区</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <p align="center"><strong>APP 04 · StudyBench</strong><br><sub>Learning Planner</sub></p>
+      <a href="demos/learning.html"><img src="assets/showcase/studybench.png" alt="StudyBench 浅色学习规划与闪卡工作台" width="100%"></a>
+      <p align="center"><sub>周目标 · 三列任务状态 · 闪卡复习与下一项队列</sub></p>
+    </td>
+  </tr>
 </table>
 
 | App 示例 | 主要任务 | 关键实现 |
 | --- | --- | --- |
 | 青岫陶作管理台 | 管理器物工序、窑次和交付 | 一屏任务画布、Light / Dark、搜索筛选、表单校验 |
 | TermDock | 同时判断 SSH 会话、终端输出和主机状态 | 稳定侧栏、终端主画布、有边界的状态区 |
+| LinkPane | 浏览会话并完成即时沟通 | IM 三栏布局、选中态、未读状态、固定 Composer |
+| StudyBench | 安排学习任务并完成闪卡复习 | 周进度、Kanban、复习状态、并列等高 |
 
 ### 本地预览
 
@@ -131,19 +159,23 @@ python3 -m http.server 8040
 # Website Mode
 open http://127.0.0.1:8040/demos/ceramics-final.html
 open http://127.0.0.1:8040/demos/interface-fieldbook.html
+open http://127.0.0.1:8040/demos/orbit-lamp.html
+open http://127.0.0.1:8040/demos/tidal-journal.html
 
 # App Mode
 open http://127.0.0.1:8040/demos/ceramics-studio-app.html
 open http://127.0.0.1:8040/demos/terminal.html
+open http://127.0.0.1:8040/demos/chat.html
+open http://127.0.0.1:8040/demos/learning.html
 ```
 
-陶瓷示例所需图片保存在 [`assets/ceramics/`](assets/ceramics/)，Interface Fieldbook 直接使用 [`assets/showcase/`](assets/showcase/) 中的真实 Demo 截图，运行时均不请求第三方图库。Website Mode 在缺少合适素材且环境提供 `imagegen` 时，可以生成与页面构图匹配的位图；最终图片必须落入项目目录、写明 `alt`，并经过真实页面截图验证。
+陶瓷示例所需图片保存在 [`assets/ceramics/`](assets/ceramics/)，Interface Fieldbook 直接使用 [`assets/showcase/`](assets/showcase/) 中的真实 Demo 截图。ORBIT 与 TIDAL 的 4 张位图由 `imagegen` 使用 `gpt-image-2` 按页面构图生成，解释性 SVG 分别保存在 [`assets/orbit/`](assets/orbit/) 与 [`assets/tidal/`](assets/tidal/)；所有 Demo 运行时均不请求第三方图库。生成素材必须落入项目目录、写明 `alt`，并经过真实页面截图验证。
 
 README 顶部双模式封面由 `imagegen` 使用 `gpt-image-2`，以真实 Website 与 App Demo 截图为输入重新绘制。它只负责概括两条独立设计路线；案例证据仍以对应的浏览器截图与 HTML Demo 为准。
 
-## 更多 App Mode 示例
+## App Mode 对比与补充
 
-现有案例继续用于验证 App Shell 在不同业务中的稳定性。源码位于 [`demos/`](demos/)，截图位于 [`assets/showcase/`](assets/showcase/)。
+核心示例之外，保留 StudyBench 使用 Skill 前后的对比，以及安全业务补充案例。源码位于 [`demos/`](demos/)，截图位于 [`assets/showcase/`](assets/showcase/)。
 
 ### 使用 Skill 前后对比
 
@@ -167,8 +199,6 @@ README 顶部双模式封面由 `imagegen` 使用 `gpt-image-2`，以真实 Webs
 | 示例 | 重点 | Demo |
 | --- | --- | --- |
 | PulseScope | 授权范围、漏洞队列、安全工具状态 | [`pentest.html`](demos/pentest.html) |
-| StudyBench | 学习路径、复习队列、快速笔记等高 | [`learning.html`](demos/learning.html) |
-| LinkPane | 图标栏、会话列表、对话详情三栏 | [`chat.html`](demos/chat.html) |
 
 ## 能力范围
 
@@ -259,11 +289,15 @@ app-shell-ui/
 ├── assets/
 │   ├── readme-banner.png          # Imagegen 生成的 README 品牌封面
 │   ├── ceramics/                  # 陶瓷示例位图
+│   ├── orbit/                     # 产品摄影与折叠结构 SVG
+│   ├── tidal/                     # 编辑摄影与观察顺序 SVG
 │   ├── showcase/                  # README 截图
 │   └── top50-react/               # 50 个 React 组件与 Gallery 资源
 ├── demos/
 │   ├── ceramics-final.html        # Website Mode 示例
 │   ├── interface-fieldbook.html   # Website Mode 作品索引示例
+│   ├── orbit-lamp.html             # Website Mode 产品发布示例
+│   ├── tidal-journal.html          # Website Mode 编辑长文示例
 │   ├── ceramics-studio-app.html   # App Mode 示例
 │   ├── terminal.html
 │   ├── pentest.html

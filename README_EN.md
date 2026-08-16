@@ -58,7 +58,7 @@ Trigger it directly with `/app-shell-ui` or `use the app-shell-ui skill`.
 
 ## Dual-mode showcase
 
-The four primary examples are presented in separate mode groups. Website Mode validates visitor journeys and document scrolling; App Mode validates signed-in task canvases and operational state. Every screenshot is a browser capture of the linked HTML demo.
+Eight primary examples are presented in separate mode groups, four per mode. Website Mode validates visitor journeys and document scrolling; App Mode validates signed-in task canvases and operational state. Every screenshot is a browser capture of the linked HTML demo.
 
 ### Website Mode: public pages
 
@@ -77,12 +77,26 @@ These examples do not use App Shell chrome. Their structure, pacing, media, and 
       <p align="center"><sub>full-screen study switcher · real demo captures · responsive work index</sub></p>
     </td>
   </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <p align="center"><strong>WEB 03 · ORBIT FOLD 01</strong><br><sub>Persuade / Product Reveal</sub></p>
+      <a href="demos/orbit-lamp.html"><img src="assets/showcase/orbit-lamp.png" alt="ORBIT FOLD 01 high-saturation folding task-light product reveal" width="100%"></a>
+      <p align="center"><sub>hard-light product photography · finish and fold states · SVG motion diagram</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <p align="center"><strong>WEB 04 · TIDAL / 07</strong><br><sub>Read / Editorial Narrative</sub></p>
+      <a href="demos/tidal-journal.html"><img src="assets/showcase/tidal-journal.png" alt="TIDAL 07 editorial field journal about a rocky shore" width="100%"></a>
+      <p align="center"><sub>print-led grid · reading progress and abstract · field plates and SVG sequence</sub></p>
+    </td>
+  </tr>
 </table>
 
 | Website example | Primary job | Key implementation |
 | --- | --- | --- |
 | Qingxiu Ceramics | Understand the studio and browse its work and process | Local bitmaps, document scroll, mobile menu, lightbox |
 | Interface Fieldbook | Browse and filter four interface studies | Real demo captures, project filters, mobile navigation, visible focus |
+| ORBIT FOLD 01 | Understand a product form and try finish and fold states | Product-reveal structure, generated photography, state controls, technical SVG |
+| TIDAL / 07 | Read a field dispatch and inspect its notes | Editorial narrative, generated photography, reading progress, native `details` |
 
 ### App Mode: signed-in products
 
@@ -101,12 +115,26 @@ These examples do not use Website Mode's marketing or editorial structures. Stab
       <p align="center"><sub>SSH sessions · terminal canvas · bounded live host status</sub></p>
     </td>
   </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <p align="center"><strong>APP 03 · LinkPane</strong><br><sub>IM / Three-column</sub></p>
+      <a href="demos/chat.html"><img src="assets/showcase/linkpane.png" alt="LinkPane light three-column messaging workbench" width="100%"></a>
+      <p align="center"><sub>stable icon navigation · conversation list · detail and fixed composer</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <p align="center"><strong>APP 04 · StudyBench</strong><br><sub>Learning Planner</sub></p>
+      <a href="demos/learning.html"><img src="assets/showcase/studybench.png" alt="StudyBench light learning planner and flashcard workbench" width="100%"></a>
+      <p align="center"><sub>weekly target · three task states · flashcard review and next queue</sub></p>
+    </td>
+  </tr>
 </table>
 
 | App example | Primary job | Key implementation |
 | --- | --- | --- |
 | Qingxiu Studio Console | Manage production stages, kiln runs, and delivery | One-viewport canvas, Light / Dark, search, filters, form validation |
 | TermDock | Judge SSH sessions, terminal output, and host state together | Stable sidebar, terminal canvas, bounded status rail |
+| LinkPane | Browse conversations and complete immediate communication | IM three-column layout, selection, unread state, fixed composer |
+| StudyBench | Plan study work and complete flashcard review | Weekly progress, Kanban, review state, equal-height peers |
 
 ### Local preview
 
@@ -116,11 +144,15 @@ python3 -m http.server 8040
 
 open http://127.0.0.1:8040/demos/ceramics-final.html
 open http://127.0.0.1:8040/demos/interface-fieldbook.html
+open http://127.0.0.1:8040/demos/orbit-lamp.html
+open http://127.0.0.1:8040/demos/tidal-journal.html
 open http://127.0.0.1:8040/demos/ceramics-studio-app.html
 open http://127.0.0.1:8040/demos/terminal.html
+open http://127.0.0.1:8040/demos/chat.html
+open http://127.0.0.1:8040/demos/learning.html
 ```
 
-Ceramics media lives under [`assets/ceramics/`](assets/ceramics/), while Interface Fieldbook uses real demo captures from [`assets/showcase/`](assets/showcase/). Neither demo requests third-party image hosts at runtime. When Imagegen is available and a Website Mode brief lacks suitable media, generate composition-specific bitmaps, save the selected outputs into the project, add meaningful `alt` text, and validate them inside the rendered page.
+Ceramics media lives under [`assets/ceramics/`](assets/ceramics/), while Interface Fieldbook uses real demo captures from [`assets/showcase/`](assets/showcase/). The four ORBIT and TIDAL bitmaps were generated with `imagegen` and `gpt-image-2` for their page compositions; explanatory SVGs live under [`assets/orbit/`](assets/orbit/) and [`assets/tidal/`](assets/tidal/). No demo requests third-party image hosts at runtime. Generated media must be saved into the project, given meaningful `alt` text, and validated inside the rendered page.
 
 The README dual-mode cover was redrawn with `imagegen` using `gpt-image-2`, with the real Website and App demo captures as inputs. It summarizes the two independent design routes; the linked browser captures and HTML demos remain the source of evidence.
 
@@ -209,11 +241,15 @@ app-shell-ui/
 ├── assets/
 │   ├── readme-banner.png          # Imagegen-generated README brand cover
 │   ├── ceramics/                  # local ceramics demo bitmaps
+│   ├── orbit/                     # product photography and fold-range SVG
+│   ├── tidal/                     # editorial photography and sequence SVG
 │   ├── showcase/                  # README screenshots
 │   └── top50-react/               # 50 React components and gallery resources
 ├── demos/
 │   ├── ceramics-final.html        # Website Mode demo
 │   ├── interface-fieldbook.html   # Website Mode work-index demo
+│   ├── orbit-lamp.html             # Website Mode product-reveal demo
+│   ├── tidal-journal.html          # Website Mode editorial demo
 │   ├── ceramics-studio-app.html   # App Mode demo
 │   ├── terminal.html
 │   ├── pentest.html

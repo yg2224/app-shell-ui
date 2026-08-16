@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">Tidal field observation sequence</title>
+  <desc id="desc">An editorial diagram showing arrival after low water, observation, recording, and exit before the returning tide.</desc>
+  <rect width="960" height="560" fill="#f2efe6"/>
+  <path d="M0 376C102 336 178 404 284 364C406 318 496 408 608 366C736 318 820 390 960 350V560H0Z" fill="#171815"/>
+  <path d="M0 316C128 280 202 344 326 306C458 266 548 344 670 306C788 270 858 326 960 294" fill="none" stroke="#5f7366" stroke-width="4" stroke-dasharray="14 12"/>
+  <path d="M0 240C128 204 202 268 326 230C458 190 548 268 670 230C788 194 858 250 960 218" fill="none" stroke="#f05235" stroke-width="4"/>
+  <g fill="#c8f000" stroke="#171815" stroke-width="3">
+    <circle cx="180" cy="366" r="28"/>
+    <circle cx="480" cy="366" r="28"/>
+    <circle cx="780" cy="366" r="28"/>
+  </g>
+  <g fill="none" stroke="#171815" stroke-width="3">
+    <path d="M208 366H452"/>
+    <path d="M508 366H752"/>
+    <path d="M438 354L452 366L438 378"/>
+    <path d="M738 354L752 366L738 378"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" letter-spacing="0">
+    <text x="54" y="62" fill="#171815" font-size="34" font-weight="700">FIELD SEQUENCE</text>
+    <text x="54" y="90" fill="#62655d" font-family="Courier New, monospace" font-size="14">A REVERSIBLE PATH THROUGH A TEMPORARY SHORELINE</text>
+    <text x="54" y="224" fill="#f05235" font-family="Courier New, monospace" font-size="12" font-weight="700">RETURNING WATER / EXIT BEFORE THIS LINE</text>
+    <text x="54" y="300" fill="#5f7366" font-family="Courier New, monospace" font-size="12" font-weight="700">LOW WATER WINDOW</text>
+    <text x="166" y="373" fill="#171815" font-size="20" font-weight="700">1</text>
+    <text x="466" y="373" fill="#171815" font-size="20" font-weight="700">2</text>
+    <text x="766" y="373" fill="#171815" font-size="20" font-weight="700">3</text>
+    <text x="136" y="430" fill="#f2efe6" font-size="16" font-weight="700">OBSERVE</text>
+    <text x="440" y="430" fill="#f2efe6" font-size="16" font-weight="700">RECORD</text>
+    <text x="758" y="430" fill="#f2efe6" font-size="16" font-weight="700">EXIT</text>
+    <text x="54" y="518" fill="#92968a" font-family="Courier New, monospace" font-size="12">EDITORIAL DIAGRAM / NO MEASUREMENT SCALE</text>
+    <text x="828" y="518" fill="#f2efe6" font-family="Courier New, monospace" font-size="12">TIDAL / 07</text>
+  </g>
+</svg>

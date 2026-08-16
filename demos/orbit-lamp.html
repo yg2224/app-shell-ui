@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ORBIT FOLD 01 折叠工作灯产品发布示例。">
+  <link rel="icon" href="data:,">
+  <title>ORBIT FOLD 01 — Product Reveal</title>
+  <style>
+    :root {
+      --paper: #ffcb05;
+      --signal: #ef3f27;
+      --ink: #11110f;
+      --white: #fffdf5;
+      --line: rgba(17, 17, 15, 0.28);
+      --focus: #0b42ff;
+      --header-height: 72px;
+      color-scheme: light;
+      font-family: Arial, Helvetica, sans-serif;
+      font-synthesis: none;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    button, a { font: inherit; }
+
+    button { color: inherit; }
+
+    a { color: inherit; }
+
+    img { display: block; max-width: 100%; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 20;
+      top: 10px;
+      left: 10px;
+      padding: 10px 14px;
+      background: var(--ink);
+      color: var(--white);
+      transform: translateY(-140%);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    :focus-visible {
+      outline: 3px solid var(--white);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 5px var(--ink);
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 10;
+      height: var(--header-height);
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) auto minmax(180px, 1fr);
+      align-items: center;
+      gap: 28px;
+      padding: 0 32px;
+      border-bottom: 2px solid var(--ink);
+      background: var(--paper);
+    }
+
+    .brand {
+      width: max-content;
+      text-decoration: none;
+      font-size: 21px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .brand span {
+      display: inline-block;
+      margin-left: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      vertical-align: top;
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .desktop-nav a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .desktop-nav a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+
+    .study-label {
+      justify-self: end;
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .menu-button,
+    .mobile-menu { display: none; }
+
+    .hero {
+      min-height: 690px;
+      display: grid;
+      grid-template-columns: minmax(360px, 38%) minmax(0, 62%);
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .hero-copy {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 42px 40px 36px;
+      background: var(--signal);
+      border-right: 2px solid var(--ink);
+    }
+
+    .kicker,
+    .micro {
+      margin: 0;
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      max-width: 620px;
+      margin: 34px 0 22px;
+      font-size: 88px;
+      font-weight: 900;
+      line-height: 0.82;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-title span { display: block; }
+
+    .hero-deck {
+      max-width: 390px;
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .primary-action,
+    .text-action {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--ink);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 900;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .primary-action {
+      padding: 0 20px;
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .text-action { padding: 0 18px; background: transparent; }
+
+    .primary-action:hover { background: var(--white); color: var(--ink); }
+
+    .text-action:hover { background: rgba(255, 253, 245, 0.24); }
+
+    .hero-foot {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-foot strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .hero-foot span { font-size: 12px; font-weight: 700; }
+
+    .hero-media {
+      position: relative;
+      min-width: 0;
+      margin: 0;
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      transition: filter 220ms ease, transform 320ms ease;
+    }
+
+    .hero-media[data-finish="blue"] img { filter: hue-rotate(205deg) saturate(0.9); }
+
+    .hero-media[data-finish="black"] img { filter: grayscale(1) brightness(0.45) contrast(1.35); }
+
+    .hero-media.is-detail img { transform: scale(1.06) translateX(-1%); }
+
+    .image-caption {
+      position: absolute;
+      right: 22px;
+      bottom: 18px;
+      left: 22px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .finish-picker {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border: 2px solid var(--ink);
+      background: var(--white);
+    }
+
+    .finish-picker span {
+      margin-right: 4px;
+      font-family: "Courier New", monospace;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .swatch {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .swatch[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--ink); }
+
+    .swatch[data-finish="red"] { background: #ef3f27; }
+
+    .swatch[data-finish="blue"] { background: #1747d1; }
+
+    .swatch[data-finish="black"] { background: #181817; }
+
+    .spec-band {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.5fr);
+      background: var(--ink);
+      color: var(--white);
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .spec-intro {
+      padding: 68px 40px;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .spec-intro h2 {
+      max-width: 520px;
+      margin: 12px 0 20px;
+      font-size: 46px;
+      line-height: 1;
+    }
+
+    .spec-intro p:last-child {
+      max-width: 430px;
+      margin: 0;
+      color: rgba(255, 253, 245, 0.72);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .spec-list { margin: 0; }
+
+    .spec-row {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 22px;
+      padding: 28px 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .spec-row:last-child { border-bottom: 0; }
+
+    .spec-row dt {
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .spec-row dd {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .evidence {
+      border-bottom: 2px solid var(--ink);
+      background: var(--paper);
+    }
+
+    .evidence-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.55fr);
+      align-items: end;
+      gap: 32px;
+      padding: 44px 40px;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .evidence-head h2 {
+      margin: 10px 0 0;
+      font-size: 46px;
+      line-height: 1;
+    }
+
+    .evidence-head p:last-child {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .evidence figure { min-width: 0; margin: 0; }
+
+    .evidence figure:first-child { border-right: 2px solid var(--ink); }
+
+    .evidence figure img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      background: var(--ink);
+    }
+
+    .evidence figure:nth-child(2) img { object-fit: contain; }
+
+    .evidence figcaption {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 20px;
+      border-top: 2px solid var(--ink);
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .closing {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 32px;
+      padding: 40px;
+      background: var(--white);
+    }
+
+    .closing h2 { margin: 0; font-size: 34px; }
+
+    .closing p { margin: 8px 0 0; font-size: 14px; }
+
+    .save-button {
+      min-height: 46px;
+      padding: 0 18px;
+      border: 2px solid var(--ink);
+      background: var(--paper);
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .save-button[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+
+    .status {
+      min-height: 20px;
+      margin: 8px 0 0;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .site-header {
+        grid-template-columns: 1fr auto;
+        padding: 0 20px;
+      }
+
+      .desktop-nav,
+      .study-label { display: none; }
+
+      .menu-button {
+        min-width: 72px;
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--ink);
+        background: transparent;
+        font-size: 12px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .mobile-menu {
+        position: absolute;
+        z-index: 9;
+        top: var(--header-height);
+        right: 0;
+        left: 0;
+        padding: 12px 20px 18px;
+        border-bottom: 2px solid var(--ink);
+        background: var(--paper);
+      }
+
+      .mobile-menu.is-open { display: grid; }
+
+      .mobile-menu a {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid var(--line);
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        min-height: 460px;
+        border-right: 0;
+        border-bottom: 2px solid var(--ink);
+      }
+
+      .hero-media { min-height: 430px; }
+
+      .spec-band { grid-template-columns: 1fr; }
+
+      .spec-intro { border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+
+      .evidence-head { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .site-header { height: 62px; --header-height: 62px; }
+
+      .brand { font-size: 18px; }
+
+      .hero-copy {
+        min-height: 420px;
+        padding: 28px 20px 24px;
+      }
+
+      .hero-title {
+        margin: 24px 0 18px;
+        font-size: 54px;
+        line-height: 0.86;
+      }
+
+      .hero-deck { font-size: 18px; }
+
+      .hero-actions { margin-top: 24px; }
+
+      .primary-action,
+      .text-action { flex: 1 1 0; min-width: 0; padding-right: 8px; padding-left: 8px; }
+
+      .hero-foot { gap: 12px; }
+
+      .hero-media { min-height: 270px; }
+
+      .finish-picker {
+        top: 14px;
+        right: 14px;
+      }
+
+      .finish-picker span { display: none; }
+
+      .swatch { width: 28px; height: 28px; }
+
+      .image-caption { right: 14px; bottom: 12px; left: 14px; }
+
+      .image-caption span:last-child { display: none; }
+
+      .spec-intro,
+      .spec-row,
+      .evidence-head,
+      .closing { padding: 34px 20px; }
+
+      .spec-intro h2 { font-size: 36px; }
+
+      .spec-row { grid-template-columns: 1fr; gap: 8px; }
+
+      .evidence-grid { grid-template-columns: 1fr; }
+
+      .evidence figure:first-child { border-right: 0; border-bottom: 2px solid var(--ink); }
+
+      .evidence-head h2 { font-size: 36px; }
+
+      .closing { grid-template-columns: 1fr; }
+
+      .closing h2 { font-size: 28px; }
+    }
+
+    @media (max-width: 560px) and (max-height: 650px) {
+      .hero-copy { min-height: 310px; padding-top: 16px; padding-bottom: 16px; }
+      .kicker { font-size: 9px; }
+      .hero-title { margin: 12px 0; font-size: 42px; }
+      .hero-deck { font-size: 15px; }
+      .hero-actions { margin-top: 14px; }
+      .primary-action, .text-action { min-height: 40px; font-size: 11px; }
+      .hero-foot { display: none; }
+      .hero-media { min-height: 190px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header">
+    <a class="brand" href="#object" aria-label="ORBIT 首页">ORBIT<span>01</span></a>
+    <nav class="desktop-nav" aria-label="主导航">
+      <a href="#object">形态</a>
+      <a href="#range">结构</a>
+      <a href="#notes">设计注记</a>
+    </nav>
+    <span class="study-label">Independent design study / 2026</span>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu">菜单</button>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="移动导航">
+      <a href="#object">形态</a>
+      <a href="#range">结构</a>
+      <a href="#notes">设计注记</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="object" aria-labelledby="product-title">
+      <div class="hero-copy">
+        <div>
+          <p class="kicker">Lighting study 01 / Folding task light</p>
+          <h1 class="hero-title" id="product-title"><span>ORBIT</span><span>FOLD 01</span></h1>
+          <p class="hero-deck">把光折回桌面。三个关节，一条清楚的运动路径。</p>
+          <div class="hero-actions">
+            <button class="primary-action" id="detail-button" type="button" aria-pressed="false">查看折叠结构</button>
+            <a class="text-action" href="#notes">阅读设计注记</a>
+          </div>
+        </div>
+        <div class="hero-foot">
+          <div>
+            <strong>Prototype / 01</strong>
+            <span>Sample product concept</span>
+          </div>
+          <p class="micro">Designed for focused work</p>
+        </div>
+      </div>
+
+      <figure class="hero-media" id="product-media" data-finish="red">
+        <img src="../assets/orbit/orbit-lamp.jpg" width="1600" height="900" alt="黄色背景中的红色可折叠工作灯，展示圆形灯头、三段支臂和转轴结构">
+        <div class="finish-picker" role="group" aria-label="选择灯具颜色">
+          <span>Finish</span>
+          <button class="swatch" data-finish="red" type="button" aria-label="朱红色" aria-pressed="true"></button>
+          <button class="swatch" data-finish="blue" type="button" aria-label="钴蓝色" aria-pressed="false"></button>
+          <button class="swatch" data-finish="black" type="button" aria-label="石墨黑" aria-pressed="false"></button>
+        </div>
+        <figcaption class="image-caption">
+          <span id="finish-label">Finish / Vermilion</span>
+          <span>Generated product study</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="spec-band" id="range" aria-labelledby="range-title">
+      <div class="spec-intro">
+        <p class="micro">Movement before ornament</p>
+        <h2 id="range-title">每个关节都说明下一步。</h2>
+        <p>这个演示不陈列虚构销量或奖项，只讨论可见的形态、操作路径和材料语言。</p>
+      </div>
+      <dl class="spec-list">
+        <div class="spec-row">
+          <dt>01 / Light</dt>
+          <dd>环形灯头让工作面保持开放，不挡住手和工具。</dd>
+        </div>
+        <div class="spec-row">
+          <dt>02 / Hinge</dt>
+          <dd>转轴直接暴露，角度调整不需要猜测隐藏机构。</dd>
+        </div>
+        <div class="spec-row">
+          <dt>03 / Rest</dt>
+          <dd>支臂折回底座上方，收纳状态仍然保持完整轮廓。</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="evidence" aria-labelledby="evidence-title">
+      <div class="evidence-head">
+        <div>
+          <p class="micro">Form evidence / two representations</p>
+          <h2 id="evidence-title">照片负责材质，图解负责运动。</h2>
+        </div>
+        <p>生成配图保持同一产品轮廓；SVG 只说明三种可读位置，不伪装成精确工程尺寸。</p>
+      </div>
+      <div class="evidence-grid">
+        <figure>
+          <img src="../assets/orbit/orbit-detail.jpg" width="1200" height="800" loading="lazy" alt="黄色背景中处于低位角度的红色折叠工作灯，清楚展示三个转轴">
+          <figcaption><span>Plate 02 / Low position</span><span>Generated product detail</span></figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/orbit/orbit-motion.svg" width="960" height="560" loading="lazy" alt="ORBIT 工作灯任务、环境和收纳三种位置的运动图解">
+          <figcaption><span>Diagram 01 / Fold range</span><span>Scalable SVG</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="closing" id="notes" aria-labelledby="notes-title">
+      <div>
+        <h2 id="notes-title">保存当前配色</h2>
+        <p>这是交互状态演示，不会发送或存储个人信息。</p>
+        <p class="status" id="save-status" role="status" aria-live="polite"></p>
+      </div>
+      <button class="save-button" id="save-button" type="button" aria-pressed="false">保存到本次浏览</button>
+    </section>
+  </main>
+
+  <script>
+    const menuButton = document.querySelector('.menu-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const detailButton = document.querySelector('#detail-button');
+    const productMedia = document.querySelector('#product-media');
+    const finishLabel = document.querySelector('#finish-label');
+    const saveButton = document.querySelector('#save-button');
+    const saveStatus = document.querySelector('#save-status');
+    const finishNames = { red: 'Vermilion', blue: 'Cobalt', black: 'Graphite' };
+
+    menuButton.addEventListener('click', () => {
+      const open = menuButton.getAttribute('aria-expanded') !== 'true';
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.textContent = open ? '关闭' : '菜单';
+      mobileMenu.classList.toggle('is-open', open);
+    });
+
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.textContent = '菜单';
+        mobileMenu.classList.remove('is-open');
+      });
+    });
+
+    detailButton.addEventListener('click', () => {
+      const active = detailButton.getAttribute('aria-pressed') !== 'true';
+      detailButton.setAttribute('aria-pressed', String(active));
+      detailButton.textContent = active ? '返回完整形态' : '查看折叠结构';
+      productMedia.classList.toggle('is-detail', active);
+    });
+
+    document.querySelectorAll('.swatch').forEach((button) => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.swatch').forEach((item) => item.setAttribute('aria-pressed', 'false'));
+        button.setAttribute('aria-pressed', 'true');
+        const finish = button.dataset.finish;
+        productMedia.dataset.finish = finish;
+        finishLabel.textContent = `Finish / ${finishNames[finish]}`;
+        saveButton.setAttribute('aria-pressed', 'false');
+        saveButton.textContent = '保存到本次浏览';
+        saveStatus.textContent = '';
+      });
+    });
+
+    saveButton.addEventListener('click', () => {
+      const saved = saveButton.getAttribute('aria-pressed') !== 'true';
+      saveButton.setAttribute('aria-pressed', String(saved));
+      saveButton.textContent = saved ? '已保存' : '保存到本次浏览';
+      saveStatus.textContent = saved ? `${finishNames[productMedia.dataset.finish]} 配色已保存。` : '已取消保存。';
+    });
+  </script>
+</body>
+</html>
