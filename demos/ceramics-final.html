@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="青岫陶作，一页关于泥、釉与火的陶瓷品牌概念网站。" />
+  <meta name="theme-color" content="#f5f6f3" />
+  <title>青岫陶作 | 泥土与火的日用器物</title>
+  <link rel="icon" href="data:," />
+  <link rel="preload" as="image" href="../assets/ceramics/hero-vessels.jpg" fetchpriority="high" />
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    :root {
+      --page: #f5f6f3;
+      --surface: #ffffff;
+      --ink: #171917;
+      --muted: #5b625d;
+      --line: #cfd5d0;
+      --cobalt: #1547b7;
+      --cobalt-deep: #0e338b;
+      --cobalt-soft: #dfe8ff;
+      --mineral: #286858;
+      --vermilion: #d4482e;
+      --focus: #d4482e;
+      --on-dark: #f5f6f3;
+      --on-dark-muted: #c3cbc5;
+      --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+      --font-body: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --container: 1280px;
+      --gutter: 48px;
+      --header-height: 76px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--page); }
+    body {
+      margin: 0; overflow-x: hidden; background: var(--page); color: var(--ink);
+      font-family: var(--font-body); font-size: 16px; line-height: 1.7; letter-spacing: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.menu-open { overflow: hidden; }
+    img { display: block; width: 100%; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { color: inherit; font: inherit; letter-spacing: 0; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+    ::selection { background: var(--cobalt); color: #ffffff; }
+    .skip-link {
+      position: fixed; top: 12px; left: 12px; z-index: 200; padding: 10px 14px;
+      transform: translateY(-160%); background: var(--ink); color: var(--on-dark);
+      border-radius: 4px; transition: transform 160ms ease-out;
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .site-header {
+      position: fixed; inset: 0 0 auto; z-index: 100; height: var(--header-height);
+      border-bottom: 1px solid transparent; background: transparent;
+      transition: background-color 180ms ease-out, border-color 180ms ease-out;
+    }
+    .site-header.is-scrolled, body.menu-open .site-header {
+      border-color: rgba(23, 25, 23, 0.14); background: rgba(245, 246, 243, 0.96);
+    }
+    .header-inner {
+      width: min(100%, calc(var(--container) + var(--gutter) * 2)); height: 100%; margin: 0 auto;
+      padding: 0 var(--gutter); display: flex; align-items: center; justify-content: space-between;
+      gap: 32px;
+    }
+    .brand {
+      position: relative; z-index: 102; display: inline-flex; align-items: center; gap: 12px;
+      min-width: 0; font-weight: 700; line-height: 1; white-space: nowrap;
+    }
+    .brand-mark {
+      display: grid; width: 34px; height: 34px; place-items: center; flex: 0 0 auto;
+      background: var(--cobalt); color: #ffffff; font-family: var(--font-display);
+      font-size: 19px; font-weight: 600;
+    }
+    .brand-name { font-size: 15px; }
+    .desktop-nav { display: flex; align-items: center; gap: 32px; }
+    .desktop-nav a {
+      position: relative; padding: 10px 0; color: #2f3531; font-size: 14px;
+      font-weight: 600; white-space: nowrap;
+    }
+    .desktop-nav a::after {
+      position: absolute; right: 0; bottom: 5px; left: 0; height: 2px; content: "";
+      transform: scaleX(0); transform-origin: right; background: var(--cobalt);
+      transition: transform 180ms ease-out;
+    }
+    .desktop-nav a:hover::after, .desktop-nav a:focus-visible::after {
+      transform: scaleX(1); transform-origin: left;
+    }
+    .menu-toggle {
+      position: relative; z-index: 102; display: none; width: 44px; height: 44px; padding: 0;
+      border: 0; background: transparent; color: var(--ink); font-size: 25px; line-height: 1;
+    }
+    .mobile-nav {
+      position: fixed; inset: 0; z-index: 101; display: none; place-content: center; gap: 8px;
+      padding: calc(var(--header-height) + 40px) 28px 48px; visibility: hidden; opacity: 0;
+      transform: translateY(-16px); background: var(--page);
+      transition: opacity 180ms ease-out, transform 180ms ease-out, visibility 180ms;
+    }
+    body.menu-open .mobile-nav { visibility: visible; opacity: 1; transform: translateY(0); }
+    .mobile-nav a {
+      padding: 9px 0; font-family: var(--font-display); font-size: 34px; line-height: 1.3;
+      text-align: center; white-space: nowrap;
+    }
+    main:focus { outline: none; }
+    section { scroll-margin-top: calc(var(--header-height) + 12px); }
+    .hero {
+      position: relative; display: grid; height: min(720px, calc(100svh - 72px));
+      min-height: 620px; overflow: hidden; background: var(--surface);
+    }
+    .hero-media { position: absolute; inset: 0; }
+    .hero-media img { height: 100%; object-fit: cover; object-position: 50% 62%; }
+    .hero-inner {
+      position: relative; z-index: 1; width: min(100%, calc(var(--container) + var(--gutter) * 2));
+      height: 100%; margin: 0 auto; padding: calc(var(--header-height) + 62px) var(--gutter) 52px;
+      display: grid; grid-template-columns: minmax(0, 1fr) 86px; gap: 32px;
+    }
+    .hero-copy { align-self: start; max-width: 590px; min-width: 0; }
+    .hero-kicker {
+      display: flex; align-items: center; gap: 10px; margin: 0 0 14px; color: var(--cobalt-deep);
+      font-size: 13px; font-weight: 700;
+    }
+    .hero-kicker::before { width: 32px; height: 2px; content: ""; background: var(--cobalt); }
+    .hero h1 {
+      max-width: 100%; margin: 0; color: var(--ink); font-family: var(--font-display);
+      font-size: 88px; font-weight: 500; line-height: 1.02; letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+    .hero-lead {
+      max-width: 420px; margin: 22px 0 0; color: #343a35; font-size: 18px; line-height: 1.65;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .cta {
+      display: inline-flex; min-height: 46px; align-items: center; justify-content: center; gap: 10px;
+      padding: 0 20px; border: 1px solid transparent; border-radius: 4px; font-size: 14px;
+      font-weight: 700; line-height: 1; white-space: nowrap;
+      transition: color 160ms ease-out, background-color 160ms ease-out,
+        border-color 160ms ease-out, transform 160ms ease-out;
+    }
+    .cta:hover { transform: translateY(-2px); }
+    .cta-primary { background: var(--cobalt); color: #ffffff; }
+    .cta-primary:hover { background: var(--cobalt-deep); }
+    .cta-secondary {
+      border-color: rgba(23, 25, 23, 0.42); background: rgba(255, 255, 255, 0.52); color: var(--ink);
+    }
+    .cta-secondary:hover { border-color: var(--ink); background: #ffffff; }
+    .hero-side-note {
+      align-self: center; justify-self: end; padding-left: 18px;
+      border-left: 1px solid rgba(23, 25, 23, 0.34); color: #3f4641;
+      font-family: var(--font-display); font-size: 14px; line-height: 1.7; writing-mode: vertical-rl;
+    }
+    .hero-index {
+      position: absolute; right: var(--gutter); bottom: 36px; display: flex; align-items: center;
+      gap: 12px; color: #444b46; font-size: 12px; font-weight: 700;
+    }
+    .hero-index::before { width: 44px; height: 1px; content: ""; background: currentColor; }
+    .manifesto { background: var(--ink); color: var(--on-dark); }
+    .manifesto-inner {
+      width: min(100%, calc(var(--container) + var(--gutter) * 2)); margin: 0 auto;
+      padding: 108px var(--gutter) 116px; display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr); gap: 96px; align-items: end;
+    }
+    .section-number {
+      display: block; margin-bottom: 24px; color: var(--on-dark-muted); font-size: 12px; font-weight: 700;
+    }
+    .manifesto h2 {
+      max-width: 840px; margin: 0; font-family: var(--font-display); font-size: 56px;
+      font-weight: 500; line-height: 1.25; letter-spacing: 0; overflow-wrap: anywhere;
+    }
+    .manifesto-copy { padding-top: 18px; border-top: 2px solid var(--cobalt-soft); }
+    .manifesto-copy p { margin: 0; color: var(--on-dark-muted); font-size: 15px; }
+    .manifesto-copy strong {
+      display: block; margin-bottom: 12px; color: var(--on-dark); font-family: var(--font-display);
+      font-size: 22px; font-weight: 500;
+    }
+    .collection { padding: 120px 0 148px; background: var(--page); }
+    .section-inner {
+      width: min(100%, calc(var(--container) + var(--gutter) * 2)); margin: 0 auto; padding: 0 var(--gutter);
+    }
+    .section-heading {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 0.48fr); gap: 72px;
+      align-items: end; margin-bottom: 72px;
+    }
+    .section-heading h2 {
+      margin: 0; font-family: var(--font-display); font-size: 58px; font-weight: 500;
+      line-height: 1.16; letter-spacing: 0; overflow-wrap: anywhere;
+    }
+    .section-heading p { margin: 0; color: var(--muted); font-size: 15px; }
+    .work-grid {
+      display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 48px 24px; align-items: start;
+    }
+    .piece { min-width: 0; margin: 0; }
+    .piece-a { grid-column: 1 / span 7; }
+    .piece-b { grid-column: 9 / span 4; margin-top: 160px; }
+    .piece-c { grid-column: 4 / span 8; margin-top: 40px; }
+    .image-button {
+      position: relative; display: block; width: 100%; padding: 0; overflow: hidden; border: 0;
+      border-radius: 2px; background: #e4e7e3; text-align: left;
+    }
+    .piece-a .image-button { aspect-ratio: 5 / 4; }
+    .piece-b .image-button { aspect-ratio: 4 / 5; }
+    .piece-c .image-button { aspect-ratio: 8 / 5; }
+    .image-button img { height: 100%; object-fit: cover; transition: transform 420ms ease-out; }
+    .piece-b .image-button img { object-position: 50% 52%; }
+    .image-button::after {
+      position: absolute; right: 14px; bottom: 14px; display: grid; width: 36px; height: 36px;
+      place-items: center; content: "+"; border-radius: 50%; background: rgba(245, 246, 243, 0.94);
+      color: var(--ink); font-size: 22px; line-height: 1; opacity: 0; transform: translateY(8px);
+      transition: opacity 180ms ease-out, transform 180ms ease-out;
+    }
+    .image-button:hover img, .image-button:focus-visible img { transform: scale(1.025); }
+    .image-button:hover::after, .image-button:focus-visible::after { opacity: 1; transform: translateY(0); }
+    .piece-caption {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 20px;
+      padding-top: 14px; border-top: 1px solid var(--line); margin-top: 14px;
+    }
+    .piece-caption strong { font-family: var(--font-display); font-size: 20px; font-weight: 500; }
+    .piece-caption span {
+      flex: 0 0 auto; color: var(--muted); font-size: 12px; font-weight: 700; white-space: nowrap;
+    }
+    .process { background: var(--cobalt); color: #ffffff; }
+    .process-inner {
+      width: min(100%, calc(var(--container) + var(--gutter) * 2)); min-height: 760px;
+      margin: 0 auto; padding-left: var(--gutter); display: grid;
+      grid-template-columns: minmax(360px, 0.78fr) minmax(0, 1.22fr); align-items: stretch;
+    }
+    .process-copy {
+      min-width: 0; padding: 104px 72px 104px 0; display: flex; flex-direction: column; justify-content: center;
+    }
+    .process-copy .section-number { color: #dce5ff; }
+    .process h2 {
+      margin: 0; font-family: var(--font-display); font-size: 52px; font-weight: 500;
+      line-height: 1.22; letter-spacing: 0; overflow-wrap: anywhere;
+    }
+    .process-lead { max-width: 470px; margin: 24px 0 42px; color: #dce5ff; font-size: 16px; }
+    .process-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(255, 255, 255, 0.38); }
+    .process-list li {
+      display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; gap: 12px; align-items: center;
+      min-height: 64px; border-bottom: 1px solid rgba(255, 255, 255, 0.38);
+    }
+    .process-list b { font-size: 12px; font-weight: 700; }
+    .process-list strong { font-family: var(--font-display); font-size: 20px; font-weight: 500; }
+    .process-list span { color: #dce5ff; font-size: 13px; white-space: nowrap; }
+    .process-media { min-width: 0; min-height: 100%; }
+    .process-media img {
+      height: 100%; min-height: 760px; object-fit: cover; object-position: center;
+    }
+    .closing { position: relative; overflow: hidden; background: var(--surface); }
+    .closing::before {
+      position: absolute; inset: 0 auto 0 0; width: 12px; content: ""; background: var(--mineral);
+    }
+    .closing-inner {
+      width: min(100%, calc(var(--container) + var(--gutter) * 2)); margin: 0 auto;
+      padding: 128px var(--gutter) 136px; display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px; gap: 88px; align-items: end;
+    }
+    .closing h2 {
+      max-width: 860px; margin: 0; font-family: var(--font-display); font-size: 64px;
+      font-weight: 500; line-height: 1.18; letter-spacing: 0; overflow-wrap: anywhere;
+    }
+    .closing-action p { margin: 0 0 22px; color: var(--muted); font-size: 14px; }
+    .site-footer { background: var(--ink); color: var(--on-dark); }
+    .footer-inner {
+      width: min(100%, calc(var(--container) + var(--gutter) * 2)); margin: 0 auto;
+      padding: 44px var(--gutter) 52px; display: grid;
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 48px; align-items: end;
+    }
+    .footer-brand { font-family: var(--font-display); font-size: 24px; }
+    .footer-brand small {
+      display: block; margin-top: 6px; color: var(--on-dark-muted); font-family: var(--font-body); font-size: 12px;
+    }
+    .photo-credits {
+      margin: 0; color: var(--on-dark-muted); font-size: 12px; line-height: 1.8; text-align: right;
+    }
+    .photo-credits a { color: #ffffff; text-decoration: underline; text-underline-offset: 3px; }
+    .lightbox {
+      width: min(94vw, 1120px); max-width: 1120px; padding: 0; overflow: visible; border: 0;
+      border-radius: 2px; background: var(--ink); color: var(--on-dark);
+    }
+    .lightbox::backdrop { background: rgba(8, 10, 9, 0.86); }
+    .lightbox img { max-height: 78vh; object-fit: contain; background: #0d0f0e; }
+    .lightbox-footer {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 18px;
+    }
+    .lightbox-title { margin: 0; font-family: var(--font-display); font-size: 18px; }
+    .lightbox-close {
+      display: grid; width: 44px; height: 44px; place-items: center; flex: 0 0 auto; padding: 0;
+      border: 1px solid rgba(255, 255, 255, 0.34); border-radius: 50%; background: transparent;
+      color: #ffffff; font-size: 28px; line-height: 1;
+      transition: background-color 160ms ease-out, border-color 160ms ease-out;
+    }
+    .lightbox-close:hover { border-color: #ffffff; background: rgba(255, 255, 255, 0.12); }
+    @media (max-width: 1080px) {
+      :root { --gutter: 32px; }
+      .hero h1 { font-size: 72px; }
+      .manifesto-inner { gap: 56px; }
+      .manifesto h2, .section-heading h2 { font-size: 48px; }
+      .process-copy { padding-right: 48px; }
+      .closing h2 { font-size: 54px; }
+    }
+    @media (max-width: 780px) {
+      :root { --gutter: 22px; --header-height: 68px; }
+      .desktop-nav { display: none; }
+      .menu-toggle { display: grid; place-items: center; }
+      .mobile-nav { display: grid; }
+      .hero { height: min(680px, calc(100svh - 44px)); min-height: 520px; }
+      .hero-inner {
+        padding-top: calc(var(--header-height) + 52px); padding-bottom: 38px;
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-media img { object-position: 57% 64%; }
+      .hero-copy { max-width: 470px; }
+      .hero h1 { font-size: 56px; }
+      .hero-lead { max-width: 330px; margin-top: 16px; font-size: 16px; }
+      .hero-actions { margin-top: 22px; }
+      .hero-side-note {
+        position: absolute; right: var(--gutter); bottom: 34px; padding: 0; border: 0;
+        font-size: 12px; writing-mode: horizontal-tb;
+      }
+      .hero-index { display: none; }
+      .manifesto-inner, .section-heading, .process-inner, .closing-inner, .footer-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .manifesto-inner { padding-top: 80px; padding-bottom: 84px; gap: 48px; }
+      .manifesto h2, .section-heading h2, .process h2, .closing h2 { font-size: 42px; }
+      .collection { padding: 88px 0 104px; }
+      .section-heading { gap: 24px; margin-bottom: 48px; }
+      .work-grid { grid-template-columns: minmax(0, 1fr); gap: 54px; }
+      .piece-a, .piece-b, .piece-c { grid-column: 1; margin-top: 0; }
+      .piece-b { width: 76%; margin-left: auto; }
+      .process-inner { min-height: 0; padding: 0; }
+      .process-copy { padding: 88px var(--gutter) 80px; }
+      .process-media { height: 66vw; min-height: 420px; }
+      .process-media img { min-height: 0; }
+      .closing-inner { padding-top: 96px; padding-bottom: 104px; gap: 40px; }
+      .closing-action { max-width: 360px; }
+      .footer-inner { gap: 28px; }
+      .photo-credits { text-align: left; }
+    }
+    @media (max-width: 480px) {
+      :root { --gutter: 18px; }
+      .brand-name { font-size: 14px; }
+      .hero h1 { font-size: 48px; }
+      .hero-kicker { margin-bottom: 10px; font-size: 12px; }
+      .hero-actions { align-items: flex-start; flex-direction: column; }
+      .hero-side-note { display: none; }
+      .cta { min-width: 138px; }
+      .manifesto h2, .section-heading h2, .process h2, .closing h2 { font-size: 36px; }
+      .piece-b { width: 84%; }
+      .piece-caption { gap: 12px; }
+      .piece-caption strong { font-size: 18px; }
+      .process-list li { grid-template-columns: 34px minmax(0, 1fr); padding: 10px 0; }
+      .process-list span { grid-column: 2; white-space: normal; }
+      .process-media { min-height: 360px; }
+      .closing::before { width: 7px; }
+      .lightbox { width: calc(100vw - 24px); }
+    }
+    @media (max-width: 340px) {
+      .hero h1 { font-size: 43px; }
+      .hero-lead { font-size: 15px; }
+      .manifesto h2, .section-heading h2, .process h2, .closing h2 { font-size: 32px; }
+      .mobile-nav a { font-size: 30px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important; transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <header class="site-header" data-header>
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="青岫陶作，返回顶部">
+        <span class="brand-mark" aria-hidden="true">青</span><span class="brand-name">青岫陶作</span>
+      </a>
+      <nav class="desktop-nav" aria-label="主导航">
+        <a href="#idea">理念</a><a href="#collection">器物</a><a href="#process">手作</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="打开菜单" title="打开菜单" data-menu-toggle>
+        <span aria-hidden="true" data-menu-icon>☰</span>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobile-menu" aria-label="移动端导航" aria-hidden="true" data-mobile-nav>
+      <a href="#idea">理念</a><a href="#collection">器物</a><a href="#process">手作</a>
+    </nav>
+  </header>
+  <main id="main-content" tabindex="-1">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-media">
+        <img src="../assets/ceramics/hero-vessels.jpg" width="2200" height="1400" alt="一组具有不同器形与表面肌理的陶瓷花器" fetchpriority="high" />
+      </div>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="hero-kicker">泥土、釉色与日常</p>
+          <h1 id="hero-title">青岫陶作</h1>
+          <p class="hero-lead">让泥土保留手的力度，让每一次使用继续完成器物。</p>
+          <div class="hero-actions">
+            <a class="cta cta-primary" href="#collection">浏览器物 <span aria-hidden="true">→</span></a>
+            <a class="cta cta-secondary" href="#process">了解手作</a>
+          </div>
+        </div>
+        <p class="hero-side-note">器以载日常，火以成其色</p>
+        <p class="hero-index" aria-hidden="true">QINGXIU / CERAMICS</p>
+      </div>
+    </section>
+    <section class="manifesto" id="idea" aria-labelledby="idea-title">
+      <div class="manifesto-inner">
+        <div class="reveal">
+          <span class="section-number">01 / 理念</span>
+          <h2 id="idea-title">器物不必喧哗。它只需要在握住、盛放与清洗之间，越来越像你的生活。</h2>
+        </div>
+        <div class="manifesto-copy reveal">
+          <strong>从一团泥开始</strong>
+          <p>保留拉坯留下的细微转纹，也接受釉在火里产生的自然变化。相似的器形，并不追求完全一样的表面。</p>
+        </div>
+      </div>
+    </section>
+    <section class="collection" id="collection" aria-labelledby="collection-title">
+      <div class="section-inner">
+        <header class="section-heading reveal">
+          <h2 id="collection-title">本季器物索引</h2>
+          <p>从青蓝餐器、素坯花器到安静的日用杯组，器形服务于手和桌面，而釉色保留各自的偶然。</p>
+        </header>
+        <div class="work-grid">
+          <figure class="piece piece-a reveal">
+            <button class="image-button" type="button" data-lightbox data-src="../assets/ceramics/cobalt-table.jpg" data-title="青蓝餐器 / 釉色索引" aria-label="放大查看青蓝餐器">
+              <img src="../assets/ceramics/cobalt-table.jpg" width="1500" height="1200" alt="俯拍木桌上不同青蓝与白色釉面的陶瓷餐器" loading="lazy" />
+            </button>
+            <figcaption class="piece-caption"><strong>青蓝餐器</strong><span>釉色索引 01</span></figcaption>
+          </figure>
+          <figure class="piece piece-b reveal">
+            <button class="image-button" type="button" data-lightbox data-src="../assets/ceramics/raw-vessels.jpg" data-title="素坯花器 / 器形练习" aria-label="放大查看素坯花器">
+              <img src="../assets/ceramics/raw-vessels.jpg" width="1200" height="1500" alt="一组尚未上釉的陶土长颈花器" loading="lazy" />
+            </button>
+            <figcaption class="piece-caption"><strong>素坯花器</strong><span>器形练习 02</span></figcaption>
+          </figure>
+          <figure class="piece piece-c reveal">
+            <button class="image-button" type="button" data-lightbox data-src="../assets/ceramics/quiet-cups.jpg" data-title="日用杯组 / 温润白釉" aria-label="放大查看日用杯组">
+              <img src="../assets/ceramics/quiet-cups.jpg" width="1600" height="1100" alt="白色背景前一组米白与暖白釉面的陶瓷杯器" loading="lazy" />
+            </button>
+            <figcaption class="piece-caption"><strong>日用杯组</strong><span>温润白釉 03</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+    <section class="process" id="process" aria-labelledby="process-title">
+      <div class="process-inner">
+        <div class="process-copy reveal">
+          <span class="section-number">02 / 手作</span>
+          <h2 id="process-title">手留下尺度，窑火完成颜色。</h2>
+          <p class="process-lead">每一道工序都在回应上一道工序留下的状态。形、触感与釉色，不被拆成彼此无关的决定。</p>
+          <ol class="process-list">
+            <li><b>01</b><strong>揉泥</strong><span>排出空气，统一湿度</span></li>
+            <li><b>02</b><strong>拉坯</strong><span>以手感控制厚薄</span></li>
+            <li><b>03</b><strong>修坯</strong><span>整理足部与比例</span></li>
+            <li><b>04</b><strong>施釉</strong><span>让表面回应器形</span></li>
+            <li><b>05</b><strong>烧成</strong><span>交给温度与时间</span></li>
+          </ol>
+        </div>
+        <div class="process-media reveal">
+          <img src="../assets/ceramics/wheel-process.jpg" width="1400" height="1600" alt="陶艺师在拉坯机上用双手塑造陶器" loading="lazy" />
+        </div>
+      </div>
+    </section>
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="closing-inner">
+        <h2 id="closing-title" class="reveal">好的器物，不把日常变成仪式；它让日常本身更值得留意。</h2>
+        <div class="closing-action reveal">
+          <p>从器形、釉色与使用方式里，找到适合你的那一件。</p>
+          <a class="cta cta-primary" href="#collection">浏览器物 <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">青岫陶作<small>陶瓷品牌概念页面 · 2026</small></div>
+      <p class="photo-credits">
+        摄影素材来自 Unsplash：
+        <a href="https://unsplash.com/photos/white-and-brown-ceramic-vase-R0qthXq3jec" target="_blank" rel="noopener noreferrer">Chloe Bolton</a>、
+        <a href="https://unsplash.com/photos/flatlay-photo-of-ceramic-mugs-and-bowls-IJZY2yXYsp8" target="_blank" rel="noopener noreferrer">Angèle Kamp</a>、
+        <a href="https://unsplash.com/photos/white-clay-vases-on-table-EQpXnijYejQ" target="_blank" rel="noopener noreferrer">Oshin Khandelwal</a>、
+        <a href="https://unsplash.com/photos/white-and-brown-ceramic-bowls-NPPIq1XFdck" target="_blank" rel="noopener noreferrer">Vladimir Gladkov</a>、
+        <a href="https://unsplash.com/photos/person-in-blue-denim-jeans-making-clay-pot-7ZK_CuHroq4" target="_blank" rel="noopener noreferrer">Earl Wilcox</a>。
+        依据 <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash License</a> 使用。
+      </p>
+    </div>
+  </footer>
+  <dialog class="lightbox" aria-labelledby="lightbox-title" data-lightbox-dialog>
+    <img alt="" data-lightbox-image />
+    <div class="lightbox-footer">
+      <p class="lightbox-title" id="lightbox-title" data-lightbox-title></p>
+      <button class="lightbox-close" type="button" aria-label="关闭大图" title="关闭大图" data-lightbox-close>×</button>
+    </div>
+  </dialog>
+  <script>
+    (() => {
+      const body = document.body;
+      const header = document.querySelector('[data-header]');
+      const menuToggle = document.querySelector('[data-menu-toggle]');
+      const menuIcon = document.querySelector('[data-menu-icon]');
+      const mobileNav = document.querySelector('[data-mobile-nav]');
+      const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
+      const setMenu = (isOpen) => {
+        body.classList.toggle('menu-open', isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.setAttribute('aria-label', isOpen ? '关闭菜单' : '打开菜单');
+        menuToggle.setAttribute('title', isOpen ? '关闭菜单' : '打开菜单');
+        mobileNav.setAttribute('aria-hidden', String(!isOpen));
+        menuIcon.textContent = isOpen ? '×' : '☰';
+        if (isOpen) mobileNav.querySelector('a').focus();
+        else if (document.activeElement && mobileNav.contains(document.activeElement)) menuToggle.focus();
+      };
+      updateHeader();
+      window.addEventListener('scroll', updateHeader, { passive: true });
+      menuToggle.addEventListener('click', () => setMenu(menuToggle.getAttribute('aria-expanded') !== 'true'));
+      mobileNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && body.classList.contains('menu-open')) setMenu(false);
+      });
+      const lightbox = document.querySelector('[data-lightbox-dialog]');
+      const lightboxImage = document.querySelector('[data-lightbox-image]');
+      const lightboxTitle = document.querySelector('[data-lightbox-title]');
+      const lightboxClose = document.querySelector('[data-lightbox-close]');
+      document.querySelectorAll('[data-lightbox]').forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+          lightboxImage.src = trigger.dataset.src;
+          lightboxImage.alt = trigger.querySelector('img').alt;
+          lightboxTitle.textContent = trigger.dataset.title;
+          lightbox.showModal();
+        });
+      });
+      lightboxClose.addEventListener('click', () => lightbox.close());
+      lightbox.addEventListener('click', (event) => { if (event.target === lightbox) lightbox.close(); });
+    })();
+  </script>
+</body>
+</html>

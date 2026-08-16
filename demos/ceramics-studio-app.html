@@ -1,0 +1,2106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>青岫陶作 · 工作室管理台</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --bg: #f3f4f6;
+      --surface: #ffffff;
+      --surface-subtle: #f7f8fa;
+      --surface-strong: #eceef2;
+      --border: #d9dde4;
+      --border-strong: #c6cbd4;
+      --text: #171a20;
+      --text-secondary: #5d6572;
+      --text-tertiary: #838b97;
+      --accent: #2459d3;
+      --accent-hover: #1749bb;
+      --accent-soft: #e8eefc;
+      --success: #1d7a50;
+      --success-soft: #e4f4eb;
+      --warning: #b95b17;
+      --warning-soft: #faecdf;
+      --danger: #b63647;
+      --danger-soft: #f9e6e9;
+      --shadow: 0 8px 24px rgba(24, 30, 42, 0.12);
+      --sidebar-width: 232px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #17191d;
+      --surface: #202329;
+      --surface-subtle: #252930;
+      --surface-strong: #2d3139;
+      --border: #373c45;
+      --border-strong: #4a505c;
+      --text: #f2f3f5;
+      --text-secondary: #b0b6c0;
+      --text-tertiary: #818996;
+      --accent: #7196ff;
+      --accent-hover: #8ca9ff;
+      --accent-soft: #293a65;
+      --success: #61c995;
+      --success-soft: #203f32;
+      --warning: #f0a161;
+      --warning-soft: #4a3423;
+      --danger: #ee8492;
+      --danger-soft: #4b2930;
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.32);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+      letter-spacing: 0;
+      transition: background-color 160ms ease, color 160ms ease;
+    }
+
+    button,
+    input,
+    select {
+      color: inherit;
+      font: inherit;
+      letter-spacing: 0;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    svg {
+      display: block;
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: 0 0 auto;
+    }
+
+    .app-shell {
+      display: grid;
+      grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+      width: 100%;
+      height: 100dvh;
+      min-width: 0;
+    }
+
+    .sidebar {
+      position: relative;
+      z-index: 30;
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: 64px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 31px;
+      height: 31px;
+      place-items: center;
+      border: 2px solid var(--text);
+      border-radius: 50%;
+      color: var(--accent);
+    }
+
+    .brand-mark::after {
+      width: 11px;
+      height: 11px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      content: "";
+    }
+
+    .brand-copy {
+      min-width: 0;
+    }
+
+    .brand-name {
+      margin: 0;
+      font-family: Georgia, "Songti SC", serif;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .brand-subtitle {
+      margin-top: 2px;
+      color: var(--text-tertiary);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    .sidebar-body {
+      min-height: 0;
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 10px;
+    }
+
+    .nav-label {
+      padding: 8px 9px 5px;
+      color: var(--text-tertiary);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 3px;
+      margin: 0 0 14px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-button {
+      display: flex;
+      width: 100%;
+      height: 38px;
+      align-items: center;
+      gap: 10px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-secondary);
+      text-align: left;
+      transition: background-color 120ms ease, color 120ms ease;
+    }
+
+    .nav-button:hover {
+      background: var(--surface-subtle);
+      color: var(--text);
+    }
+
+    .nav-button.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 650;
+    }
+
+    .nav-button .nav-count {
+      min-width: 22px;
+      margin-left: auto;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: var(--surface-strong);
+      color: var(--text-secondary);
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .nav-button.active .nav-count {
+      background: var(--surface);
+      color: var(--accent);
+    }
+
+    .kiln-mini {
+      margin: 4px 4px 0;
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface-subtle);
+    }
+
+    .kiln-mini-head,
+    .kiln-mini-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kiln-mini-head {
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .kiln-mini-row {
+      color: var(--text-secondary);
+      font-size: 11px;
+    }
+
+    .mini-progress {
+      height: 4px;
+      margin: 9px 0 7px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: var(--surface-strong);
+    }
+
+    .mini-progress span {
+      display: block;
+      width: 68%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--warning);
+    }
+
+    .sidebar-footer {
+      padding: 10px;
+      border-top: 1px solid var(--border);
+    }
+
+    .profile {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 7px;
+    }
+
+    .avatar {
+      display: grid;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .profile-copy {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .profile-name,
+    .profile-role {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .profile-name {
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .profile-role {
+      color: var(--text-tertiary);
+      font-size: 10px;
+    }
+
+    .main-shell {
+      display: flex;
+      min-width: 0;
+      min-height: 0;
+      flex-direction: column;
+    }
+
+    .topbar {
+      display: flex;
+      min-width: 0;
+      height: 64px;
+      flex: 0 0 64px;
+      align-items: center;
+      gap: 14px;
+      padding: 0 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .mobile-menu {
+      display: none;
+    }
+
+    .page-title-block {
+      min-width: 150px;
+    }
+
+    .page-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .page-date {
+      margin-top: 1px;
+      color: var(--text-tertiary);
+      font-size: 11px;
+    }
+
+    .search-wrap {
+      position: relative;
+      width: min(380px, 34vw);
+      margin-left: auto;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      top: 50%;
+      left: 11px;
+      width: 16px;
+      height: 16px;
+      color: var(--text-tertiary);
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 36px;
+      padding: 0 34px 0 35px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface-subtle);
+      outline: 0;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      background: var(--surface);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .search-clear {
+      position: absolute;
+      top: 50%;
+      right: 6px;
+      display: none;
+      width: 26px;
+      height: 26px;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 5px;
+      background: transparent;
+      color: var(--text-tertiary);
+      transform: translateY(-50%);
+    }
+
+    .search-clear.visible {
+      display: grid;
+    }
+
+    .search-clear svg {
+      position: static;
+      width: 14px;
+      height: 14px;
+      transform: none;
+    }
+
+    .icon-button,
+    .button {
+      display: inline-flex;
+      height: 36px;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text-secondary);
+      transition: border-color 120ms ease, background-color 120ms ease, color 120ms ease;
+    }
+
+    .icon-button {
+      width: 36px;
+      padding: 0;
+    }
+
+    .icon-button:hover,
+    .button:hover {
+      border-color: var(--border-strong);
+      background: var(--surface-subtle);
+      color: var(--text);
+    }
+
+    .button {
+      gap: 7px;
+      padding: 0 13px;
+      font-weight: 650;
+    }
+
+    .button-primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: white;
+    }
+
+    .button-primary:hover {
+      border-color: var(--accent-hover);
+      background: var(--accent-hover);
+      color: white;
+    }
+
+    .content {
+      min-width: 0;
+      min-height: 0;
+      flex: 1;
+      overflow: hidden;
+      padding: 18px 20px 20px;
+    }
+
+    .view {
+      display: none;
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .view.active {
+      display: grid;
+    }
+
+    .dashboard-view {
+      grid-template-rows: auto auto minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    .welcome-row {
+      display: flex;
+      min-width: 0;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .welcome-copy h2 {
+      margin: 0;
+      font-family: Georgia, "Songti SC", serif;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .welcome-copy p {
+      margin: 3px 0 0;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .legend {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-tertiary);
+      font-size: 11px;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .legend-dot.warning {
+      background: var(--warning);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      display: grid;
+      min-width: 0;
+      grid-template-columns: 34px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface);
+    }
+
+    .metric-icon {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 7px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .metric-icon.warning {
+      background: var(--warning-soft);
+      color: var(--warning);
+    }
+
+    .metric-icon.success {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .metric-icon.danger {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .metric-label {
+      overflow: hidden;
+      color: var(--text-secondary);
+      font-size: 11px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .metric-value {
+      margin-top: 1px;
+      font-size: 19px;
+      font-weight: 750;
+      line-height: 1.15;
+    }
+
+    .metric-delta {
+      align-self: start;
+      color: var(--success);
+      font-size: 10px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .metric-delta.neutral {
+      color: var(--text-tertiary);
+    }
+
+    .work-grid {
+      display: grid;
+      min-width: 0;
+      min-height: 0;
+      grid-template-columns: minmax(0, 1.56fr) minmax(320px, 0.84fr);
+      gap: 12px;
+    }
+
+    .panel {
+      display: flex;
+      min-width: 0;
+      min-height: 0;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface);
+    }
+
+    .panel-header {
+      display: flex;
+      min-width: 0;
+      min-height: 52px;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-heading {
+      min-width: 0;
+      margin-right: auto;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .panel-subtitle {
+      margin-top: 1px;
+      color: var(--text-tertiary);
+      font-size: 10px;
+    }
+
+    .segmented {
+      display: flex;
+      min-width: 0;
+      padding: 2px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface-subtle);
+    }
+
+    .segment {
+      height: 26px;
+      padding: 0 9px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .segment.active {
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 650;
+      box-shadow: 0 1px 3px rgba(20, 24, 32, 0.12);
+    }
+
+    .queue-head,
+    .queue-row {
+      display: grid;
+      min-width: 650px;
+      grid-template-columns: minmax(205px, 1.4fr) minmax(100px, 0.68fr) minmax(104px, 0.72fr) minmax(90px, 0.55fr) 34px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .queue-head {
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-subtle);
+      color: var(--text-tertiary);
+      font-size: 10px;
+      font-weight: 650;
+      text-transform: uppercase;
+    }
+
+    .queue-scroll {
+      min-width: 0;
+      min-height: 0;
+      flex: 1;
+      overflow: auto;
+    }
+
+    .queue-row {
+      min-height: 63px;
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border);
+      transition: background-color 100ms ease;
+    }
+
+    .queue-row:last-child {
+      border-bottom: 0;
+    }
+
+    .queue-row:hover {
+      background: var(--surface-subtle);
+    }
+
+    .piece-cell {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .piece-image {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface-strong);
+      object-fit: cover;
+    }
+
+    .piece-copy {
+      min-width: 0;
+    }
+
+    .piece-name {
+      overflow: hidden;
+      font-size: 12px;
+      font-weight: 650;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .piece-id {
+      margin-top: 2px;
+      color: var(--text-tertiary);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 9px;
+    }
+
+    .owner-cell {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-secondary);
+      font-size: 11px;
+    }
+
+    .owner-dot {
+      display: grid;
+      width: 22px;
+      height: 22px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--surface-strong);
+      color: var(--text-secondary);
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .status {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .status::before {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      content: "";
+    }
+
+    .status.warning {
+      background: var(--warning-soft);
+      color: var(--warning);
+    }
+
+    .status.success {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .status.neutral {
+      background: var(--surface-strong);
+      color: var(--text-secondary);
+    }
+
+    .due-cell {
+      color: var(--text-secondary);
+      font-size: 11px;
+    }
+
+    .due-cell.urgent {
+      color: var(--danger);
+      font-weight: 650;
+    }
+
+    .row-action {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border: 0;
+      border-radius: 5px;
+      background: transparent;
+      color: var(--text-tertiary);
+    }
+
+    .row-action:hover {
+      background: var(--surface-strong);
+      color: var(--text);
+    }
+
+    .row-action svg {
+      width: 16px;
+      height: 16px;
+      margin: auto;
+    }
+
+    .empty-state {
+      display: none;
+      height: 100%;
+      min-height: 140px;
+      place-items: center;
+      padding: 28px;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    .empty-state.visible {
+      display: grid;
+    }
+
+    .empty-state svg {
+      width: 28px;
+      height: 28px;
+      margin: 0 auto 8px;
+      color: var(--text-tertiary);
+    }
+
+    .empty-state strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .kiln-panel-body {
+      min-height: 0;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .kiln-focus {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1fr);
+      gap: 13px;
+      padding: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .temperature-ring {
+      position: relative;
+      display: grid;
+      width: 88px;
+      height: 88px;
+      place-items: center;
+      border-radius: 50%;
+      background: conic-gradient(var(--warning) 0 68%, var(--surface-strong) 68% 100%);
+    }
+
+    .temperature-ring::before {
+      position: absolute;
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: var(--surface);
+      content: "";
+    }
+
+    .temperature-copy {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .temperature-value {
+      font-size: 18px;
+      font-weight: 750;
+      line-height: 1;
+    }
+
+    .temperature-unit {
+      margin-top: 3px;
+      color: var(--text-tertiary);
+      font-size: 9px;
+    }
+
+    .kiln-meta {
+      align-self: center;
+    }
+
+    .kiln-meta h4 {
+      margin: 0 0 3px;
+      font-size: 13px;
+    }
+
+    .kiln-meta p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 11px;
+    }
+
+    .kiln-time {
+      margin-top: 8px;
+      color: var(--warning);
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .timeline {
+      margin: 0;
+      padding: 4px 14px 6px;
+      list-style: none;
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 14px minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: start;
+      min-height: 45px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-item:last-child {
+      border-bottom: 0;
+    }
+
+    .timeline-marker {
+      width: 9px;
+      height: 9px;
+      margin-top: 4px;
+      border: 2px solid var(--border-strong);
+      border-radius: 50%;
+      background: var(--surface);
+    }
+
+    .timeline-item.done .timeline-marker {
+      border-color: var(--success);
+      background: var(--success);
+    }
+
+    .timeline-item.current .timeline-marker {
+      border-color: var(--warning);
+      box-shadow: 0 0 0 3px var(--warning-soft);
+    }
+
+    .timeline-title {
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .timeline-desc,
+    .timeline-time {
+      color: var(--text-tertiary);
+      font-size: 9px;
+    }
+
+    .delivery-block {
+      border-top: 1px solid var(--border);
+    }
+
+    .section-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px 4px;
+    }
+
+    .section-line h4 {
+      margin: 0;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .link-button {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 650;
+    }
+
+    .delivery-list {
+      margin: 0;
+      padding: 0 14px 9px;
+      list-style: none;
+    }
+
+    .delivery-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .delivery-item:last-child {
+      border-bottom: 0;
+    }
+
+    .delivery-name {
+      overflow: hidden;
+      font-size: 11px;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .delivery-client {
+      color: var(--text-tertiary);
+      font-size: 9px;
+    }
+
+    .delivery-date {
+      align-self: center;
+      color: var(--text-secondary);
+      font-size: 10px;
+      white-space: nowrap;
+    }
+
+    .generic-view {
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    .generic-toolbar {
+      display: flex;
+      min-width: 0;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .generic-toolbar h2 {
+      margin: 0;
+      font-family: Georgia, "Songti SC", serif;
+      font-size: 22px;
+    }
+
+    .generic-toolbar p {
+      margin: 3px 0 0;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .generic-content {
+      min-height: 0;
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface);
+    }
+
+    .generic-table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+    }
+
+    .generic-table th,
+    .generic-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .generic-table th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: var(--surface-subtle);
+      color: var(--text-tertiary);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    .generic-table td {
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .generic-table td:first-child {
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .backdrop {
+      position: fixed;
+      z-index: 20;
+      inset: 0;
+      display: none;
+      background: rgba(10, 12, 16, 0.42);
+    }
+
+    .backdrop.visible {
+      display: block;
+    }
+
+    .modal-layer {
+      position: fixed;
+      z-index: 60;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 16px;
+      background: rgba(10, 12, 16, 0.48);
+    }
+
+    .modal-layer.visible {
+      display: grid;
+    }
+
+    .modal {
+      width: min(480px, 100%);
+      max-height: calc(100dvh - 32px);
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .modal-header .icon-button {
+      margin-left: auto;
+    }
+
+    .modal-body {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+      padding: 16px;
+    }
+
+    .field {
+      display: grid;
+      min-width: 0;
+      gap: 5px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      height: 38px;
+      padding: 0 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface-subtle);
+      outline: 0;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .field input.invalid,
+    .field select.invalid {
+      border-color: var(--danger);
+    }
+
+    .field-error {
+      min-height: 14px;
+      color: var(--danger);
+      font-size: 9px;
+    }
+
+    .modal-note {
+      display: flex;
+      grid-column: 1 / -1;
+      gap: 8px;
+      padding: 9px 10px;
+      border-radius: 6px;
+      background: var(--warning-soft);
+      color: var(--warning);
+      font-size: 10px;
+    }
+
+    .modal-note svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      background: var(--surface-subtle);
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 80;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      min-width: min(340px, calc(100vw - 32px));
+      align-items: center;
+      gap: 9px;
+      padding: 11px 13px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast svg {
+      color: var(--success);
+    }
+
+    .toast strong {
+      display: block;
+      font-size: 11px;
+    }
+
+    .toast span {
+      color: var(--text-secondary);
+      font-size: 10px;
+    }
+
+    .demo-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-tertiary);
+      font-size: 9px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 1100px) {
+      .metric {
+        grid-template-columns: 32px minmax(0, 1fr);
+      }
+
+      .metric-delta {
+        display: none;
+      }
+
+      .work-grid {
+        grid-template-columns: minmax(0, 1.45fr) minmax(290px, 0.8fr);
+      }
+
+      .search-wrap {
+        width: min(300px, 30vw);
+      }
+    }
+
+    @media (max-width: 880px) {
+      body {
+        overflow: hidden;
+      }
+
+      .app-shell {
+        display: block;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: min(var(--sidebar-width), calc(100vw - 52px));
+        box-shadow: var(--shadow);
+        transform: translateX(-105%);
+        transition: transform 180ms ease;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main-shell {
+        width: 100%;
+        height: 100dvh;
+      }
+
+      .mobile-menu {
+        display: inline-flex;
+      }
+
+      .topbar {
+        padding: 0 14px;
+      }
+
+      .search-wrap {
+        width: min(280px, 36vw);
+      }
+
+      .content {
+        overflow-y: auto;
+        padding: 16px;
+      }
+
+      .view,
+      .view.active {
+        height: auto;
+        min-height: 100%;
+      }
+
+      .dashboard-view {
+        grid-template-rows: auto auto auto;
+      }
+
+      .work-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .panel {
+        min-height: 410px;
+      }
+
+      .kiln-panel {
+        min-height: 440px;
+      }
+
+      .generic-view {
+        grid-template-rows: auto auto;
+      }
+
+      .generic-content {
+        min-height: 520px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar {
+        gap: 8px;
+      }
+
+      .page-title-block {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .page-date {
+        display: none;
+      }
+
+      .search-wrap {
+        position: absolute;
+        top: 70px;
+        right: 12px;
+        left: 12px;
+        z-index: 10;
+        display: none;
+        width: auto;
+        padding: 6px;
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .search-wrap.mobile-open {
+        display: block;
+      }
+
+      .search-wrap > svg {
+        left: 17px;
+      }
+
+      .search-clear {
+        right: 12px;
+      }
+
+      .mobile-search {
+        display: inline-flex;
+      }
+
+      .primary-label {
+        display: none;
+      }
+
+      .button-primary {
+        width: 36px;
+        padding: 0;
+      }
+
+      .content {
+        padding: 13px 12px 18px;
+      }
+
+      .welcome-row,
+      .generic-toolbar {
+        align-items: flex-start;
+      }
+
+      .welcome-copy h2,
+      .generic-toolbar h2 {
+        font-size: 20px;
+      }
+
+      .legend {
+        display: none;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .metric {
+        min-height: 68px;
+        padding: 9px;
+      }
+
+      .metric-icon {
+        width: 30px;
+        height: 30px;
+      }
+
+      .metric-value {
+        font-size: 17px;
+      }
+
+      .panel-header {
+        flex-wrap: wrap;
+        min-height: 62px;
+      }
+
+      .queue-head {
+        display: none;
+      }
+
+      .queue-row {
+        min-width: 0;
+        min-height: 80px;
+        grid-template-areas:
+          "piece piece action"
+          "owner status due";
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        row-gap: 7px;
+      }
+
+      .piece-cell {
+        grid-area: piece;
+      }
+
+      .owner-cell {
+        grid-area: owner;
+      }
+
+      .queue-row > .status {
+        grid-area: status;
+      }
+
+      .due-cell {
+        grid-area: due;
+        white-space: nowrap;
+      }
+
+      .row-action {
+        grid-area: action;
+      }
+
+      .segmented {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .segment {
+        flex: 1;
+      }
+
+      .generic-toolbar .button {
+        width: 36px;
+        padding: 0;
+      }
+
+      .modal-body {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full,
+      .modal-note {
+        grid-column: auto;
+      }
+
+      .toast {
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        min-width: 0;
+      }
+    }
+
+    @media (min-width: 641px) {
+      .mobile-search {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="主导航">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <div class="brand-name">青岫</div>
+          <div class="brand-subtitle">Ceramic Studio</div>
+        </div>
+      </div>
+
+      <div class="sidebar-body">
+        <div class="nav-label">工作空间</div>
+        <nav>
+          <ul class="nav-list">
+            <li><button class="nav-button active" data-view="dashboard" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              <span>工作台</span>
+            </button></li>
+            <li><button class="nav-button" data-view="pieces" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 3h10l-1 4.5a7 7 0 0 1 2.8 5.6c0 4.3-3 7.9-6.8 7.9s-6.8-3.6-6.8-7.9A7 7 0 0 1 8 7.5L7 3Z"/><path d="M8 7h8M7 16h10"/></svg>
+              <span>器物</span><span class="nav-count">24</span>
+            </button></li>
+            <li><button class="nav-button" data-view="kilns" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 20h12M7 20V9a5 5 0 0 1 10 0v11"/><path d="M9 13h6v7M9 9h.01M15 9h.01"/></svg>
+              <span>窑次</span><span class="nav-count">3</span>
+            </button></li>
+            <li><button class="nav-button" data-view="orders" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 2h12l2 5v15H4V7l2-5Z"/><path d="M4 7h16M9 11a3 3 0 0 0 6 0"/></svg>
+              <span>订单</span><span class="nav-count">8</span>
+            </button></li>
+            <li><button class="nav-button" data-view="materials" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m12 2 8 4-8 4-8-4 8-4Z"/><path d="m4 10 8 4 8-4M4 14l8 4 8-4"/></svg>
+              <span>材料</span>
+            </button></li>
+          </ul>
+
+          <div class="nav-label">管理</div>
+          <ul class="nav-list">
+            <li><button class="nav-button" data-view="archive" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 6h18M5 6v15h14V6M8 3h8l2 3H6l2-3Z"/><path d="M9 11h6"/></svg>
+              <span>作品档案</span>
+            </button></li>
+            <li><button class="nav-button" data-view="settings" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21H9.6v-.1A1.7 1.7 0 0 0 8.5 19.3a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.1 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H2v-4h.4A1.7 1.7 0 0 0 4 8.5a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 8.4 4.1a1.7 1.7 0 0 0 1-.6A1.7 1.7 0 0 0 9.8 2.4V2h4v.4A1.7 1.7 0 0 0 15 4a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 8c.13.4.35.76.66 1.04.3.28.7.43 1.1.43H22v4h-.4A1.7 1.7 0 0 0 20 14.6c-.12.14-.32.4-.6.4Z"/></svg>
+              <span>设置</span>
+            </button></li>
+          </ul>
+        </nav>
+
+        <div class="kiln-mini">
+          <div class="kiln-mini-head"><span>1 号电窑</span><span class="status warning">升温中</span></div>
+          <div class="mini-progress"><span></span></div>
+          <div class="kiln-mini-row"><span>842 °C</span><span>目标 1,240 °C</span></div>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="profile">
+          <div class="avatar">林</div>
+          <div class="profile-copy"><div class="profile-name">林知夏</div><div class="profile-role">工作室主理人</div></div>
+          <span class="demo-tag">DEMO</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-shell">
+      <header class="topbar">
+        <button class="icon-button mobile-menu" id="menuButton" type="button" title="打开导航" aria-label="打开导航">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <div class="page-title-block">
+          <h1 class="page-title" id="pageTitle">工作台</h1>
+          <div class="page-date" id="pageDate">加载日期…</div>
+        </div>
+
+        <div class="search-wrap" id="searchWrap">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input class="search-input" id="searchInput" type="search" placeholder="搜索器物、订单或客户" autocomplete="off" aria-label="搜索">
+          <button class="search-clear" id="searchClear" type="button" aria-label="清空搜索" title="清空搜索">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+
+        <button class="icon-button mobile-search" id="mobileSearchButton" type="button" title="搜索" aria-label="打开搜索">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        </button>
+        <button class="icon-button" id="themeButton" type="button" title="切换深浅主题" aria-label="切换深浅主题">
+          <svg class="sun-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <button class="button button-primary" id="newBatchButton" type="button">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="primary-label">新建窑次</span>
+        </button>
+      </header>
+
+      <main class="content">
+        <section class="view dashboard-view active" id="dashboardView" aria-label="工作台">
+          <div class="welcome-row">
+            <div class="welcome-copy">
+              <h2>早上好，知夏</h2>
+              <p>今天有 6 件器物待处理，1 个窑次正在升温。</p>
+            </div>
+            <div class="legend" aria-label="状态图例">
+              <span class="legend-item"><span class="legend-dot"></span>制作流程</span>
+              <span class="legend-item"><span class="legend-dot warning"></span>窑炉流程</span>
+            </div>
+          </div>
+
+          <div class="metrics" aria-label="今日概览">
+            <article class="metric">
+              <div class="metric-icon">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 3h10l-1 4.5a7 7 0 0 1 2.8 5.6c0 4.3-3 7.9-6.8 7.9s-6.8-3.6-6.8-7.9A7 7 0 0 1 8 7.5L7 3Z"/><path d="M8 7h8"/></svg>
+              </div>
+              <div><div class="metric-label">在制器物</div><div class="metric-value">24</div></div>
+              <div class="metric-delta">+3 本周</div>
+            </article>
+            <article class="metric">
+              <div class="metric-icon warning">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 20h12M7 20V9a5 5 0 0 1 10 0v11"/><path d="M9 13h6v7"/></svg>
+              </div>
+              <div><div class="metric-label">本月窑次</div><div class="metric-value">7</div></div>
+              <div class="metric-delta neutral">3 次待烧</div>
+            </article>
+            <article class="metric">
+              <div class="metric-icon success">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 2h12l2 5v15H4V7l2-5Z"/><path d="M4 7h16M9 11a3 3 0 0 0 6 0"/></svg>
+              </div>
+              <div><div class="metric-label">待交付订单</div><div class="metric-value">8</div></div>
+              <div class="metric-delta">2 件已完成</div>
+            </article>
+            <article class="metric">
+              <div class="metric-icon danger">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 8v5M12 17h.01"/><path d="M10.3 3.5 2.6 18a2 2 0 0 0 1.8 3h15.2a2 2 0 0 0 1.8-3L13.7 3.5a2 2 0 0 0-3.4 0Z"/></svg>
+              </div>
+              <div><div class="metric-label">需关注</div><div class="metric-value">3</div></div>
+              <div class="metric-delta neutral">含 1 件返工</div>
+            </article>
+          </div>
+
+          <div class="work-grid">
+            <section class="panel queue-panel" aria-label="今日制作队列">
+              <div class="panel-header">
+                <div class="panel-heading"><h3 class="panel-title">今日制作队列</h3><div class="panel-subtitle"><span id="queueCount">6</span> 件器物</div></div>
+                <div class="segmented" aria-label="工序筛选">
+                  <button class="segment active" data-filter="all" type="button">全部</button>
+                  <button class="segment" data-filter="拉坯" type="button">拉坯</button>
+                  <button class="segment" data-filter="修坯" type="button">修坯</button>
+                  <button class="segment" data-filter="施釉" type="button">施釉</button>
+                </div>
+              </div>
+              <div class="queue-head" aria-hidden="true"><span>器物</span><span>负责人</span><span>当前工序</span><span>截止</span><span></span></div>
+              <div class="queue-scroll">
+                <div id="queueRows">
+                  <div class="queue-row" data-status="修坯" data-search="月白茶盏 p-240816-01 林知夏">
+                    <div class="piece-cell"><img class="piece-image" src="../assets/ceramics/quiet-cups.jpg" alt="月白茶盏"><div class="piece-copy"><div class="piece-name">月白茶盏 · 一对</div><div class="piece-id">P-240816-01</div></div></div>
+                    <div class="owner-cell"><span class="owner-dot">林</span><span>林知夏</span></div><span class="status">修坯</span><span class="due-cell urgent">今天 14:00</span>
+                    <button class="row-action" type="button" title="更多操作" aria-label="月白茶盏更多操作"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1" fill="currentColor" stroke="none"/></svg></button>
+                  </div>
+                  <div class="queue-row" data-status="施釉" data-search="钴蓝折肩瓶 p-240814-08 周衡">
+                    <div class="piece-cell"><img class="piece-image" src="../assets/ceramics/raw-vessels.jpg" alt="钴蓝折肩瓶"><div class="piece-copy"><div class="piece-name">钴蓝折肩瓶</div><div class="piece-id">P-240814-08</div></div></div>
+                    <div class="owner-cell"><span class="owner-dot">周</span><span>周衡</span></div><span class="status success">施釉</span><span class="due-cell">今天 17:30</span>
+                    <button class="row-action" type="button" title="更多操作" aria-label="钴蓝折肩瓶更多操作"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1" fill="currentColor" stroke="none"/></svg></button>
+                  </div>
+                  <div class="queue-row" data-status="拉坯" data-search="竹节花器 p-240816-04 陈默">
+                    <div class="piece-cell"><img class="piece-image" src="../assets/ceramics/cobalt-table.jpg" alt="竹节花器"><div class="piece-copy"><div class="piece-name">竹节花器</div><div class="piece-id">P-240816-04</div></div></div>
+                    <div class="owner-cell"><span class="owner-dot">陈</span><span>陈默</span></div><span class="status warning">拉坯</span><span class="due-cell">明天 11:00</span>
+                    <button class="row-action" type="button" title="更多操作" aria-label="竹节花器更多操作"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1" fill="currentColor" stroke="none"/></svg></button>
+                  </div>
+                  <div class="queue-row" data-status="修坯" data-search="米釉饭碗 p-240815-12 林知夏">
+                    <div class="piece-cell"><img class="piece-image" src="../assets/ceramics/quiet-cups.jpg" alt="米釉饭碗"><div class="piece-copy"><div class="piece-name">米釉饭碗 · 四只</div><div class="piece-id">P-240815-12</div></div></div>
+                    <div class="owner-cell"><span class="owner-dot">林</span><span>林知夏</span></div><span class="status">修坯</span><span class="due-cell">明天 15:00</span>
+                    <button class="row-action" type="button" title="更多操作" aria-label="米釉饭碗更多操作"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1" fill="currentColor" stroke="none"/></svg></button>
+                  </div>
+                  <div class="queue-row" data-status="施釉" data-search="铁锈釉杯 p-240813-05 周衡">
+                    <div class="piece-cell"><img class="piece-image" src="../assets/ceramics/raw-vessels.jpg" alt="铁锈釉杯"><div class="piece-copy"><div class="piece-name">铁锈釉杯 · 三只</div><div class="piece-id">P-240813-05</div></div></div>
+                    <div class="owner-cell"><span class="owner-dot">周</span><span>周衡</span></div><span class="status success">施釉</span><span class="due-cell">周一 10:00</span>
+                    <button class="row-action" type="button" title="更多操作" aria-label="铁锈釉杯更多操作"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1" fill="currentColor" stroke="none"/></svg></button>
+                  </div>
+                  <div class="queue-row" data-status="拉坯" data-search="青灰水洗 p-240816-07 陈默">
+                    <div class="piece-cell"><img class="piece-image" src="../assets/ceramics/cobalt-table.jpg" alt="青灰水洗"><div class="piece-copy"><div class="piece-name">青灰水洗</div><div class="piece-id">P-240816-07</div></div></div>
+                    <div class="owner-cell"><span class="owner-dot">陈</span><span>陈默</span></div><span class="status warning">拉坯</span><span class="due-cell">周一 16:00</span>
+                    <button class="row-action" type="button" title="更多操作" aria-label="青灰水洗更多操作"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1" fill="currentColor" stroke="none"/></svg></button>
+                  </div>
+                </div>
+                <div class="empty-state" id="queueEmpty">
+                  <div><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><strong>没有匹配的器物</strong><span>试试调整关键词或工序筛选。</span></div>
+                </div>
+              </div>
+            </section>
+
+            <aside class="panel kiln-panel" aria-label="窑炉与交付">
+              <div class="panel-header"><div class="panel-heading"><h3 class="panel-title">窑炉状态</h3><div class="panel-subtitle">1 号电窑 · 素烧 K-0816</div></div><span class="status warning">运行中</span></div>
+              <div class="kiln-panel-body">
+                <div class="kiln-focus">
+                  <div class="temperature-ring"><div class="temperature-copy"><div class="temperature-value">842°</div><div class="temperature-unit">当前温度</div></div></div>
+                  <div class="kiln-meta"><h4>升温阶段</h4><p>目标温度 1,240 °C</p><div class="kiln-time">预计 4 小时 20 分钟后保温</div></div>
+                </div>
+                <ol class="timeline">
+                  <li class="timeline-item done"><span class="timeline-marker"></span><div><div class="timeline-title">预热完成</div><div class="timeline-desc">排除坯体残余水分</div></div><time class="timeline-time">08:10</time></li>
+                  <li class="timeline-item current"><span class="timeline-marker"></span><div><div class="timeline-title">匀速升温</div><div class="timeline-desc">每小时 120 °C</div></div><time class="timeline-time">进行中</time></li>
+                  <li class="timeline-item"><span class="timeline-marker"></span><div><div class="timeline-title">高温保温</div><div class="timeline-desc">1,240 °C · 25 分钟</div></div><time class="timeline-time">待开始</time></li>
+                </ol>
+                <div class="delivery-block">
+                  <div class="section-line"><h4>近期交付</h4><button class="link-button" data-view-link="orders" type="button">查看全部</button></div>
+                  <ul class="delivery-list">
+                    <li class="delivery-item"><div><div class="delivery-name">白瓷咖啡杯套组</div><div class="delivery-client">无界咖啡 · O-0812</div></div><time class="delivery-date">8 月 18 日</time></li>
+                    <li class="delivery-item"><div><div class="delivery-name">青灰茶席器组</div><div class="delivery-client">客订 · O-0815</div></div><time class="delivery-date">8 月 21 日</time></li>
+                  </ul>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view generic-view" id="genericView" aria-live="polite">
+          <div class="generic-toolbar">
+            <div><h2 id="genericTitle">器物</h2><p id="genericDescription">管理工作室中的全部在制器物。</p></div>
+            <button class="button" id="genericAction" type="button"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="primary-label">新增记录</span></button>
+          </div>
+          <div class="generic-content" id="genericContent"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+
+  <div class="modal-layer" id="batchModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <form class="modal" id="batchForm" novalidate>
+      <div class="modal-header">
+        <div><h3 id="modalTitle">新建窑次</h3><div class="panel-subtitle">安排烧成曲线和预计开始时间</div></div>
+        <button class="icon-button" id="closeModalButton" type="button" aria-label="关闭弹窗" title="关闭">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="field full"><label for="batchName">窑次编号</label><input id="batchName" name="batchName" placeholder="例如 K-0817" autocomplete="off"><div class="field-error" data-error-for="batchName"></div></div>
+        <div class="field"><label for="kilnSelect">窑炉</label><select id="kilnSelect" name="kilnSelect"><option value="">请选择</option><option>1 号电窑</option><option>2 号燃气窑</option></select><div class="field-error" data-error-for="kilnSelect"></div></div>
+        <div class="field"><label for="batchType">烧成类型</label><select id="batchType" name="batchType"><option value="">请选择</option><option>素烧</option><option>釉烧</option><option>试片烧成</option></select><div class="field-error" data-error-for="batchType"></div></div>
+        <div class="field"><label for="startTime">开始时间</label><input id="startTime" name="startTime" type="datetime-local"><div class="field-error" data-error-for="startTime"></div></div>
+        <div class="field"><label for="targetTemp">目标温度（°C）</label><input id="targetTemp" name="targetTemp" type="number" min="600" max="1350" step="5" value="1240"><div class="field-error" data-error-for="targetTemp"></div></div>
+        <div class="modal-note"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span>提交后会生成待装窑清单。当前页面为交互 Demo，不会连接真实设备。</span></div>
+      </div>
+      <div class="modal-footer"><button class="button" id="cancelModalButton" type="button">取消</button><button class="button button-primary" type="submit">创建窑次</button></div>
+    </form>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg>
+    <div><strong>窑次已创建</strong><span id="toastMessage">已加入待装窑列表。</span></div>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const sidebar = document.getElementById('sidebar');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+    const menuButton = document.getElementById('menuButton');
+    const themeButton = document.getElementById('themeButton');
+    const searchWrap = document.getElementById('searchWrap');
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+    const mobileSearchButton = document.getElementById('mobileSearchButton');
+    const queueRows = [...document.querySelectorAll('.queue-row')];
+    const queueCount = document.getElementById('queueCount');
+    const queueEmpty = document.getElementById('queueEmpty');
+    const dashboardView = document.getElementById('dashboardView');
+    const genericView = document.getElementById('genericView');
+    const batchModal = document.getElementById('batchModal');
+    const batchForm = document.getElementById('batchForm');
+    const batchName = document.getElementById('batchName');
+    const toast = document.getElementById('toast');
+    let activeFilter = 'all';
+    let toastTimer;
+
+    const today = new Intl.DateTimeFormat('zh-CN', {
+      month: 'long', day: 'numeric', weekday: 'long'
+    }).format(new Date());
+    document.getElementById('pageDate').textContent = today;
+
+    const savedTheme = localStorage.getItem('qingxiu-studio-theme');
+    const initialTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    root.dataset.theme = initialTheme;
+    updateThemeIcon();
+
+    function updateThemeIcon() {
+      const dark = root.dataset.theme === 'dark';
+      themeButton.innerHTML = dark
+        ? '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.7 15.1A8.5 8.5 0 0 1 8.9 3.3 8.5 8.5 0 1 0 20.7 15.1Z"/></svg>'
+        : '<svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>';
+      themeButton.setAttribute('aria-label', dark ? '切换到浅色主题' : '切换到深色主题');
+      themeButton.title = dark ? '切换到浅色主题' : '切换到深色主题';
+    }
+
+    themeButton.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('qingxiu-studio-theme', root.dataset.theme);
+      updateThemeIcon();
+    });
+
+    function openDrawer() {
+      sidebar.classList.add('open');
+      drawerBackdrop.classList.add('visible');
+      menuButton.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeDrawer() {
+      sidebar.classList.remove('open');
+      drawerBackdrop.classList.remove('visible');
+      menuButton.setAttribute('aria-expanded', 'false');
+    }
+
+    menuButton.addEventListener('click', openDrawer);
+    drawerBackdrop.addEventListener('click', closeDrawer);
+
+    mobileSearchButton.addEventListener('click', () => {
+      searchWrap.classList.toggle('mobile-open');
+      if (searchWrap.classList.contains('mobile-open')) searchInput.focus();
+    });
+
+    function filterQueue() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      queueRows.forEach((row) => {
+        const statusMatch = activeFilter === 'all' || row.dataset.status === activeFilter;
+        const searchMatch = !query || row.dataset.search.toLowerCase().includes(query);
+        const show = statusMatch && searchMatch;
+        row.hidden = !show;
+        if (show) visible += 1;
+      });
+      queueCount.textContent = visible;
+      queueEmpty.classList.toggle('visible', visible === 0);
+      searchClear.classList.toggle('visible', query.length > 0);
+    }
+
+    searchInput.addEventListener('input', filterQueue);
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      filterQueue();
+      searchInput.focus();
+    });
+
+    document.querySelectorAll('.segment').forEach((button) => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.segment').forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+        activeFilter = button.dataset.filter;
+        filterQueue();
+      });
+    });
+
+    const viewData = {
+      pieces: {
+        title: '器物', description: '管理工作室中的全部在制器物。', action: '新增器物',
+        headers: ['器物', '编号', '工序', '负责人', '更新时间'],
+        rows: [
+          ['月白茶盏 · 一对', 'P-240816-01', '修坯', '林知夏', '12 分钟前'],
+          ['钴蓝折肩瓶', 'P-240814-08', '施釉', '周衡', '35 分钟前'],
+          ['竹节花器', 'P-240816-04', '拉坯', '陈默', '1 小时前'],
+          ['米釉饭碗 · 四只', 'P-240815-12', '修坯', '林知夏', '昨天']
+        ]
+      },
+      kilns: {
+        title: '窑次', description: '安排装窑、烧成和出窑记录。', action: '新建窑次',
+        headers: ['窑次', '窑炉', '类型', '状态', '计划时间'],
+        rows: [
+          ['K-0816', '1 号电窑', '素烧', '升温中 · 842 °C', '今天 08:10'],
+          ['K-0818', '2 号燃气窑', '釉烧', '待装窑', '8 月 18 日 09:00'],
+          ['K-0821', '1 号电窑', '试片烧成', '已计划', '8 月 21 日 14:00']
+        ]
+      },
+      orders: {
+        title: '订单', description: '跟踪委托制作、付款与交付。', action: '新建订单',
+        headers: ['订单', '客户', '内容', '状态', '交付日期'],
+        rows: [
+          ['O-0812', '无界咖啡', '白瓷咖啡杯套组', '待包装', '8 月 18 日'],
+          ['O-0815', '私人客户', '青灰茶席器组', '制作中', '8 月 21 日'],
+          ['O-0806', '山止空间', '陈列花器 6 件', '等待出窑', '8 月 23 日'],
+          ['O-0802', '叁山茶室', '盖碗与品茗杯', '已收定金', '8 月 28 日']
+        ]
+      },
+      materials: {
+        title: '材料', description: '查看泥料、釉料和耗材库存。', action: '登记入库',
+        headers: ['材料', '分类', '当前库存', '安全库存', '状态'],
+        rows: [
+          ['景德镇高白泥', '泥料', '42 kg', '20 kg', '充足'],
+          ['青灰釉 G-12', '釉料', '3.8 kg', '2 kg', '正常'],
+          ['钴蓝色料', '色料', '0.6 kg', '0.8 kg', '需补货'],
+          ['棚板隔离粉', '耗材', '1.2 kg', '1 kg', '正常']
+        ]
+      },
+      archive: {
+        title: '作品档案', description: '沉淀烧成数据、配方和成品影像。', action: '新建档案',
+        headers: ['作品', '系列', '烧成温度', '釉料', '归档日期'],
+        rows: [
+          ['薄雾花器 No.03', '薄雾', '1,238 °C', '月白釉', '8 月 9 日'],
+          ['山影茶盏 No.12', '山影', '1,242 °C', '青灰釉', '8 月 3 日'],
+          ['折线瓶 No.05', '折线', '1,235 °C', '透明釉 + 钴蓝', '7 月 26 日']
+        ]
+      },
+      settings: {
+        title: '设置', description: '管理工作室成员、窑炉与通知。', action: '保存设置',
+        headers: ['设置项', '当前值', '说明'],
+        rows: [
+          ['工作室名称', '青岫陶作', '用于订单与交付单'],
+          ['默认烧成曲线', '高温釉烧 · 1,240 °C', '新窑次的默认值'],
+          ['温度告警', '已开启', '偏差超过 15 °C 时提醒'],
+          ['团队成员', '3 人', '林知夏、周衡、陈默']
+        ]
+      }
+    };
+
+    function renderGenericView(key) {
+      const data = viewData[key];
+      document.getElementById('genericTitle').textContent = data.title;
+      document.getElementById('genericDescription').textContent = data.description;
+      document.getElementById('genericAction').querySelector('span').textContent = data.action;
+      const table = `
+        <table class="generic-table">
+          <thead><tr>${data.headers.map((header) => `<th>${header}</th>`).join('')}</tr></thead>
+          <tbody>${data.rows.map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join('')}</tr>`).join('')}</tbody>
+        </table>`;
+      document.getElementById('genericContent').innerHTML = table;
+    }
+
+    function switchView(key) {
+      const isDashboard = key === 'dashboard';
+      dashboardView.classList.toggle('active', isDashboard);
+      genericView.classList.toggle('active', !isDashboard);
+      document.querySelectorAll('.nav-button').forEach((button) => button.classList.toggle('active', button.dataset.view === key));
+      document.getElementById('pageTitle').textContent = isDashboard ? '工作台' : viewData[key].title;
+      if (!isDashboard) renderGenericView(key);
+      closeDrawer();
+      searchWrap.classList.remove('mobile-open');
+    }
+
+    document.querySelectorAll('[data-view]').forEach((button) => button.addEventListener('click', () => switchView(button.dataset.view)));
+    document.querySelectorAll('[data-view-link]').forEach((button) => button.addEventListener('click', () => switchView(button.dataset.viewLink)));
+
+    function openModal() {
+      batchModal.classList.add('visible');
+      batchModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => batchName.focus(), 0);
+    }
+
+    function closeModal() {
+      batchModal.classList.remove('visible');
+      batchModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      batchForm.reset();
+      document.getElementById('targetTemp').value = '1240';
+      batchForm.querySelectorAll('.invalid').forEach((input) => input.classList.remove('invalid'));
+      batchForm.querySelectorAll('.field-error').forEach((error) => error.textContent = '');
+    }
+
+    document.getElementById('newBatchButton').addEventListener('click', openModal);
+    document.getElementById('closeModalButton').addEventListener('click', closeModal);
+    document.getElementById('cancelModalButton').addEventListener('click', closeModal);
+    document.getElementById('genericAction').addEventListener('click', () => {
+      const active = document.querySelector('.nav-button.active')?.dataset.view;
+      if (active === 'kilns') openModal();
+      else showToast('Demo 操作已记录', '此入口已连接到当前示例流程。');
+    });
+
+    batchModal.addEventListener('click', (event) => {
+      if (event.target === batchModal) closeModal();
+    });
+
+    function validateField(id, message, predicate = (value) => value.trim().length > 0) {
+      const input = document.getElementById(id);
+      const error = batchForm.querySelector(`[data-error-for="${id}"]`);
+      const valid = predicate(input.value);
+      input.classList.toggle('invalid', !valid);
+      error.textContent = valid ? '' : message;
+      return valid;
+    }
+
+    batchForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const validName = validateField('batchName', '请输入窑次编号。');
+      const validKiln = validateField('kilnSelect', '请选择窑炉。');
+      const validType = validateField('batchType', '请选择烧成类型。');
+      const validTime = validateField('startTime', '请选择开始时间。');
+      const validTemp = validateField('targetTemp', '温度需在 600–1,350 °C 之间。', (value) => Number(value) >= 600 && Number(value) <= 1350);
+      if (![validName, validKiln, validType, validTime, validTemp].every(Boolean)) {
+        batchForm.querySelector('.invalid')?.focus();
+        return;
+      }
+      const name = batchName.value.trim();
+      closeModal();
+      showToast('窑次已创建', `${name} 已加入待装窑列表。`);
+    });
+
+    function showToast(title, message) {
+      toast.querySelector('strong').textContent = title;
+      document.getElementById('toastMessage').textContent = message;
+      toast.classList.add('visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('visible'), 3200);
+    }
+
+    document.querySelectorAll('.row-action').forEach((button) => button.addEventListener('click', () => showToast('已打开器物操作', '这是 Demo 中的快捷操作反馈。')));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        if (batchModal.classList.contains('visible')) closeModal();
+        else {
+          closeDrawer();
+          searchWrap.classList.remove('mobile-open');
+        }
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 880) closeDrawer();
+      if (window.innerWidth > 640) searchWrap.classList.remove('mobile-open');
+    });
+  </script>
+</body>
+</html>

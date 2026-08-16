@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interface Fieldbook is a browsable index of four product interface studies." />
+  <meta name="theme-color" content="#f4f4ef" />
+  <title>Interface Fieldbook | Product UI Studies</title>
+  <link rel="icon" href="data:," />
+  <link rel="preload" as="image" href="../assets/showcase/terminal.png" fetchpriority="high" />
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    :root {
+      --paper: #f4f4ef;
+      --white: #ffffff;
+      --ink: #111111;
+      --muted: #62625d;
+      --line: #c9c9c2;
+      --red: #d6281f;
+      --red-deep: #a91d17;
+      --focus: #d6281f;
+      --container: 1320px;
+      --gutter: 44px;
+      --header-height: 68px;
+      --font-sans: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--paper); }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.5;
+      letter-spacing: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.menu-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button { color: inherit; font: inherit; letter-spacing: 0; }
+    img { display: block; max-width: 100%; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+    ::selection { background: var(--red); color: var(--white); }
+
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 12px;
+      z-index: 300;
+      padding: 10px 14px;
+      transform: translateY(-160%);
+      background: var(--ink);
+      color: var(--white);
+      font-weight: 700;
+      transition: transform 160ms ease-out;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      border-bottom: 1px solid var(--ink);
+      background: rgba(244, 244, 239, 0.96);
+    }
+    .header-inner {
+      width: min(100%, calc(var(--container) + var(--gutter) * 2));
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      width: max-content;
+      min-width: 0;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .brand-mark {
+      display: grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      flex: 0 0 auto;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+    .desktop-nav { display: flex; align-items: center; gap: 28px; }
+    .desktop-nav a {
+      padding: 9px 0;
+      border-bottom: 2px solid transparent;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .desktop-nav a:hover, .desktop-nav a:focus-visible { border-color: var(--red); }
+    .edition {
+      justify-self: end;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font-size: 27px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .mobile-menu {
+      position: fixed;
+      inset: var(--header-height) 0 0;
+      z-index: 90;
+      display: none;
+      align-content: center;
+      gap: 8px;
+      padding: 32px var(--gutter) 48px;
+      pointer-events: none;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-12px);
+      background: var(--paper);
+      transition: opacity 160ms ease-out, transform 160ms ease-out, visibility 0s linear 160ms;
+    }
+    .mobile-menu a {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 32px;
+      font-weight: 800;
+    }
+    .mobile-menu small {
+      margin-top: 24px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    body.menu-open .mobile-menu {
+      pointer-events: auto;
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0s;
+    }
+
+    main:focus { outline: none; }
+    section { scroll-margin-top: calc(var(--header-height) + 18px); }
+    .container {
+      width: min(100%, calc(var(--container) + var(--gutter) * 2));
+      margin: 0 auto;
+      padding-inline: var(--gutter);
+    }
+
+    .hero {
+      height: min(780px, calc(100svh - 104px));
+      min-height: 640px;
+      display: grid;
+      grid-template-rows: minmax(270px, 0.76fr) minmax(300px, 1fr);
+      border-bottom: 1px solid var(--ink);
+      background: var(--paper);
+    }
+    .hero-copy {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(250px, 0.5fr);
+      gap: 56px;
+      align-items: end;
+      padding-top: 48px;
+      padding-bottom: 42px;
+    }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 15px;
+      color: var(--red);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 34px; height: 2px; content: ""; background: currentColor; }
+    .hero h1 {
+      max-width: 890px;
+      margin: 0;
+      font-size: 86px;
+      font-weight: 800;
+      line-height: 0.94;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+    .hero-summary {
+      align-self: end;
+      padding-top: 16px;
+      border-top: 2px solid var(--ink);
+    }
+    .hero-summary p { margin: 0; color: #343431; font-size: 15px; }
+    .hero-summary dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 6px 14px;
+      margin: 22px 0 0;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    .hero-summary dt { color: var(--muted); }
+    .hero-summary dd { margin: 0; text-align: right; }
+    .hero-media {
+      position: relative;
+      min-height: 0;
+      overflow: hidden;
+      border-top: 1px solid var(--ink);
+      background: #0f1115;
+    }
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center top;
+    }
+    .hero-media-label {
+      position: absolute;
+      top: 16px;
+      left: 0;
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 16px;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .work {
+      padding: 92px 0 126px;
+      background: var(--white);
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.45fr);
+      gap: 56px;
+      align-items: end;
+      margin-bottom: 48px;
+    }
+    .section-index {
+      display: block;
+      margin-bottom: 15px;
+      color: var(--red);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .section-intro h2, .method h2 {
+      margin: 0;
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    .section-intro > p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .filter-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 0;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+    .filters {
+      display: flex;
+      max-width: 100%;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+    .filter {
+      min-height: 38px;
+      padding: 0 14px;
+      border: 1px solid transparent;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .filter:hover { border-color: var(--line); }
+    .filter[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--white); }
+    .result-count {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    .project-list { border-bottom: 1px solid var(--ink); }
+    .project {
+      display: grid;
+      grid-template-columns: 64px minmax(230px, 0.62fr) minmax(0, 1.38fr);
+      gap: 28px;
+      align-items: start;
+      padding: 38px 0 44px;
+      border-top: 1px solid var(--ink);
+    }
+    .project[hidden] { display: none; }
+    .project-number {
+      padding-top: 4px;
+      color: var(--red);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .project-copy { min-width: 0; }
+    .project-type {
+      margin: 0 0 13px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .project h3 {
+      margin: 0;
+      font-size: 31px;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+    .project-description {
+      max-width: 370px;
+      margin: 18px 0 22px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+    .project-meta li { position: relative; }
+    .project-meta li + li::before {
+      position: absolute;
+      top: 50%;
+      left: -9px;
+      width: 3px;
+      height: 3px;
+      content: "";
+      transform: translateY(-50%);
+      background: var(--red);
+    }
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 26px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .project-link:hover { color: var(--red-deep); }
+    .project-link span { font-size: 17px; line-height: 1; }
+    .project-visual {
+      position: relative;
+      display: block;
+      width: 100%;
+      aspect-ratio: 14 / 9;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid #2a2a2a;
+      background: #111111;
+    }
+    .project-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 240ms ease-out;
+    }
+    .project-visual::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      border: 0 solid var(--red);
+      pointer-events: none;
+      transition: border-width 160ms ease-out;
+    }
+    .project-visual:hover img, .project-visual:focus-visible img { transform: scale(1.012); }
+    .project-visual:hover::after, .project-visual:focus-visible::after { border-width: 5px; }
+
+    .method {
+      padding: 96px 0 112px;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      background: var(--paper);
+    }
+    .method-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.45fr);
+      gap: 56px;
+      align-items: end;
+      margin-bottom: 54px;
+    }
+    .method-heading p { margin: 0; color: var(--muted); font-size: 14px; }
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+    .method-item {
+      min-width: 0;
+      padding: 30px 34px 34px 0;
+    }
+    .method-item + .method-item { padding-left: 34px; border-left: 1px solid var(--ink); }
+    .method-item b {
+      display: block;
+      margin-bottom: 36px;
+      color: var(--red);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+    .method-item h3 { margin: 0 0 12px; font-size: 22px; line-height: 1.15; }
+    .method-item p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .notes {
+      padding: 76px 0 86px;
+      background: var(--ink);
+      color: var(--white);
+    }
+    .notes-inner {
+      display: grid;
+      grid-template-columns: 0.55fr 1.45fr;
+      gap: 70px;
+      align-items: start;
+    }
+    .notes-label {
+      color: #b6b6ae;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .notes blockquote {
+      max-width: 940px;
+      margin: 0;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+    .notes blockquote span { color: #b6b6ae; }
+
+    .site-footer {
+      padding: 28px 0;
+      background: var(--red);
+      color: var(--white);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .footer-inner a { padding-bottom: 3px; border-bottom: 1px solid currentColor; }
+
+    @media (max-width: 980px) {
+      :root { --gutter: 28px; }
+      .hero h1 { font-size: 68px; }
+      .project { grid-template-columns: 46px minmax(200px, 0.7fr) minmax(0, 1.3fr); gap: 20px; }
+      .project h3 { font-size: 26px; }
+    }
+
+    @media (max-width: 760px) {
+      :root { --gutter: 20px; --header-height: 64px; }
+      .header-inner { grid-template-columns: 1fr auto; }
+      .desktop-nav, .edition { display: none; }
+      .menu-toggle { display: grid; place-items: center; justify-self: end; }
+      .mobile-menu { display: grid; }
+      .hero {
+        height: auto;
+        min-height: 0;
+        grid-template-rows: auto auto;
+      }
+      .hero-copy {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        align-content: start;
+        padding-top: 42px;
+        padding-bottom: 24px;
+      }
+      .hero h1 { max-width: 560px; font-size: 52px; line-height: 0.96; }
+      .hero-summary { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: end; padding-top: 12px; }
+      .hero-summary dl { margin: 0; }
+      .hero-summary p { font-size: 13px; }
+      .hero-media-label { top: 10px; min-height: 30px; padding-inline: 12px; }
+      .hero-media { aspect-ratio: 14 / 9; }
+      .work { padding: 72px 0 90px; }
+      .section-intro, .method-heading { grid-template-columns: 1fr; gap: 22px; }
+      .section-intro h2, .method h2 { font-size: 42px; }
+      .filter-row { align-items: flex-start; flex-direction: column; gap: 10px; }
+      .filters { width: 100%; padding-bottom: 4px; }
+      .project { grid-template-columns: 42px minmax(0, 1fr); padding: 30px 0 38px; }
+      .project-copy { padding-right: 4px; }
+      .project-visual { grid-column: 1 / -1; }
+      .method { padding: 72px 0 82px; }
+      .method-grid { grid-template-columns: 1fr; }
+      .method-item { padding: 24px 0 26px; }
+      .method-item + .method-item { padding-left: 0; border-top: 1px solid var(--ink); border-left: 0; }
+      .method-item b { margin-bottom: 18px; }
+      .notes { padding: 64px 0 70px; }
+      .notes-inner { grid-template-columns: 1fr; gap: 26px; }
+      .notes blockquote { font-size: 28px; }
+    }
+
+    @media (max-width: 480px) {
+      :root { --gutter: 16px; }
+      .brand { font-size: 12px; }
+      .hero h1 { font-size: 43px; }
+      .hero-summary { grid-template-columns: 1fr; gap: 10px; }
+      .hero-summary p { max-width: 310px; }
+      .hero-summary dl { display: none; }
+      .section-intro h2, .method h2 { font-size: 36px; }
+      .project { grid-template-columns: 32px minmax(0, 1fr); gap: 12px; }
+      .project h3 { font-size: 25px; }
+      .project-description { margin-top: 14px; }
+      .project-link { margin-top: 21px; }
+      .project-visual { aspect-ratio: 5 / 4; }
+      .notes blockquote { font-size: 25px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; gap: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to work</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Interface Fieldbook, back to top">
+        <span class="brand-mark" aria-hidden="true">IF</span>
+        <span>Interface Fieldbook</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#work">Work</a>
+        <a href="#method">Method</a>
+        <a href="#notes">Notes</a>
+      </nav>
+      <span class="edition">Edition 01 / Demo Archive</span>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">+</button>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+    <a href="#work">Work</a>
+    <a href="#method">Method</a>
+    <a href="#notes">Notes</a>
+    <small>Edition 01 / Demo Archive</small>
+  </nav>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy container">
+        <div>
+          <p class="eyebrow">Independent product UI studies</p>
+          <h1 id="hero-title">Interface Fieldbook</h1>
+        </div>
+        <div class="hero-summary">
+          <p>A working index of four interfaces shaped around distinct jobs, densities, and interaction patterns.</p>
+          <dl>
+            <dt>Format</dt><dd>Live HTML</dd>
+            <dt>Entries</dt><dd>04</dd>
+            <dt>Status</dt><dd>Demo archive</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src="../assets/showcase/terminal.png" alt="TermDock terminal workspace with SSH sessions and live host metrics" width="1400" height="900" />
+        <span class="hero-media-label">Featured / TermDock</span>
+      </div>
+    </section>
+
+    <section class="work" id="work" aria-labelledby="work-title">
+      <div class="container">
+        <div class="section-intro">
+          <div>
+            <span class="section-index">01 / INDEX</span>
+            <h2 id="work-title">Selected studies</h2>
+          </div>
+          <p>Each entry links to its working prototype. The images are direct captures of those prototypes, not presentation mockups.</p>
+        </div>
+
+        <div class="filter-row">
+          <div class="filters" role="group" aria-label="Filter projects">
+            <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter" type="button" data-filter="operations" aria-pressed="false">Operations</button>
+            <button class="filter" type="button" data-filter="learning" aria-pressed="false">Learning</button>
+            <button class="filter" type="button" data-filter="communication" aria-pressed="false">Communication</button>
+          </div>
+          <span class="result-count" aria-live="polite">Showing 04 studies</span>
+        </div>
+
+        <div class="project-list">
+          <article class="project" data-category="operations">
+            <span class="project-number">01</span>
+            <div class="project-copy">
+              <p class="project-type">Operations / Terminal</p>
+              <h3>TermDock</h3>
+              <p class="project-description">A dense SSH workspace that keeps sessions, command output, and host health visible without breaking terminal focus.</p>
+              <ul class="project-meta" aria-label="Project traits">
+                <li>Dark shell</li>
+                <li>Three zones</li>
+                <li>Live state</li>
+              </ul>
+              <a class="project-link" href="terminal.html">Open prototype <span aria-hidden="true">↗</span></a>
+            </div>
+            <a class="project-visual" href="terminal.html" aria-label="Open the TermDock prototype">
+              <img src="../assets/showcase/terminal.png" alt="TermDock terminal workspace" width="1400" height="900" loading="lazy" />
+            </a>
+          </article>
+
+          <article class="project" data-category="learning">
+            <span class="project-number">02</span>
+            <div class="project-copy">
+              <p class="project-type">Learning / Workbench</p>
+              <h3>StudyBench</h3>
+              <p class="project-description">A study workspace balancing the current lesson, review queue, and quick capture inside one stable task canvas.</p>
+              <ul class="project-meta" aria-label="Project traits">
+                <li>Light shell</li>
+                <li>Equal height</li>
+                <li>Task focus</li>
+              </ul>
+              <a class="project-link" href="learning.html">Open prototype <span aria-hidden="true">↗</span></a>
+            </div>
+            <a class="project-visual" href="learning.html" aria-label="Open the StudyBench prototype">
+              <img src="../assets/showcase/learning.png" alt="StudyBench learning workspace" width="900" height="720" loading="lazy" />
+            </a>
+          </article>
+
+          <article class="project" data-category="communication">
+            <span class="project-number">03</span>
+            <div class="project-copy">
+              <p class="project-type">Communication / Messaging</p>
+              <h3>LinkPane</h3>
+              <p class="project-description">A three-column conversation client with compact navigation, scannable threads, and a focused message pane.</p>
+              <ul class="project-meta" aria-label="Project traits">
+                <li>Three columns</li>
+                <li>Conversation</li>
+                <li>Composer</li>
+              </ul>
+              <a class="project-link" href="chat.html">Open prototype <span aria-hidden="true">↗</span></a>
+            </div>
+            <a class="project-visual" href="chat.html" aria-label="Open the LinkPane prototype">
+              <img src="../assets/showcase/chat.png" alt="LinkPane three-column conversation client" width="1400" height="900" loading="lazy" />
+            </a>
+          </article>
+
+          <article class="project" data-category="operations">
+            <span class="project-number">04</span>
+            <div class="project-copy">
+              <p class="project-type">Operations / Security</p>
+              <h3>PulseScope</h3>
+              <p class="project-description">A security operations console that separates authorized scope, the active queue, and tool readiness.</p>
+              <ul class="project-meta" aria-label="Project traits">
+                <li>Scope first</li>
+                <li>Risk states</li>
+                <li>Queue view</li>
+              </ul>
+              <a class="project-link" href="pentest.html">Open prototype <span aria-hidden="true">↗</span></a>
+            </div>
+            <a class="project-visual" href="pentest.html" aria-label="Open the PulseScope prototype">
+              <img src="../assets/showcase/pentest.png" alt="PulseScope security operations console" width="1400" height="900" loading="lazy" />
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="method" id="method" aria-labelledby="method-title">
+      <div class="container">
+        <div class="method-heading">
+          <div>
+            <span class="section-index">02 / METHOD</span>
+            <h2 id="method-title">From task to surface</h2>
+          </div>
+          <p>The archive uses the same evaluation order for every interface: job, hierarchy, then visual treatment.</p>
+        </div>
+        <div class="method-grid">
+          <article class="method-item">
+            <b>01</b>
+            <h3>Name the job</h3>
+            <p>Define the primary action and the state a person must judge before allocating space.</p>
+          </article>
+          <article class="method-item">
+            <b>02</b>
+            <h3>Budget the viewport</h3>
+            <p>Keep navigation stable, protect the main canvas, and bound long collections deliberately.</p>
+          </article>
+          <article class="method-item">
+            <b>03</b>
+            <h3>Verify the edges</h3>
+            <p>Check real content, keyboard focus, themes, narrow screens, and overflow in the browser.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="notes" id="notes" aria-labelledby="notes-title">
+      <div class="container notes-inner">
+        <span class="notes-label" id="notes-title">03 / Field note</span>
+        <blockquote>Structure carries the task. <span>Color, type, and motion should make that structure easier to read.</span></blockquote>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Interface Fieldbook / Edition 01</span>
+      <a href="#top">Return to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    const body = document.body;
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    const filterButtons = document.querySelectorAll('.filter');
+    const projects = document.querySelectorAll('.project');
+    const resultCount = document.querySelector('.result-count');
+
+    function setMenu(open) {
+      body.classList.toggle('menu-open', open);
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      menuToggle.textContent = open ? '×' : '+';
+      if (open) mobileLinks[0].focus();
+    }
+
+    menuToggle.addEventListener('click', () => {
+      setMenu(menuToggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    mobileLinks.forEach((link) => link.addEventListener('click', () => setMenu(false)));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && body.classList.contains('menu-open')) {
+        setMenu(false);
+        menuToggle.focus();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 760 && body.classList.contains('menu-open')) setMenu(false);
+    });
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const selected = button.dataset.filter;
+        let visible = 0;
+
+        filterButtons.forEach((item) => {
+          item.setAttribute('aria-pressed', String(item === button));
+        });
+
+        projects.forEach((project) => {
+          const show = selected === 'all' || project.dataset.category === selected;
+          project.hidden = !show;
+          if (show) visible += 1;
+        });
+
+        resultCount.textContent = `Showing ${String(visible).padStart(2, '0')} ${visible === 1 ? 'study' : 'studies'}`;
+      });
+    });
+  </script>
+</body>
+</html>

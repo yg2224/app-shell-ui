@@ -1,39 +1,47 @@
 ---
 name: app-shell-ui
 description: >
-  Build or restyle frontends using App Shell UI — a clean, restrained macOS-style
-  desktop-tool shell (left nav + content, soft surfaces, raised cards, single brand
-  accent, settings-list language) with first-class light and dark themes. Use when
-  the user asks for app-shell-ui, /app-shell-ui, 桌面工具风 UI, 系统设置感界面, 应用外壳,
-  sidebar shell, Clash/设置风格前端, light/dark desktop client UI, 深色主题, 浅色主题,
-  theme toggle, or wants pages that share one reusable app chrome across chat /
-  settings / console / mail-like layouts. Also use for high-fidelity HTML/React demos
-  from tokens and component recipes, or when the user asks to reuse the bundled Top 50
-  React UI component library / gallery.
+  Build or restyle frontends with two deliberately separate modes: App Mode for a clean,
+  restrained macOS-style desktop-tool shell (left nav + content, soft surfaces, raised
+  cards, single brand accent, settings-list language, light and dark themes), and Website
+  Mode for public web frontends such as marketing sites, landing pages, portfolios,
+  editorial/read surfaces, catalogues, and documentation. Use when the user asks for
+  app-shell-ui, /app-shell-ui, 桌面工具风 UI, 系统设置感界面, 应用外壳, sidebar shell,
+  Clash/设置风格前端, 网站前端, 落地页, 官网, landing page, marketing site, portfolio,
+  editorial website, catalog, documentation site, or needs a deliberate visual direction,
+  responsive layout, interaction, accessibility, and implementation-quality review.
 ---
 
 # App Shell UI
 
-You are implementing **App Shell UI**: a reusable application chrome + visual language.
-Business content changes; the shell does not.
+You are implementing **App Shell UI**: a reusable frontend design skill with two modes.
+Choose the surface before choosing pixels. Do not turn every request into a desktop shell,
+and do not turn every app into a generic marketing page.
 
-## Positioning (one line)
+## Choose the surface first
 
-Not a marketing landing page. Not a dense ops admin.  
-**A system-settings / desktop-utility shell**: soft neutral canvas, raised cards, one accent, light borders, **stroke icons first** — in **both light and dark**.  
-Content areas stay calm: **do not sprinkle emoji on every card/row**.
+| Mode | Use for | Default structure | Do not use for |
+|-------|---------|-------------------|----------------|
+| **App Mode** | Logged-in tools, settings, consoles, chat, mail, workbenches, operational flows | Persistent left navigation + task canvas | Public marketing, reading, commerce, or portfolio surfaces |
+| **Website Mode** | Marketing sites, product launches, portfolios, editorial pages, catalogues, docs, public content | A page-specific macrostructure selected from the user journey | A generic hero + three cards + CTA template, or a fake app shell |
 
-## When this skill applies
+If the request has both surfaces, design them separately: Website Mode for acquisition or
+public information, App Mode for the signed-in product. Share brand tokens where appropriate,
+but do not force the same layout or density across both.
 
-- New page / demo / prototype in this style
-- Restyle an existing screen to match the family
-- Extract tokens / sidebar / settings list / empty composer
-- Add or fix **light + dark** theme pairs / theme toggle
-- User says: app shell、桌面工具风、系统设置感、浅色/深色侧栏、开关列表
+## Pre-flight (both modes)
 
-If the user wants flashy landing, heavy Material elevation, or multi-primary rainbow dashboards — do **not** force this skill; ask or pick another direction.
+Before making visual decisions in an existing project, inspect the route and its nearest
+visual source of truth: current tokens, typography, theme mechanism, assets, framework,
+component primitives, and installed icon/motion libraries. Preserve an established system
+unless the user asks for a redesign. Check `package.json` before adding a dependency; do not
+assume a library exists or mix two unrelated design systems in one surface.
 
-## Workflow
+If the brief is genuinely ambiguous between two materially different outcomes, ask exactly
+one short question. Otherwise state the inference in one sentence and continue. Do not turn a
+small implementation request into a requirements interview.
+
+## App Mode Workflow
 
 1. **Pick a layout template** (required before pixels):
    - **设置型** — narrow left nav + form / toggle list
@@ -58,7 +66,7 @@ Default stack when free to choose:
 
 Prefer a **single self-contained HTML** for demos unless the user wants project integration.
 
-## Architecture (always)
+## App Mode Architecture
 
 ```
 L0  Window chrome (optional traffic lights / title bar / top tools + theme toggle)
@@ -76,7 +84,7 @@ make the whole page vertically scroll just to reveal routine secondary content. 
 collections may use one bounded inner scroll region when the product genuinely needs it.
 中文偏好：每个页面尽量一屏完成，内容达到首屏容量就停止继续堆叠。
 
-## Non-negotiables
+## App Mode Non-negotiables
 
 1. **Two themes**: ship **light** and **dark** token sets unless the user explicitly wants only one.
 2. **One brand primary** for: primary buttons, toggle ON, progress fill, selected border/bg, links. Dark primary may be a slightly brighter twin (e.g. `#007AFF` → `#0A84FF`).
@@ -91,7 +99,7 @@ collections may use one bounded inner scroll region when the product genuinely n
 11. **Equal-height peers**: any **side-by-side** content pair (list + composer, panel + panel, stats siblings that form a pair of cards in one row) must **share the same outer bottom edge**. Use grid/flex `stretch` + column flex + `flex: 1` on surfaces — never `align-items: start` that leaves one short card. See `references/layouts.md` → *Equal-height side-by-side columns*.
 12. **Single-viewport content budget**: on desktop, the default route must not require page-level vertical scrolling. Fill the usable canvas with prioritized content, but stop before the first viewport is exceeded. If content does not fit, remove, shorten, paginate, disclose, tab, or split it into another route; never clip controls or shrink text below readability. On mobile, keep the primary action and status in the first viewport; natural scrolling is reserved for genuinely long content.
 
-## Do / Don't
+## App Mode Do / Don't
 
 | Do | Don't |
 |----|--------|
@@ -109,7 +117,7 @@ collections may use one bounded inner scroll region when the product genuinely n
 | One-screen route with prioritized blocks | Unbounded page scroll for routine content |
 | Bounded inner scroll for long collections | Hiding or clipping content with fixed heights |
 
-## Page assembly order
+## App Mode Page Assembly Order
 
 1. Shell (window + sidebar + main)
 2. Brand block in sidebar
@@ -121,7 +129,7 @@ collections may use one bounded inner scroll region when the product genuinely n
 8. For every two-column peer row: apply **equal-height** recipe (stretch + flex surfaces) without forcing overflow.
 9. Wire interaction: nav switch, selection, toggles, filters, **theme toggle**
 
-## Implementation notes
+## App Mode Implementation Notes
 
 - Put light tokens on `:root, :root[data-theme="light"]` and dark on `:root[data-theme="dark"]` (see `references/tokens.md`).
 - Components only consume variables — no hard-coded brand/surface hex in component rules.
@@ -164,7 +172,7 @@ Copy the dual-theme block from `references/tokens.md`.
 </div>
 ```
 
-## Prompt seed (when generating designs)
+## App Mode Prompt Seed
 
 **Light**
 
@@ -176,14 +184,81 @@ Copy the dual-theme block from `references/tokens.md`.
 
 Swap business nouns only; keep shell + dual-theme rules.
 
+## Website Mode Workflow
+
+Website Mode is for public-facing web work. It may use normal document scrolling and should
+not inherit App Mode's fixed canvas, sidebar, artificial window chrome, or one-viewport
+content limit. Read `references/web-frontend.md` before implementing Website Mode.
+
+1. **Make a design read** — state the page kind, audience, primary job, and a concrete tone.
+   "Clean and modern" is not a direction. Infer from the brief and existing brand; ask one
+   short question only when two directions would produce materially different work.
+2. **Pick the surface mode** — **Persuade** for a conversion page or launch, **Read** for docs
+   or editorial content, **Experience** for portfolio/gallery/event work, or **Catalog** for
+   browsing and buying. The signed-in product stays in App Mode.
+3. **Pick a macrostructure before components** — choose a page shape that fits the job, such
+   as product reveal, evidence-led story, editorial narrative, work index, catalogue, reading
+   guide, or campaign poster. Do not default to centered hero -> three equal cards -> CTA.
+4. **Commit to a visual system** — lock a palette, type roles, spacing/radius rules, image
+   treatment, and one visible differentiator. Reuse existing brand tokens; otherwise define
+   semantic CSS variables and consume them rather than improvising colors or fonts per section.
+5. **Plan truth and media** — use supplied facts, real screenshots/product states, licensed
+   assets, or generated bitmap visuals appropriate to the brief. Do not invent customers,
+   metrics, testimonials, logos, fake dashboards, browser chrome, or placeholder data that
+   reads as real. Unknown claims stay visibly marked as placeholders or are omitted.
+6. **Build the information journey** — use semantic landmarks and a hierarchy that makes the
+   next action obvious. Let sections vary in composition when their jobs differ; cards are for
+   repeated, bounded items rather than a default page-section wrapper.
+7. **Implement complete behavior** — use native controls and links, visible focus, loading,
+   empty, error, disabled, and success states when relevant. Motion must explain feedback or
+   spatial change, use `transform`/`opacity`, respect `prefers-reduced-motion`, and stay out of
+   high-frequency flows unless it is effectively instant.
+8. **Inspect rendered output** — validate desktop and mobile screenshots, real content extremes,
+   contrast, keyboard navigation, loading image dimensions, overflow, and the first viewport.
+   The hero's proposition, primary action, and visual focal point must fit at 1280x800; page
+   scrolling below it is normal for a website.
+
+### Website Mode non-negotiables
+
+1. Do not wrap a public website in App Mode chrome unless the user explicitly asks for a
+   product preview or signed-in application route.
+2. Give every public page a specific visual point of view. Make one memorable move that serves
+   the brand or story; do not add unexplained decorative shapes, gradients, labels, or motion.
+3. Use a maximum of two type families plus an optional code/metadata face. Use type, spacing,
+   and composition for hierarchy before increasing font size or adding extra colors.
+4. Keep one coherent theme across the page. Website dark mode is a brand/product decision, not
+   an automatic App Mode requirement; if supported, provide paired semantic tokens and test it.
+5. Prefer real visual evidence: real product UI, product photography, editorial images, or
+   generated bitmap assets. Do not hand-draw fake browser bars, device frames, or screenshots
+   from generic `div` rectangles.
+6. Never fabricate social proof or precise business claims. Keep CTA wording short, specific,
+   and single-line at every tested breakpoint; do not repeat the same CTA intent with synonyms.
+7. Use CSS Grid for multi-column composition, `minmax(0, 1fr)` for image-bearing tracks, and
+   `min-width: 0`/`overflow-wrap: anywhere` where long content can otherwise overflow. Do not
+   use `h-screen` for a mobile hero; prefer `min-height: 100dvh` only when a full-height scene is
+   genuinely required.
+8. Test 320px, 375px, 414px, 768px, and a desktop viewport. There must be no horizontal scroll, hidden
+   controls, wrapped CTA/nav labels, inaccessible hover-only actions, or visual overlap.
+
+## Website Mode Prompt Seed
+
+> Public website frontend, not an App Shell: first identify the visitor's job and choose a
+> page-specific macrostructure; lock a brand-led token system, distinct typography, and an
+> image treatment; make the hero show the real product/place/work with the primary CTA visible;
+> vary section compositions by purpose; use semantic HTML, responsive Grid, keyboard focus,
+> purposeful reduced-motion-safe interaction, and real/supplied/generated bitmap visuals. Avoid
+> generic centered hero, three equal feature cards, fake metrics, fake screenshots, and
+> unexplained decorative gradients.
+
 ## Reference files
 
 - `references/tokens.md` — **light + dark** colors, type, radius, spacing, toggle script
 - `references/components.md` — component recipes
 - `references/layouts.md` — four layout templates + page recipes
+- `references/web-frontend.md` — Website Mode macrostructures, visual direction, content/media, responsive implementation, and review gates
 - `references/top50-components.md` — searchable index and selection guide for the 50 bundled React UI references
 
-## Top 50 React component library
+## App Mode: Top 50 React component library
 
 Use the bundled Top 50 library when a request asks for one of the curated UI patterns, a
 working interaction reference, or a complete component gallery. Keep the library behind
@@ -220,7 +295,8 @@ not describe it as the full raw candidate set.
 The components are interaction references, not a competing page shell. Keep the outer
 window, sidebar, surfaces, theme toggle, and token ladder from this skill. Re-skin any
 component that uses the gallery's dark preview palette before shipping it inside an App
-Shell page.
+Shell page. Do not use the gallery as Website Mode's default visual language; use it only when
+a selected component adds real interaction and can be reskinned into the website's system.
 
 To refresh the bundled source from the standalone gallery, run:
 
@@ -233,7 +309,7 @@ paths, refreshes `assets/top50-react/top50.json`, and regenerates the reference 
 
 Read them when implementing; do not invent a competing palette unless the user specifies a brand color (then replace **only** `--primary` light/dark pair and derived selected/wash colors).
 
-## Delivery checklist
+## App Mode Delivery Checklist
 
 Before finishing, verify **once in light and once in dark**:
 
@@ -255,7 +331,22 @@ Before finishing, verify **once in light and once in dark**:
 - [ ] Any scroll is limited to one intentional, bounded inner collection; mobile keeps the primary action above the fold
 - [ ] Same shell would still work if business content is swapped
 
-## Optional local example
+## Website Mode Delivery Checklist
+
+- [ ] The selected surface mode and macrostructure match the visitor's job
+- [ ] The visible direction is specific: palette, type roles, image treatment, and one purposeful differentiator are coherent
+- [ ] The page is not a generic centered hero + three equal cards + repeated CTA sequence
+- [ ] Copy uses supplied facts; unknown metrics, testimonials, logos, and screenshots are omitted or clearly marked as placeholders
+- [ ] Hero title, primary CTA, and visual focal point are visible at 1280x800; the next section is hinted without clipping content
+- [ ] Public routes use normal page scrolling and do not inherit App Mode's `overflow: hidden` canvas
+- [ ] Media is real, supplied, or generated for the page; no fake browser/device chrome or generic `div` screenshot
+- [ ] Headings, landmarks, links, forms, image alt text, focus states, and status messages use semantic and accessible patterns
+- [ ] Interactive controls have appropriate hover, `:focus-visible`, active, disabled, loading, error, and success behavior where relevant
+- [ ] Contrast, touch targets, long content, empty/error states, and CTA readability pass at 320px, 375px, 414px, 768px, and desktop
+- [ ] No horizontal overflow, two-line nav/CTA labels, accidental overlap, layout-property animation, or motion without a reduced-motion path
+- [ ] Above-fold images reserve their dimensions, below-fold media is lazy-loaded where appropriate, and the implementation avoids avoidable layout shift
+
+## Optional App Mode Example
 
 If present on this machine, study structure (not business copy):
 

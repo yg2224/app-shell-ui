@@ -1,367 +1,296 @@
 <div align="center">
   <p>
-    <img src="assets/readme-banner.png" alt="app-shell-ui：桌面工具风应用外壳 Skill" width="100%">
+    <img src="assets/readme-banner.png" alt="app-shell-ui 双模式前端设计 Skill：Website Mode 与 App Mode" width="100%">
   </p>
   <p>
-    <b>App Shell UI · 桌面工具风应用外壳 Skill</b><br>
-    可复用的前端视觉语言：左导航 + 右内容 · 浅/深双主题 · Token 驱动 · 克制图标
+    <strong>先判断界面，再决定像素。</strong><br>
+    面向 AI coding agent 的双模式前端设计 Skill：公开网站用 Website Mode，登录后产品用 App Mode。
   </p>
   <p>
-    <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-2ea44f"></a>
-    <a href="#安装"><img alt="Install" src="https://img.shields.io/badge/install-Codex%20%7C%20Claude%20Code%20%7C%20Grok-111827"></a>
-    <a href="#技能索引"><img alt="Skills" src="https://img.shields.io/badge/skills-1-0ea5e9"></a>
-    <a href="#共享设计原则"><img alt="Style" src="https://img.shields.io/badge/style-macOS%20utility%20shell-1f6feb"></a>
-    <a href="README_EN.md"><img alt="Language" src="https://img.shields.io/badge/language-中文%20%7C%20English-1f6feb"></a>
+    <a href="LICENSE"><img alt="Apache 2.0" src="https://img.shields.io/badge/license-Apache--2.0-2ea44f"></a>
+    <a href="#安装"><img alt="Codex Claude Code Grok" src="https://img.shields.io/badge/agent-Codex%20%7C%20Claude%20Code%20%7C%20Grok-111827"></a>
+    <a href="#双模式"><img alt="2 modes" src="https://img.shields.io/badge/modes-App%20%2B%20Website-2459d3"></a>
+    <a href="#top-50-react-组件库"><img alt="50 React components" src="https://img.shields.io/badge/React%20references-50-d4482e"></a>
+    <a href="README_EN.md"><img alt="中文与 English" src="https://img.shields.io/badge/language-中文%20%7C%20English-5d6572"></a>
   </p>
   <p>
-    <a href="#安装">立即安装</a>
-    · <a href="#快速开始">快速开始</a>
-    · <a href="#技能索引">技能索引</a>
-    · <a href="#共享设计原则">设计原则</a>
-    · <a href="#目录结构">目录结构</a>
-    · <a href="#更新">更新</a>
-    · <a href="README_EN.md">English</a>
+    <a href="#快速开始">快速开始</a> ·
+    <a href="#双模式示例">示例</a> ·
+    <a href="#能力范围">能力</a> ·
+    <a href="#安装">安装</a> ·
+    <a href="#目录结构">目录</a> ·
+    <a href="README_EN.md">English</a>
   </p>
 </div>
 
 ---
 
-* 本仓库维护 **App Shell UI** skill：让 AI agent 按统一规范生成「系统设置 / Clash Verge / 桌面客户端」一类界面，而不是落地页或密运营后台。
-* 业务内容会变（水果市集、游戏论坛、AI 工作台…），**壳不换**：侧栏、画布、卡片、单主色、浅深主题、并列等高。
-* 面向 **Codex / Claude Code / Grok** 等能加载 `SKILL.md` 的 agent；请**整目录安装**，不要只复制一个 `SKILL.md`。
-* 源码许可为 **Apache License 2.0**。
+# app-shell-ui
 
-## 案例展示
+`app-shell-ui` 是一套可由 Codex、Claude Code、Grok 等 agent 加载的前端设计与实现规范。它先判断页面属于公开网站还是登录后产品，再进入对应工作流：
 
-同一外壳，四种业务。可运行 Demo 在 [`demos/`](demos/)，截图在 [`assets/showcase/`](assets/showcase/)。
+- **App Mode**：面向登录后的设置、控制台、工作台、聊天、邮件和运营工具。
+- **Website Mode**：面向官网、落地页、作品集、内容页、文档站和产品目录。
 
-> **生成方式：无提示词，仅限定主题生成。**  
-> 不额外规定版式细节，只给出主题（终端工具 / 渗透工具 / 学习工具台 / 聊天软件），由 `app-shell-ui` skill 约束壳层与风格后直接生成。
+两种模式可以共享品牌 Token，各自使用适合任务的结构、密度和滚动方式。
 
-### Codex 写前端对比：学习工具台
+## 双模式
 
-同一主题「学习工具台」——**左：未使用 skill**；**右：使用 `app-shell-ui` skill**。
+| | App Mode | Website Mode |
+| --- | --- | --- |
+| 典型场景 | 设置、控制台、AI 工作台、IM、桌面客户端 | 官网、落地页、作品集、编辑内容、文档、目录 |
+| 首要任务 | 高频操作与状态判断 | 说服、阅读、体验或浏览选择 |
+| 默认结构 | 持久侧栏 + 任务画布 | 根据访客旅程选择页面宏观结构 |
+| 页面高度 | 桌面默认一屏完成主任务，长列表内部滚动 | 正常文档滚动，首屏完整并提示后续内容 |
+| 主题 | 默认同时交付 Light / Dark | 按品牌与场景决定，支持时必须成对验证 |
+| 视觉证据 | 真实状态、列表、图表与交互 | 真实产品、作品、摄影或针对页面生成的位图 |
+| 明确避免 | 营销 Hero、彩虹图标、无边界长页面 | 假 App 壳、通用 Hero + 三卡片、伪造数据与截图 |
 
-<table>
-  <tr>
-    <td width="50%" align="center" valign="top">
-      <p><b>左 · <a href="demos/learning-before.html">未使用 skill</a></b></p>
-      <a href="demos/learning-before.html"><img src="assets/showcase/learning-before.png" alt="未使用 skill" width="100%"></a>
-      <p><sub>彩色卡片堆叠 · 通用 Web 仪表盘 · 无统一壳层</sub></p>
-    </td>
-    <td width="50%" align="center" valign="top">
-      <p><b>右 · <a href="demos/learning.html">使用 skill</a></b></p>
-      <a href="demos/learning.html"><img src="assets/showcase/learning-after.png" alt="使用 app-shell-ui skill" width="100%"></a>
-      <p><sub>桌面工具壳 · 侧栏导航 · Token / 克制配色</sub></p>
-    </td>
-  </tr>
-</table>
-
-### 四主题案例
-
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <p align="center"><b>终端工具 · TermDock</b></p>
-      <p align="center"><a href="demos/terminal.html"><img src="assets/showcase/terminal.png" alt="终端工具案例" width="100%"></a></p>
-      <p align="center"><sub>深色 · SSH 多会话 · 主机状态并列栏</sub></p>
-    </td>
-    <td width="50%" valign="top">
-      <p align="center"><b>渗透工具 · PulseScope</b></p>
-      <p align="center"><a href="demos/pentest.html"><img src="assets/showcase/pentest.png" alt="渗透工具案例" width="100%"></a></p>
-      <p align="center"><sub>深色 · 漏洞队列 · 授权范围提示（仅 UI 演示）</sub></p>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <p align="center"><b>学习工具台 · StudyBench</b></p>
-      <p align="center"><a href="demos/learning.html"><img src="assets/showcase/learning.png" alt="学习工具台案例" width="100%"></a></p>
-      <p align="center"><sub>浅色 · 路径卡片 · 复习队列 + 快速笔记等高</sub></p>
-    </td>
-    <td width="50%" valign="top">
-      <p align="center"><b>聊天软件 · LinkPane</b></p>
-      <p align="center"><a href="demos/chat.html"><img src="assets/showcase/chat.png" alt="聊天软件案例" width="100%"></a></p>
-      <p align="center"><sub>浅色 · 会话列表 + 对话区三栏信息流</sub></p>
-    </td>
-  </tr>
-</table>
-
-## Top 50 组件来源与筛选
-
-本次新增的 Top 50 React 组件来自本机源项目：
-
-```text
-/Users/yg2224/Desktop/project/UI-合集
-```
-
-它们不是临时拼出的 50 个示例，而是多路 AI 产出候选后，统一做源码审计、实时预览和加权评审的结果。按生成记录，本次共有 3 个模型、每个模型 100 个候选，共 **300 个原始候选**。当前工作区中可独立渲染并纳入评分的候选共 **200 个**：
-
-| 模型 | 原始候选数 | 当前状态 | 实现形态 / 结果 |
-| --- | ---: | --- | --- |
-| GPT-5.6 | 100 | 保留并纳入审计 | named studies / shared templates，参与统一评分 |
-| MiniMax M3 | 100 | 保留并纳入审计 | dedicated React renderers，最终 Top 50 的实现来源 |
-| GLM 5.2 | 100 | 已删除 / 当前工作区缺失 | 未进入现有评分和 Top 50 |
-
-因此，最终 Top 50 是从仍存留的 GPT-5.6 100 个和 MiniMax M3 100 个候选中筛选出来的；`GLM 5.2` 的 100 个候选按当前工作区状态已无法复核，不计入排名。源项目中的 `claude/` 和 `trea/` 目录保留了审计背景，但没有可独立渲染的候选目录，因此没有被伪造为排名数据。最终 Top 50 是按以下 5 个维度加权筛选：Visual Quality（25%）、Distinctiveness（10%）、Product Utility（25%）、Interaction & A11y（15%）、Engineering Quality（25%）。
-
-筛选完成后，排名靠前的 50 个组件被拆成独立 `.tsx` 文件，保留交互和无障碍行为，再同步到本 skill：
-
-```text
-assets/top50-react/components/items/   50 个可复制组件
-assets/top50-react/top50.json          机器可读排名清单
-references/top50-components.md         按需读取索引
-scripts/sync_top50_assets.py           可重复同步脚本
-```
-
-相关审计资料和完整评分表见源项目的 `UI-合集/final/docs/`；GitHub 仓库只保留可复用的 Top 50 产物，不把原始候选和构建产物全部塞进 skill。
-
-本地预览 Demo：
-
-```bash
-cd demos
-python3 -m http.server 8040
-# 打开 http://127.0.0.1:8040/terminal.html
-#      http://127.0.0.1:8040/pentest.html
-#      http://127.0.0.1:8040/learning.html
-#      http://127.0.0.1:8040/learning-program.html
-#      http://127.0.0.1:8040/chat.html
-```
+判断规则：**用户来完成工作，用 App Mode；用户来认识、阅读或选择，用 Website Mode。** 同一项目同时包含官网和登录后产品时，分别设计。
 
 ## 快速开始
 
-安装完成后，直接把任务描述交给 agent。下面提示词可复制使用：
+安装完整目录后，直接描述任务。agent 会先路由模式，再选择结构和实现方式。
 
-| 想做什么 | 直接这样说 |
+```text
+用 app-shell-ui 做一个陶瓷工作室管理台：App Mode，控制台布局，浅深主题，桌面一屏完成今日排产。
+```
+
+```text
+用 app-shell-ui 的 Website Mode 做一家陶瓷工作室官网：作品优先，首屏展示真实器物图片，避免通用 SaaS 卡片。
+```
+
+```text
+按 app-shell-ui 重做现有页面。保留信息架构和业务逻辑，修复响应式、焦点状态、对比度和交互反馈。
+```
+
+```text
+使用 app-shell-ui，并从 Top 50 参考库中选择一个命令面板和一个 Agent Workflow 组件接入现有 React 项目。
+```
+
+也可以直接触发：`/app-shell-ui` 或 `使用 app-shell-ui skill`。
+
+## 双模式示例
+
+4 个核心示例覆盖 2 种公开网站结构和 2 种登录后工具。截图均来自对应 HTML 的真实浏览器渲染，点击图片可进入 Demo。
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <p align="center"><strong>01 · 青岫陶作官网</strong><br><sub>Website Mode</sub></p>
+      <a href="demos/ceramics-final.html"><img src="assets/showcase/ceramics-website.png" alt="青岫陶作公开品牌官网" width="100%"></a>
+      <p align="center"><sub>Experience / Catalog · 自然滚动 · 作品摄影 · 移动菜单与图片灯箱</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <p align="center"><strong>02 · Interface Fieldbook</strong><br><sub>Website Mode</sub></p>
+      <a href="demos/interface-fieldbook.html"><img src="assets/showcase/interface-fieldbook.png" alt="Interface Fieldbook UI 作品索引网站" width="100%"></a>
+      <p align="center"><sub>Experience / Work Index · 项目筛选 · 真实 Demo 截图 · 响应式作品列表</sub></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <p align="center"><strong>03 · 青岫陶作管理台</strong><br><sub>App Mode</sub></p>
+      <a href="demos/ceramics-studio-app.html"><img src="assets/showcase/ceramics-app-dark.png" alt="青岫陶作工作室管理台深色主题" width="100%"></a>
+      <p align="center"><sub>控制台型 · 一屏任务画布 · Light / Dark · 搜索、筛选与表单状态</sub></p>
+    </td>
+    <td width="50%" valign="top">
+      <p align="center"><strong>04 · TermDock</strong><br><sub>App Mode</sub></p>
+      <a href="demos/terminal.html"><img src="assets/showcase/terminal.png" alt="TermDock 深色终端与主机状态工作台" width="100%"></a>
+      <p align="center"><sub>工作台型 · SSH 多会话 · 终端主画布 · 实时主机状态侧栏</sub></p>
+    </td>
+  </tr>
+</table>
+
+| 示例 | 模式与结构 | 主要任务 | 关键实现 |
+| --- | --- | --- | --- |
+| 青岫陶作官网 | Website · Experience / Catalog | 认识品牌、浏览器物与制作过程 | 本地位图、自然滚动、移动菜单、图片灯箱 |
+| Interface Fieldbook | Website · Experience / Work Index | 浏览并筛选 4 个界面研究 | 真实 Demo 截图、项目筛选、移动导航、可见焦点 |
+| 青岫陶作管理台 | App · Console | 管理器物工序、窑次和交付 | 一屏任务画布、Light / Dark、搜索筛选、表单校验 |
+| TermDock | App · Workbench | 同时判断 SSH 会话、终端输出和主机状态 | 稳定侧栏、终端主画布、有边界的状态区 |
+
+本地预览：
+
+```bash
+cd app-shell-ui
+python3 -m http.server 8040
+
+# Website Mode
+open http://127.0.0.1:8040/demos/ceramics-final.html
+open http://127.0.0.1:8040/demos/interface-fieldbook.html
+
+# App Mode
+open http://127.0.0.1:8040/demos/ceramics-studio-app.html
+open http://127.0.0.1:8040/demos/terminal.html
+```
+
+陶瓷示例所需图片保存在 [`assets/ceramics/`](assets/ceramics/)，Interface Fieldbook 直接使用 [`assets/showcase/`](assets/showcase/) 中的真实 Demo 截图，运行时均不请求第三方图库。Website Mode 在缺少合适素材且环境提供 `imagegen` 时，可以生成与页面构图匹配的位图；最终图片必须落入项目目录、写明 `alt`，并经过真实页面截图验证。
+
+## 更多 App Mode 示例
+
+现有案例继续用于验证 App Shell 在不同业务中的稳定性。源码位于 [`demos/`](demos/)，截图位于 [`assets/showcase/`](assets/showcase/)。
+
+### 使用 Skill 前后对比
+
+<table>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <p><strong><a href="demos/learning-before.html">未使用 Skill</a></strong></p>
+      <a href="demos/learning-before.html"><img src="assets/showcase/learning-before.png" alt="未使用 Skill 的通用彩色学习仪表盘" width="100%"></a>
+      <p><sub>彩色卡片堆叠 · 缺少稳定壳层与层级</sub></p>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <p><strong><a href="demos/learning.html">使用 app-shell-ui</a></strong></p>
+      <a href="demos/learning.html"><img src="assets/showcase/learning-after.png" alt="使用 app-shell-ui 的学习工作台" width="100%"></a>
+      <p><sub>稳定侧栏 · Token 分层 · 克制状态色 · 并列等高</sub></p>
+    </td>
+  </tr>
+</table>
+
+### 其他 App Mode 主题
+
+| 示例 | 重点 | Demo |
+| --- | --- | --- |
+| PulseScope | 授权范围、漏洞队列、安全工具状态 | [`pentest.html`](demos/pentest.html) |
+| StudyBench | 学习路径、复习队列、快速笔记等高 | [`learning.html`](demos/learning.html) |
+| LinkPane | 图标栏、会话列表、对话详情三栏 | [`chat.html`](demos/chat.html) |
+
+## 能力范围
+
+| 能力 | 内容 |
 | --- | --- |
-| 做一页桌面工具风 Demo | `用 app-shell-ui 做一个浅色 + 深色主题的设置页，左导航右列表开关。` |
-| 控制台 / 卡片网格 | `用 app-shell-ui 控制台布局：统计卡 + 卡片网格 + 底部双栏等高。` |
-| AI 工作台空态 | `用 app-shell-ui 工作台型：侧栏会话 + 居中新会话标题 + 大输入卡。` |
-| 论坛 / 列表站 | `用 app-shell-ui 做游戏指南论坛：少 emoji，文字 + 线框图标，双主题。` |
-| 复用 Top 50 组件 | `用 app-shell-ui，从 Top 50 参考库取一个可交互的命令面板 / 看板 / AI 对话组件。` |
-| 只改视觉、不改业务 | `按 app-shell-ui 重画这个页面，保持信息架构，统一 Token 和浅深色。` |
-| 并列栏对齐 | `双栏列表和提问卡底边对齐，按 app-shell-ui 的 equal-height 规则。` |
-| 明确点名 skill | `使用 /app-shell-ui` 或 `使用 app-shell-ui skill` |
+| 模式路由 | 区分公开网站与登录后产品，混合项目按 route 分开设计 |
+| App 布局 | 设置型、控制台型、工作台型、IM / 三栏型 |
+| Website 表面 | Persuade、Read、Experience、Catalog |
+| Website 宏观结构 | Product reveal、Evidence-led story、Editorial narrative、Work index、Catalogue、Reading guide、Campaign poster |
+| 视觉系统 | 语义 Token、类型角色、颜色与材质、图片处理、单一明确差异点 |
+| 实现质量 | 响应式 Grid、语义 HTML、键盘与焦点、表单状态、Reduced Motion、稳定图片尺寸 |
+| App 主题 | `data-theme="light|dark"`、CSS Variables、可持久化切换 |
+| React 参考 | 50 个可复制的交互组件与机器可读索引 |
+| 交付验证 | 桌面 / 移动截图、溢出、对比度、内容真实性、加载与交互状态检查 |
 
-不确定时直接描述产品类型即可；agent 会按 skill 选型布局模板（设置 / 控制台 / 工作台 / 三栏）。
+本 Skill 会保留现有品牌和设计系统；没有既有系统时，根据用户任务建立具体方向。
 
-## 主要贡献者
+## 工作方式
 
-* **yg2224**：`app-shell-ui` 维护者 · [GitHub](https://github.com/yg2224)
+### App Mode
 
-## 它能做什么
+1. 选择设置型、控制台型、工作台型或 IM / 三栏型。
+2. 定义目标桌面视口和页面唯一主任务。
+3. 锁定 Light / Dark Token。
+4. 用侧栏、面板、列表、状态 Pill、Toggle、Composer 等配方组装。
+5. 完成交互后，在双主题和移动端分别验证。
 
-| 能力 | 说明 |
-| --- | --- |
-| 布局模板 | 设置型 · 控制台型 · 工作台型 · IM/三栏型 |
-| 双主题 | `data-theme=light\|dark`，Token 成对交付，主题切换可持久化 |
-| 组件配方 | 侧栏、页头、卡片、列表行、开关、Pill、Composer、虚线添加区 |
-| 硬性约束 | 单主色、少 emoji、浅边框分层、并列栏等高、禁止 invert 伪深色 |
-| 交付清单 | 浅色 + 深色各过一遍的自检表 |
+### Website Mode
 
-**不是**：营销落地页、Material 厚阴影后台、彩虹图标仪表盘。
+1. 明确页面类型、受众、访客任务和具体视觉语气。
+2. 选择 Persuade、Read、Experience 或 Catalog。
+3. 先定宏观结构，再定组件；不默认使用通用落地页模板。
+4. 使用真实、用户提供、获许可或针对页面生成的视觉素材。
+5. 实现完整状态、语义结构、响应式与可访问性。
+6. 在 `320 / 375 / 414 / 768 / 1280+ px` 检查真实渲染结果。
+
+详细规则由 [`SKILL.md`](SKILL.md) 路由到对应参考文件，避免一次加载全部上下文。
 
 ## 安装
 
-`app-shell-ui` 是一个围绕 `SKILL.md` 组织的可复用技能包。`references/` 是规则细节，`assets/` 是可复制资源，**安装时必须一并保留**。
+必须安装**完整目录**。只复制 `SKILL.md` 会丢失 App Token、布局与组件配方、Website Mode 规范和 Top 50 源码。
 
-### 克隆（通用）
-
-```bash
-# HTTPS
-git clone https://github.com/yg2224/app-shell-ui.git
-
-# 或 SSH
-git clone git@github.com:yg2224/app-shell-ui.git
-```
-
-### Codex 安装方式
+### Codex
 
 ```bash
 mkdir -p ~/.codex/skills
 git clone https://github.com/yg2224/app-shell-ui.git ~/.codex/skills/app-shell-ui
 ```
 
-或把仓库地址交给 Codex：
+也可以把仓库地址交给 Codex，并要求安装到 `~/.codex/skills/app-shell-ui`。
 
-```text
-请从该仓库安装 skill：
-https://github.com/yg2224/app-shell-ui.git
-
-安装到 ~/.codex/skills/app-shell-ui，保留完整目录（SKILL.md + references/ + assets/），不要只复制 SKILL.md。
-```
-
-### Claude Code 安装方式
-
-推荐保留稳定 clone，再用 subagent 或 slash command 指向真实 `SKILL.md`，这样 `references/` 仍可被读取。
+### Claude Code
 
 ```bash
 mkdir -p ~/ai-skills
-cd ~/ai-skills
-git clone https://github.com/yg2224/app-shell-ui.git
+git clone https://github.com/yg2224/app-shell-ui.git ~/ai-skills/app-shell-ui
 ```
 
-**Subagent wrapper：**
+在 subagent 或 slash command 中先读取稳定路径下的 `SKILL.md`：
 
-```bash
-mkdir -p ~/.claude/agents
-cat > ~/.claude/agents/app-shell-ui.md <<'EOF'
----
-name: app-shell-ui
-description: Use for macOS-style desktop utility UI shells, light/dark themes, sidebar layouts, and restrained frontend demos.
----
-
-When invoked, first read `~/ai-skills/app-shell-ui/SKILL.md` and follow it as the governing workflow.
-Read supporting files from `~/ai-skills/app-shell-ui/references/` only when needed.
-Do not replace this skill with a generic flashy landing-page UI.
-EOF
-```
-
-**Slash command wrapper：**
-
-```bash
-mkdir -p ~/.claude/commands
-cat > ~/.claude/commands/app-shell-ui.md <<'EOF'
-Read `~/ai-skills/app-shell-ui/SKILL.md` first and follow it strictly.
-Read supporting files from `~/ai-skills/app-shell-ui/references/` when needed.
+```markdown
+Read `~/ai-skills/app-shell-ui/SKILL.md` first and follow it as the governing workflow.
+Read files under `references/` only when the selected mode requires them.
 
 $ARGUMENTS
-EOF
 ```
 
-使用示例：
-
-```text
-/app-shell-ui 做一个游戏指南论坛首页，双主题，并列栏等高。
-```
-
-后续更新：
+### Grok
 
 ```bash
-cd ~/ai-skills/app-shell-ui && git pull
-```
-
-### Grok 安装方式
-
-Grok 从 `~/.grok/skills/<name>/` 加载 skill：
-
-```bash
-# 方式 A：直接克隆到 skills 目录
 git clone https://github.com/yg2224/app-shell-ui.git ~/.grok/skills/app-shell-ui
-
-# 方式 B：已有 clone，同步进去（排除 .git）
-rsync -a --delete \
-  --exclude .git \
-  /path/to/app-shell-ui/ \
-  ~/.grok/skills/app-shell-ui/
 ```
 
-安装后新开 Grok 会话，触发：
-
-```text
-/app-shell-ui
-```
-
-或：
-
-```text
-用 app-shell-ui 做一页 macOS 风格的浅深色设置界面。
-```
-
-### 其他 agent
-
-1. 将**完整目录**复制到该 agent 的 skills / prompt library。
-2. 保留 `SKILL.md`、`references/*.md` 与需要的 `assets/` 资源。
-3. 如目标平台有 frontmatter 要求，可微调但不删除 `name` / `description`。
+安装或更新后建议新开会话，再使用 `/app-shell-ui` 触发。
 
 ## 目录结构
 
 ```text
 app-shell-ui/
-├── LICENSE                   # Apache License 2.0
-├── README.md                 # 本说明（给人看）
-├── README_EN.md              # English overview
-├── SKILL.md                  # 主指令（给 agent 加载）
-├── demos/                    # 四个案例 Demo（HTML）
-│   ├── _shell.css
-│   ├── terminal.html         # 终端工具
-│   ├── pentest.html          # 渗透工具台
-│   ├── learning-before.html  # 学习工具台 · 未使用 skill（对比）
-│   ├── learning.html         # 学习工具台 · 使用 skill
-│   ├── learning-program.html  # StudyFlow · 可交互学习程序
-│   └── chat.html             # 聊天软件
-├── assets/
-│   ├── readme-banner.png     # README 展示横幅
-│   ├── readme-banner.svg
-│   ├── readme-preview.jpg
-│   ├── top50-react/           # 50 个可复制的 React UI 与完整 gallery registry
-│   └── showcase/             # 案例截图
-│       ├── learning-compare.png  # 前后对比（等尺寸）
-│       ├── learning-before.png
-│       ├── learning-after.png
-│       ├── terminal.png
-│       ├── pentest.png
-│       ├── learning.png
-│       └── chat.png
+├── SKILL.md                       # agent 主入口与模式路由
+├── README.md / README_EN.md       # 人类可读说明
 ├── references/
-│   ├── tokens.md
-│   ├── components.md
-│   ├── layouts.md
-│   └── top50-components.md    # 50 个组件的索引与按需读取指南
+│   ├── tokens.md                  # App Light / Dark Token
+│   ├── layouts.md                 # App 布局与视口预算
+│   ├── components.md              # App 组件配方
+│   ├── web-frontend.md            # Website Mode 完整规范
+│   └── top50-components.md        # React 组件索引
+├── assets/
+│   ├── ceramics/                  # 陶瓷示例位图
+│   ├── showcase/                  # README 截图
+│   └── top50-react/               # 50 个 React 组件与 Gallery 资源
+├── demos/
+│   ├── ceramics-final.html        # Website Mode 示例
+│   ├── interface-fieldbook.html   # Website Mode 作品索引示例
+│   ├── ceramics-studio-app.html   # App Mode 示例
+│   ├── terminal.html
+│   ├── pentest.html
+│   ├── learning.html
+│   └── chat.html
 └── scripts/
-    └── sync_top50_assets.py    # 从 standalone gallery 刷新 Top 50 资源
+    └── sync_top50_assets.py       # Top 50 同步脚本
 ```
 
-关键规则：**整夹安装**。只丢一个 `SKILL.md` 会丢失 Token / 布局 / 组件细则和 Top 50 资源。
+## 参考文件
 
-## 技能索引
-
-| 技能 | 状态 | 用途 | 触发词 | 入口 |
-| --- | --- | --- | --- | --- |
-| [`app-shell-ui`](SKILL.md) | Stable | 桌面工具风应用外壳：布局、双主题、组件、自检 | `app-shell-ui`、`/app-shell-ui`、桌面工具风、系统设置感、应用外壳、浅色/深色主题、sidebar shell | [SKILL.md](SKILL.md) |
-
-### 参考文件
-
-| 文件 | 用途 |
+| 文件 | 何时读取 |
 | --- | --- |
-| [references/tokens.md](references/tokens.md) | 颜色 / 字阶 / 圆角 / 浅深 Token 与切换脚本 |
-| [references/components.md](references/components.md) | 侧栏、卡片、列表、开关、Composer 等配方 |
-| [references/layouts.md](references/layouts.md) | 设置/控制台/工作台/三栏、**单页容量预算** + **equal-height 双栏** |
-| [references/top50-components.md](references/top50-components.md) | 50 个 React UI 的排名、export、分类与复制路径 |
+| [`SKILL.md`](SKILL.md) | 每次触发 Skill 时先读取，用于模式路由与交付清单 |
+| [`references/tokens.md`](references/tokens.md) | App Mode 需要颜色、字阶、圆角和主题脚本时 |
+| [`references/layouts.md`](references/layouts.md) | App Mode 选择布局、分配首屏容量或处理并列等高时 |
+| [`references/components.md`](references/components.md) | App Mode 组装侧栏、卡片、列表、开关和 Composer 时 |
+| [`references/web-frontend.md`](references/web-frontend.md) | 实现 Website Mode 前必须读取 |
+| [`references/top50-components.md`](references/top50-components.md) | 需要复用 React 组件时先查索引，再按需打开单个组件 |
 
-## 共享设计原则
+## Top 50 React 组件库
 
-本 skill 遵守以下原则：
+[`assets/top50-react/`](assets/top50-react/) 包含 50 个可复制的 React 交互参考，覆盖 AI Interface、SaaS、Data Visualization、Information、Advanced UI 与 Creative 类别。
 
-1. **壳稳定、业务可换**：同一外壳可套聊天、设置、库存、论坛，不换视觉系统。
-2. **显式胜过隐式**：Token、圆角、选中态、主题 API 写清，不靠「看起来高级」。
-3. **双主题一等公民**：默认同时交付 light + dark，禁止 `filter: invert()`。
-4. **内容区克制**：线框图标 + 文字 + status pill；列表/卡片默认不刷 emoji。
-5. **输出优先**：交付可运行的 HTML/React/CSS 变量实现，而不是空泛审美描述。
-6. **并列要对齐**：并排卡片/面板底边等高（`stretch` + flex surface）。
-7. **单页优先**：桌面端默认一页完成主要任务，不让常规内容把整页推成长页面；长列表才使用有边界的内部滚动。
-8. **自检闭环**：浅色与深色各过交付清单再收工。
+来源记录保持透明：3 个模型各生成 100 个原始候选；当前可复核工作区只保留 GPT-5.6 与 MiniMax M3 共 200 个候选，GLM 5.2 的 100 个候选已删除或缺失，因此未进入当前评分。最终 50 个组件从可复核候选中按 Visual Quality、Distinctiveness、Product Utility、Interaction & A11y、Engineering Quality 加权筛选。
 
-## 你可以直接这样问（更多例子）
+使用时先读 [`references/top50-components.md`](references/top50-components.md)，只复制需要的 `components/items/*.tsx`，并保留 `components/shared.tsx` 与 `lib/cn.ts` 的相对层级。App Mode 用这些组件补充交互，外层结构仍由所选布局决定；Website Mode 仅在组件符合页面任务并完成视觉适配时复用。
 
-```text
-用 app-shell-ui 做一个 macOS 窗口壳的 AI 后端设置页，左导航 + 开关列表。
+刷新资源：
+
+```bash
+python scripts/sync_top50_assets.py --source /path/to/top50
 ```
 
-```text
-按 app-shell-ui 规范给现有页面加 data-theme 深浅切换，Token 用 CSS 变量。
-```
+## 核心约束
 
-```text
-首页底部「动态列表 | 快速提问」两列等高，输入框随高度拉伸。
-```
-
-```text
-控制台型：Banner + 四格统计 + 三列卡片，少 emoji，单主色 #007AFF。
-```
-
-```text
-用 app-shell-ui 做一页学习工具台：内容装满当前桌面视口但不需要整页下滑，次要信息放进折叠或标签页。
-```
+1. 先判断 App / Website，不让结构习惯代替产品判断。
+2. App 默认双主题、单主色、稳定壳层、首屏主任务与有边界的内部滚动。
+3. Website 先定访客旅程、宏观结构与素材策略，允许自然页面滚动。
+4. 不编造客户、指标、评价、品牌 Logo、产品截图或技术状态。
+5. 图片使用真实、用户提供、获许可或针对页面生成的位图，并保留尺寸与 `alt`。
+6. 图标统一使用一套线框家族；App 密集列表默认零 emoji。
+7. 卡片只承载重复项目、控件或真正需要边界的工具，不把每个页面区段包成卡片。
+8. 所有交付都检查响应式、键盘、焦点、对比度、状态、Reduced Motion 与溢出。
 
 ## 更新
 
@@ -369,53 +298,15 @@ app-shell-ui/
 cd /path/to/app-shell-ui
 git pull
 
-# 若安装到 Codex
+# 同步到 Codex 已安装目录
 rsync -a --delete --exclude .git ./ ~/.codex/skills/app-shell-ui/
-
-# 若安装到 Claude Code 稳定 clone
-# cd ~/ai-skills/app-shell-ui && git pull
-
-# 若安装到 Grok
-rsync -a --delete --exclude .git ./ ~/.grok/skills/app-shell-ui/
 ```
 
-Codex / Claude Code / Grok 建议**新开会话**后再触发 skill，避免旧上下文。
+## 维护与许可
 
-## 状态标签
+- 维护者：[yg2224](https://github.com/yg2224)
+- Issues / PR：[yg2224/app-shell-ui](https://github.com/yg2224/app-shell-ui)
+- 社区：[linux.do](https://linux.do/)
+- 许可：[Apache License 2.0](LICENSE)
 
-| 标签 | 含义 |
-| --- | --- |
-| `Draft` | 规则已写，案例未充分验证 |
-| `Beta` | 已在示例页验证，边界仍可能调整 |
-| `Stable` | 已在真实 Demo（设置/控制台/论坛等）验证，规则相对稳定 |
-
-当前 `app-shell-ui` 标记为 **Stable**。
-
-
-## 友情链接
-
-* [linux.do](https://linux.do/) — 新的理想型社区
-
-## 许可
-
-本项目采用 [Apache License 2.0](LICENSE)。
-
-```text
-Copyright 2026 yg2224
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
-
-你可以使用、修改、分发本 skill（含商用），但需保留版权与协议声明；修改后的文件建议注明变更。完整条款见 [LICENSE](LICENSE)。
-
-Issue 与 PR 请提交到 [yg2224/app-shell-ui](https://github.com/yg2224/app-shell-ui)。
+Copyright 2026 yg2224。可使用、修改和商用分发，但需保留版权与许可声明；完整条款以 [`LICENSE`](LICENSE) 为准。
